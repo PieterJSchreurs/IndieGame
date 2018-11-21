@@ -9,8 +9,15 @@ public class InputManager {
     private string lookAxisHorizontal;
     private string lookAxisVertical;
 
+    private string jumpButton;
+
     private string spellCastButton1;
     private string spellCastButton2;
+
+    public InputManager()
+    {
+        //Initialize all the button layouts here.
+    }
 
     public string GetMoveAxisHorizontal()
     {
@@ -19,5 +26,28 @@ public class InputManager {
     public string GetMoveAxisVertical()
     {
         return moveAxisVertical;
+    }
+
+    public string GetLookAxisHorizontal()
+    {
+        return lookAxisHorizontal;
+    }
+    public string GetLookAxisVertical()
+    {
+        return lookAxisVertical;
+    }
+
+    public string GetJumpButton()
+    {
+        return jumpButton;
+    }
+
+    public string GetSpellCastButton1()
+    {
+        return spellCastButton1;
+    }
+    public string GetSpellCastButton2()
+    {
+        return spellCastButton2;
     }
 }

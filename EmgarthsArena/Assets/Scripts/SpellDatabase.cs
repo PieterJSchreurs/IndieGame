@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellDatabase {
-    private static SpellDatabase Instance;
+    private static SpellDatabase _instance;
     public static SpellDatabase GetInstance()
     {
-        if (Instance == null)
+        if (_instance == null)
         {
-            Instance = new SpellDatabase();
+            _instance = new SpellDatabase();
         }
-        return Instance;
+        return _instance;
+    }
+
+    private SpellDatabase()
+    {
+
     }
 
     public Dictionary<Element, Dictionary<Element, Spell>> allSpells = new Dictionary<Element, Dictionary<Element, Spell>>();

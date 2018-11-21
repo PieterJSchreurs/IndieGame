@@ -5,13 +5,8 @@ using UnityEngine;
 
 public abstract class Spell : MovingObject {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    protected int damage;
+    protected int knockback;
+    protected SpellDatabase.Element firstElement;
+    protected SpellDatabase.Element secondElement;
 }
