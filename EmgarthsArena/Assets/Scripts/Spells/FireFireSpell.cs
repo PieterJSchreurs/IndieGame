@@ -7,8 +7,8 @@ public class FireFireSpell : Spell {
 
 	// Use this for initialization
 	void Start () {
-
-	}
+       // _rb.AddForce(new Vector2(50, 1));
+    }
 
     protected override void Move()
     {

@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MovingObject {
+public class Player : MovingObject
+{
 
     private InputManager myInputManager = new InputManager();
     private int healthRemaining;
@@ -17,8 +18,9 @@ public class Player : MovingObject {
 
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         if (_rb == null)
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -28,10 +30,11 @@ public class Player : MovingObject {
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate()
+    {
         Move();
         HandleCollision();
-	}
+    }
 
     protected override void Move()
     {
@@ -58,7 +61,7 @@ public class Player : MovingObject {
         if (myInputManager.GetButtonDownSpellCast2())
         {
             launchSpell(secondElement, firstElement);
-        }        
+        }
     }
 
     protected override void HandleCollision()
@@ -73,12 +76,11 @@ public class Player : MovingObject {
 
     private Spell launchSpell(SpellDatabase.Element firstEle, SpellDatabase.Element secondEle)
     {
-        Debug.Log("Spell launched");
         Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
-        Debug.Log(launchedspell);
+
         float xAxis = myInputManager.GetAxisLookHorizontal();
         float yAxis = myInputManager.GetAxisLookVertical();
-        float Offset = 0.5f;
+        float Offset = 2f;
 
         if (xAxis == 0 && yAxis == 0)
         {
@@ -88,10 +90,16 @@ public class Player : MovingObject {
         //Determine where the player looks at.
         //Give the spell a rotation from where he looks at.
         //Add it to a position with an offset compared to the player.
-        Vector3 position = transform.position + new Vector3(xAxis * Offset, yAxis * Offset, 0);
-        launchedspell = Instantiate(launchedspell, position, new Quaternion());
-        launchedspell.transform.LookAt(this.transform);
-        launchedspell.transform.eulerAngles = new Vector3(launchedspell.transform.eulerAngles.x + 90, launchedspell.transform.eulerAngles.y, launchedspell.transform.eulerAngles.z);
+        Vector3 position = this.transform.position + new Vector3(xAxis * Offset, yAxis * Offset, 0);
+
+        Spell launchedspelltest = Instantiate(launchedspell, position, new Quaternion());
+        Debug.Log(xAxis + " " + yAxis);
+        //Calculate rotation
+        Vector2 vec2 = new Vector2(0, -1);
+        Vector2 vec0 = new Vector2(xAxis, yAxis);
+        float Degrees = Vector2.Angle(vec2, vec0);
+        Debug.Log(Degrees);
+        launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y , Degrees );
         
         return launchedspell;
     }
