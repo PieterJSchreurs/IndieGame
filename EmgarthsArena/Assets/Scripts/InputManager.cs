@@ -17,7 +17,13 @@ public class InputManager {
     public InputManager()
     {
         //Initialize all the button layouts here.
-     
+        buttonSpellCast1 = "JoyStickLeftBumper";
+        buttonSpellCast2 = "JoyStickRightBumper";
+        axisMoveHorizontal = "LeftJoyStickHorizontal";
+        axisMoveVertical = "LeftJoyStickVertical";
+        axisLookHorizontal = "RightJoyStickHorizontal";
+        axisLookVertical = "RightJoyStickVertical";
+        buttonJump = "XButton";
     }
 
     public float GetAxisMoveHorizontal()
