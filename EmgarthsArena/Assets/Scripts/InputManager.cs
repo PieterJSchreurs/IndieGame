@@ -17,13 +17,7 @@ public class InputManager {
     public InputManager()
     {
         //Initialize all the button layouts here.
-        spellCastButton1 = "JoyStickLeftBumper";
-        spellCastButton2 = "JoyStickRightBumper";
-        moveAxisHorizontal = "LeftJoyStickHorizontal";
-        moveAxisVertical = "LeftJoyStickVertical";
-        lookAxisHorizontal = "RightJoyStickHorizontal";
-        lookAxisVertical = "RightJoyStickVertical";
-        jumpButton = "XButton";
+     
     }
 
     public string GetMoveAxisHorizontal()
