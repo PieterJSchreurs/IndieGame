@@ -77,12 +77,12 @@ InputManager:
     positiveButton: d
     altNegativeButton: left
     altPositiveButton: right
-    gravity: 5
-    dead: 0.01
-    sensitivity: 10
+    gravity: 0
+    dead: 0.1
+    sensitivity: 1
     snap: 0
     invert: 0
-    type: 0
+    type: 2
     axis: 0
     joyNum: 1
   - serializedVersion: 3
@@ -93,12 +93,12 @@ InputManager:
     positiveButton: w
     altNegativeButton: down
     altPositiveButton: up
-    gravity: 5
-    dead: 0.01
-    sensitivity: 10
+    gravity: 0
+    dead: 0.1
+    sensitivity: 1
     snap: 0
     invert: 1
-    type: 0
+    type: 2
     axis: 1
     joyNum: 1
   - serializedVersion: 3
@@ -110,11 +110,11 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.01
-    sensitivity: 0
+    dead: 0.1
+    sensitivity: 1
     snap: 0
     invert: 0
-    type: 0
+    type: 2
     axis: 2
     joyNum: 1
   - serializedVersion: 3
@@ -126,11 +126,11 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0
-    sensitivity: 0
+    dead: 0.1
+    sensitivity: 1
     snap: 0
     invert: 1
-    type: 0
+    type: 2
     axis: 3
     joyNum: 1
   - serializedVersion: 3
@@ -195,5 +195,37 @@ InputManager:
     snap: 1
     invert: 0
     type: 1
+    axis: 1
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: KeyboardMoveHorizontal
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: a
+    positiveButton: d
+    altNegativeButton: left
+    altPositiveButton: right
+    gravity: 5
+    dead: 0.01
+    sensitivity: 10
+    snap: 1
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: KeyboardMoveVertical
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: s
+    positiveButton: w
+    altNegativeButton: down
+    altPositiveButton: up
+    gravity: 5
+    dead: 0.01
+    sensitivity: 10
+    snap: 1
+    invert: 0
+    type: 0
     axis: 1
     joyNum: 1

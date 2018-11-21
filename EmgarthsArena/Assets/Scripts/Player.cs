@@ -10,21 +10,19 @@ public class Player : MovingObject {
     private int livesRemaining;
     private SpellDatabase.Element firstElement;
     private SpellDatabase.Element secondElement;
-    private Rigidbody2D rb;
+
+    private bool _grounded = false;
+    private bool _usedDoubleJump = false;
 
     public Player()
     {
 
     }
 
-	// Use this for initialization
-	void Start () {
-        if (_rb == null)
-        {
-            _rb = GetComponent<Rigidbody2D>();
-        }
+    protected override void Start()
+    {
+        base.Start();
         myInputManager = new InputManager();
-        jump();
     }
 
     // Update is called once per frame
@@ -35,12 +33,16 @@ public class Player : MovingObject {
 
     protected override void Move()
     {
+        _grounded = isGrounded();
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _rb.AddForce(new Vector2(1500, 1500), ForceMode2D.Impulse);
+        }
+
         if (myInputManager.GetAxisMoveHorizontal() != 0)
         {
-            //_rb.velocity = new Vector2(myInputManager.GetAxisMoveHorizontal() * Glob.playerAcceleration, _rb.velocity.y);
-            _rb.AddForce(new Vector2(myInputManager.GetAxisMoveHorizontal() * Glob.playerAcceleration, 0));
-            //rb.AddForce(new Vector2(myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, 0));
-            //transform.position += new Vector3(myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Time.deltaTime, 0, 0);
+            _rb.velocity = new Vector2(myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
             //Move horizontally.
         }
         if (myInputManager.GetAxisMoveVertical() != 0)
@@ -68,7 +70,28 @@ public class Player : MovingObject {
 
     private void jump()
     {
-        _rb.velocity = new Vector2(_rb.velocity.x, Glob.jumpHeight);
+        if (_grounded)
+        {
+            GetComponent<ParticleSystem>().Play();
+            _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
+        } else if (!_usedDoubleJump)
+        {
+            GetComponent<ParticleSystem>().Play();
+            _rb.velocity = new Vector2(_rb.velocity.x, 0);
+            _rb.AddForce(new Vector2(0, Glob.jumpHeight * 0.75f), ForceMode2D.Impulse);
+            _usedDoubleJump = true;
+        }
+    }
+
+    private bool isGrounded()
+    {
+        Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y), -Vector2.up*0.1f, Color.yellow, 1);
+        bool grounded = Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y), -Vector2.up, 0.1f);
+        if (grounded)
+        {
+            _usedDoubleJump = false;
+        }
+        return grounded;
     }
 
     private Spell launchSpell(SpellDatabase.Element firstEle, SpellDatabase.Element secondEle)
@@ -89,9 +112,9 @@ public class Player : MovingObject {
         //Give the spell a rotation from where he looks at.
         //Add it to a position with an offset compared to the player.
         Vector3 position = transform.position + new Vector3(xAxis * Offset, yAxis * Offset, 0);
-        launchedspell = Instantiate(launchedspell, position, new Quaternion());
-        launchedspell.transform.LookAt(this.transform);
-        launchedspell.transform.eulerAngles = new Vector3(launchedspell.transform.eulerAngles.x + 90, launchedspell.transform.eulerAngles.y, launchedspell.transform.eulerAngles.z);
+        //launchedspell = Instantiate(launchedspell, position, new Quaternion());
+        //launchedspell.transform.LookAt(this.transform);
+        //launchedspell.transform.eulerAngles = new Vector3(launchedspell.transform.eulerAngles.x + 90, launchedspell.transform.eulerAngles.y, launchedspell.transform.eulerAngles.z);
         
         return launchedspell;
     }

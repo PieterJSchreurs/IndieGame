@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager {
-    private string axisMoveHorizontal = "LeftJoyStickHorizontal";
-    private string axisMoveVertical = "LeftJoyStickVertical";
+
+    private const bool keyboardControls = true;
+
+    private string axisMoveHorizontal = "KeyboardMoveHorizontal";
+    private string axisMoveVertical = "KeyboardMoveVertical";
 
     private string axisLookHorizontal = "MouseX";
     private string axisLookVertical = "MouseY";
@@ -16,14 +19,17 @@ public class InputManager {
 
     public InputManager()
     {
-        //Initialize all the button layouts here.
-        buttonSpellCast1 = "JoyStickLeftBumper";
-        buttonSpellCast2 = "JoyStickRightBumper";
-        axisMoveHorizontal = "LeftJoyStickHorizontal";
-        axisMoveVertical = "LeftJoyStickVertical";
-        axisLookHorizontal = "RightJoyStickHorizontal";
-        axisLookVertical = "RightJoyStickVertical";
-        buttonJump = "XButton";
+        if (!keyboardControls)
+        {
+            //Initialize all the button layouts here.
+            buttonSpellCast1 = "JoyStickLeftBumper";
+            buttonSpellCast2 = "JoyStickRightBumper";
+            axisMoveHorizontal = "LeftJoyStickHorizontal";
+            axisMoveVertical = "LeftJoyStickVertical";
+            axisLookHorizontal = "RightJoyStickHorizontal";
+            axisLookVertical = "RightJoyStickVertical";
+            buttonJump = "XButton";
+        }
     }
 
     public float GetAxisMoveHorizontal()
