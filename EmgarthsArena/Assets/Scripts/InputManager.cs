@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager {
-    private string axisMoveHorizontal = "Horizontal";
-    private string axisMoveVertical = "Vertical";
+    private string axisMoveHorizontal = "LeftJoyStickHorizontal";
+    private string axisMoveVertical = "LeftJoyStickVertical";
 
     private string axisLookHorizontal = "MouseX";
     private string axisLookVertical = "MouseY";
 
-    private string buttonJump = "Jump";
+    private string buttonJump = "XButton";
 
-    private string buttonSpellCast1 = "Fire1";
-    private string buttonSpellCast2 = "Fire2";
+    private string buttonSpellCast1 = "JoyStickLeftBumper";
+    private string buttonSpellCast2 = "JoyStickRightBumper";
 
     public InputManager()
     {
