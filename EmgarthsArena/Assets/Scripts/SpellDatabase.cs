@@ -40,13 +40,13 @@ public class SpellDatabase {
         Earth
     }
 
-    void Start()
-    {
-
-    }
-
     public Spell GetSpell(Element firstEle, Element secondEle)
     {
+        if (!allSpells.ContainsKey(firstEle))
+        {
+            Debug.Log("Key does not exist in the spell database.");
+            return null;
+        }
         return allSpells[firstEle][secondEle];
     }
 }
