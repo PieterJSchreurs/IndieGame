@@ -15,23 +15,10 @@ public class SpellDatabase {
 
     private SpellDatabase()
     {
-
-    }
-
-    public Dictionary<Element, Dictionary<Element, Spell>> allSpells = new Dictionary<Element, Dictionary<Element, Spell>>();
-
-    public enum Element
-    {
-        Fire,
-        Water,
-        Earth
-    }
-
-    void Start()
-    {
         allSpells.Add(Element.Fire, new Dictionary<Element, Spell>());
         allSpells.Add(Element.Water, new Dictionary<Element, Spell>());
         allSpells.Add(Element.Earth, new Dictionary<Element, Spell>());
+
         allSpells[Element.Fire].Add(Element.Fire, new FireFireSpell());
         allSpells[Element.Fire].Add(Element.Water, new FireWaterSpell());
         allSpells[Element.Fire].Add(Element.Earth, new FireEarthSpell());
@@ -45,8 +32,22 @@ public class SpellDatabase {
         allSpells[Element.Earth].Add(Element.Earth, new EarthEarthSpell());
     }
 
+    public Dictionary<Element, Dictionary<Element, Spell>> allSpells = new Dictionary<Element, Dictionary<Element, Spell>>();
+
+    public enum Element
+    {
+        Fire,
+        Water,
+        Earth
+    }
+
     public Spell GetSpell(Element firstEle, Element secondEle)
     {
+        if (!allSpells.ContainsKey(firstEle))
+        {
+            Debug.Log("Key does not exist in the spell database.");
+            return null;
+        }
         return allSpells[firstEle][secondEle];
     }
 }
