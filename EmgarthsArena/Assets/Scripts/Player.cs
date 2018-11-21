@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Player : MovingObject {
 
-    private InputManager myInputManager;
+    private InputManager myInputManager = new InputManager();
     private int healthRemaining;
     private int livesRemaining;
-    private SpellDatabase.Element firstElement;
-    private SpellDatabase.Element secondElement;
+    private SpellDatabase.Element firstElement = SpellDatabase.Element.Fire;
+    private SpellDatabase.Element secondElement = SpellDatabase.Element.Fire;
     private Rigidbody2D rb;
 
     public Player()
@@ -66,7 +66,26 @@ public class Player : MovingObject {
 
     private Spell launchSpell(SpellDatabase.Element firstEle, SpellDatabase.Element secondEle)
     {
-        return SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
+        Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
+        Debug.Log(launchedspell);
+        float xAxis = Input.GetAxis(myInputManager.GetLookAxisHorizontal());
+        float yAxis = Input.GetAxis(myInputManager.GetLookAxisVertical());
+        float Offset = 0.5f;
+
+        if (xAxis == 0 && yAxis == 0)
+        {
+            xAxis = 1;
+        }
+        //Get a spell from the spell database.
+        //Determine where the player looks at.
+        //Give the spell a rotation from where he looks at.
+        //Add it to a position with an offset compared to the player.
+        Vector3 position = transform.position + new Vector3(xAxis * Offset, yAxis * Offset, 0);
+        launchedspell = Instantiate(launchedspell, position, new Quaternion());
+        launchedspell.transform.LookAt(this.transform);
+        launchedspell.transform.eulerAngles = new Vector3(launchedspell.transform.eulerAngles.x + 90, launchedspell.transform.eulerAngles.y, launchedspell.transform.eulerAngles.z);
+        
+        return launchedspell;
     }
 
     private void changeElement()

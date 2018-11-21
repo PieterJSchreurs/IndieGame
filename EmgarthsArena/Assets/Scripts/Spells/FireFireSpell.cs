@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class FireFireSpell : Spell {
 
+
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 
     protected override void Move()
