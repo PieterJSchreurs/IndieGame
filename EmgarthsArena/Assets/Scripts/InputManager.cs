@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager {
-    private string moveAxisHorizontal;
-    private string moveAxisVertical;
+    private string axisMoveHorizontal = "Horizontal";
+    private string axisMoveVertical = "Vertical";
 
-    private string lookAxisHorizontal;
-    private string lookAxisVertical;
+    private string axisLookHorizontal = "MouseX";
+    private string axisLookVertical = "MouseY";
 
-    private string jumpButton;
+    private string buttonJump = "Jump";
 
-    private string spellCastButton1;
-    private string spellCastButton2;
+    private string buttonSpellCast1 = "Fire1";
+    private string buttonSpellCast2 = "Fire2";
 
     public InputManager()
     {
@@ -20,35 +20,38 @@ public class InputManager {
      
     }
 
-    public string GetMoveAxisHorizontal()
+    public float GetAxisMoveHorizontal()
     {
-        return moveAxisHorizontal;
+        return Input.GetAxis(axisMoveHorizontal);
     }
-    public string GetMoveAxisVertical()
+    public float GetAxisMoveVertical()
     {
-        return moveAxisVertical;
-    }
-
-    public string GetLookAxisHorizontal()
-    {
-        return lookAxisHorizontal;
-    }
-    public string GetLookAxisVertical()
-    {
-        return lookAxisVertical;
+        return Input.GetAxis(axisMoveVertical);
     }
 
-    public string GetJumpButton()
+    public float GetAxisLookHorizontal()
     {
-        return jumpButton;
+        return Input.GetAxis(axisLookHorizontal);
+    }
+    public float GetAxisLookVertical()
+    {
+        return Input.GetAxis(axisLookVertical);
     }
 
-    public string GetSpellCastButton1()
+    public bool GetButtonDownJump()
     {
-        return spellCastButton1;
+        return Input.GetButtonDown(buttonJump);
+        //return jumpButton;
     }
-    public string GetSpellCastButton2()
+
+    public bool GetButtonDownSpellCast1()
     {
-        return spellCastButton2;
+        return Input.GetButtonDown(buttonSpellCast1);
+        //return spellCastButton1;
+    }
+    public bool GetButtonDownSpellCast2()
+    {
+        return Input.GetButtonDown(buttonSpellCast2);
+        //return spellCastButton2;
     }
 }

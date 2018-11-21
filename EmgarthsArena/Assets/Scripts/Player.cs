@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class Player : MovingObject {
 
-    private InputManager myInputManager = new InputManager();
+    private InputManager myInputManager;
     private int healthRemaining;
     private int livesRemaining;
     private SpellDatabase.Element firstElement = SpellDatabase.Element.Fire;
-    private SpellDatabase.Element secondElement = SpellDatabase.Element.Fire;
-    private Rigidbody2D rb;
+    private SpellDatabase.Element secondElement = SpellDatabase.Element.Water;
 
     public Player()
     {
@@ -19,39 +18,46 @@ public class Player : MovingObject {
 
 	// Use this for initialization
 	void Start () {
-        rb = GetComponent<Rigidbody2D>();
-
+        if (_rb == null)
+        {
+            _rb = GetComponent<Rigidbody2D>();
+        }
+        myInputManager = new InputManager();
+        jump();
     }
 
     // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
         Move();
         HandleCollision();
 	}
 
     protected override void Move()
     {
-        if (Input.GetAxis(myInputManager.GetMoveAxisHorizontal()) != 0)
+        if (myInputManager.GetAxisMoveHorizontal() != 0)
         {
-            rb.AddForce(new Vector2(Input.GetAxis(myInputManager.GetMoveAxisHorizontal()), 0));
+            //_rb.velocity = new Vector2(myInputManager.GetAxisMoveHorizontal() * Glob.playerAcceleration, _rb.velocity.y);
+            _rb.AddForce(new Vector2(myInputManager.GetAxisMoveHorizontal() * Glob.playerAcceleration, 0));
+            //rb.AddForce(new Vector2(myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, 0));
+            //transform.position += new Vector3(myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Time.deltaTime, 0, 0);
             //Move horizontally.
         }
-        if (Input.GetAxis(myInputManager.GetMoveAxisVertical()) != 0)
+        if (myInputManager.GetAxisMoveVertical() != 0)
         {
             //Move vertically. (idk when that would be, ladders or something? Just a placeholder.)
         }
-        if (Input.GetButtonDown(myInputManager.GetJumpButton()))
+        if (myInputManager.GetButtonDownJump())
         {
             jump();
         }
-        if (Input.GetButtonDown(myInputManager.GetSpellCastButton1()))
+        if (myInputManager.GetButtonDownSpellCast1())
         {
             launchSpell(firstElement, secondElement);
         }
-        if (Input.GetButtonDown(myInputManager.GetSpellCastButton2()))
+        if (myInputManager.GetButtonDownSpellCast2())
         {
             launchSpell(secondElement, firstElement);
-        }
+        }        
     }
 
     protected override void HandleCollision()
@@ -61,31 +67,12 @@ public class Player : MovingObject {
 
     private void jump()
     {
-        rb.AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
+        _rb.velocity = new Vector2(_rb.velocity.x, Glob.jumpHeight);
     }
 
     private Spell launchSpell(SpellDatabase.Element firstEle, SpellDatabase.Element secondEle)
     {
-        Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
-        Debug.Log(launchedspell);
-        float xAxis = Input.GetAxis(myInputManager.GetLookAxisHorizontal());
-        float yAxis = Input.GetAxis(myInputManager.GetLookAxisVertical());
-        float Offset = 0.5f;
-
-        if (xAxis == 0 && yAxis == 0)
-        {
-            xAxis = 1;
-        }
-        //Get a spell from the spell database.
-        //Determine where the player looks at.
-        //Give the spell a rotation from where he looks at.
-        //Add it to a position with an offset compared to the player.
-        Vector3 position = transform.position + new Vector3(xAxis * Offset, yAxis * Offset, 0);
-        launchedspell = Instantiate(launchedspell, position, new Quaternion());
-        launchedspell.transform.LookAt(this.transform);
-        launchedspell.transform.eulerAngles = new Vector3(launchedspell.transform.eulerAngles.x + 90, launchedspell.transform.eulerAngles.y, launchedspell.transform.eulerAngles.z);
-        
-        return launchedspell;
+        return SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
     }
 
     private void changeElement()
