@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class WaterFireSpell : Spell {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    // Use this for initialization
+    void Start()
+    {
+        base.Start();
+        _rb.velocity = -_rb.transform.up * Glob.WaterFireSpeed;
+
+    }
 
     protected override void Move(bool isFixed)
     {
@@ -16,11 +19,21 @@ public class WaterFireSpell : Spell {
 
     protected override void HandleCollision()
     {
-
+        //Handle explosion effects.
+        HandleExplosion();
+        //Destroy the object.
+        Destroy(this.gameObject);
     }
 
+    protected override void HandleExplosion()
+    {
+        Debug.Log("Explode");
+    }
+
+
     // Update is called once per frame
-    void Update () {
-		
-	}
+    void Update()
+    {
+
+    }
 }

@@ -19,8 +19,17 @@ public class FireFireSpell : Spell {
 
     protected override void HandleCollision()
     {
-
+        //Handle explosion effects.
+        HandleExplosion();
+        //Destroy the object.
+        Destroy(this.gameObject);
     }
+
+    protected override void HandleExplosion()
+    {
+        Debug.Log("Explode");
+    }
+
 
     // Update is called once per frame
     void Update () {

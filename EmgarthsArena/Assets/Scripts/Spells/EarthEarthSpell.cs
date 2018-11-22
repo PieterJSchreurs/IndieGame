@@ -6,8 +6,9 @@ public class EarthEarthSpell : Spell {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        base.Start();
+        _rb.velocity = -_rb.transform.up * Glob.EarthEarthSpeed;
+    }
 
     protected override void Move(bool isFixed)
     {
@@ -15,6 +16,11 @@ public class EarthEarthSpell : Spell {
     }
 
     protected override void HandleCollision()
+    {
+
+    }
+
+    protected override void HandleExplosion()
     {
 
     }

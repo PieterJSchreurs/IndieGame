@@ -37,7 +37,8 @@ public class SpellDatabase {
     {
         Fire,
         Water,
-        Earth
+        Earth,
+        Null
     }
 
     public Spell GetSpell(Element firstEle, Element secondEle)

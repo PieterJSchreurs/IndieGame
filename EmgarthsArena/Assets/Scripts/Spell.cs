@@ -8,13 +8,15 @@ public abstract class Spell : MovingObject
 
     protected int damage;
     protected int knockback;
+    protected abstract void HandleExplosion();
     protected SpellDatabase.Element firstElement;
     protected SpellDatabase.Element secondElement;
-    
 
-    void FixedUpdate()
+    protected override void HandleCollision()
     {
-        HandleCollision();
+       
     }
+
+    
 
 }
