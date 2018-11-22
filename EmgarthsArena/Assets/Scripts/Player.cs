@@ -92,9 +92,6 @@ public class Player : MovingObject {
             _rb.velocity = new Vector2(_rb.velocity.x, 0);
             _rb.AddForce(new Vector2(0, Glob.jumpDoubleHeight), ForceMode2D.Impulse);
             _usedDoubleJump = true;
-        } else
-        {
-            Debug.Log("I can't jump right now.");
         }
     }
     private void jumpContinuous()
