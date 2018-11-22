@@ -23,5 +23,11 @@ public abstract class MovingObject : MonoBehaviour {
     protected abstract void Move(bool isFixed);
     protected abstract void HandleCollision();
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log(this.gameObject + " collided with " + col.gameObject.name);
+        HandleCollision();
+    }
+
 
 }

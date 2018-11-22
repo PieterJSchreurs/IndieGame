@@ -8,8 +8,15 @@ public abstract class Spell : MovingObject
 
     protected int damage;
     protected int knockback;
+    protected abstract void HandleExplosion();
     protected SpellDatabase.Element firstElement;
     protected SpellDatabase.Element secondElement;
-    private Rigidbody2D rb;
+
+    protected override void HandleCollision()
+    {
+       
+    }
+
+    
 
 }

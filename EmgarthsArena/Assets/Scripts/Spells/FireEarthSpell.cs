@@ -6,8 +6,9 @@ public class FireEarthSpell : Spell {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        base.Start();
+        _rb.velocity = -_rb.transform.up * Glob.FireEarthSpeed;
+    }
 
     protected override void Move(bool isFixed)
     {
@@ -15,6 +16,11 @@ public class FireEarthSpell : Spell {
     }
 
     protected override void HandleCollision()
+    {
+
+    }
+
+    protected override void HandleExplosion()
     {
 
     }

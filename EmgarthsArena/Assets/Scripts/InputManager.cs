@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputManager {
 
-    private const bool keyboardControls = false;
+    private const bool keyboardControls = true;
 
     private string axisMoveHorizontal = "KeyboardMoveHorizontal";
     private string axisMoveVertical = "KeyboardMoveVertical";
@@ -17,7 +17,7 @@ public class InputManager {
     private string buttonSpellCast1 = "JoyStickLeftBumper";
     private string buttonSpellCast2 = "JoyStickRightBumper";
 
-    public InputManager()
+    public InputManager(string jumpButton)
     {
         if (!keyboardControls)
         {
@@ -28,7 +28,7 @@ public class InputManager {
             axisMoveVertical = "LeftJoyStickVertical";
             axisLookHorizontal = "RightJoyStickHorizontal";
             axisLookVertical = "RightJoyStickVertical";
-            buttonJump = "XButton";
+            buttonJump = jumpButton;
         }
     }
 

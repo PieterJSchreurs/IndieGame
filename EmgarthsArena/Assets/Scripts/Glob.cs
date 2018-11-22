@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Glob {
+public static class Glob
+{
     public const float camYOffset = 3.25f;
     public const float camSpeed = 0.25f;
     public const int maxLives = 5;
@@ -37,9 +38,29 @@ public static class Glob {
         Spells[6] = Resources.Load<EarthFireSpell>(EarthFirePrefab);
         Spells[7] = Resources.Load<EarthWaterSpell>(EarthWaterPrefab);
         Spells[8] = Resources.Load<EarthEarthSpell>(EarthEarthPrefab);
-        
+
         return Spells;
     }
 
+    public const string ExplosionPrefab = "Explosion";
+    public static GameObject GetExplosionPrefab()
+    {
+        return Resources.Load<GameObject>(ExplosionPrefab);
+    }
+
+    public static Dictionary<int, Dictionary<int, string>> inputControllers = new Dictionary<int, Dictionary<int, string>>()
+    {
+
+        //{  inputControllers.Add(0, new Dictionary<int, string>());
+    };
+
     public const float FireFireSpeed = 10f;
+    public const float FireWaterSpeed = 15f;
+    public const float FireEarthSpeed = 10f;
+    public const float WaterFireSpeed = 6f;
+    public const float WaterWaterSpeed = 10f;
+    public const float WaterEarthSpeed = 10f;
+    public const float EarthFireSpeed = 10f;
+    public const float EarthWaterSpeed = 10f;
+    public const float EarthEarthSpeed = 10f;
 }

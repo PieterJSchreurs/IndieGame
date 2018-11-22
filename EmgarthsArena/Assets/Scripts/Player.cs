@@ -8,8 +8,8 @@ public class Player : MovingObject {
     private InputManager myInputManager = new InputManager();
     private int healthRemaining;
     private int livesRemaining;
-    private SpellDatabase.Element firstElement;
-    private SpellDatabase.Element secondElement;
+    private SpellDatabase.Element firstElement = SpellDatabase.Element.Fire;
+    private SpellDatabase.Element secondElement = SpellDatabase.Element.Water;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
@@ -39,7 +39,7 @@ public class Player : MovingObject {
 
     protected override void Move(bool isFixed)
     {
-        if (!isFixed)
+        if (!isFixed)               
         {
             if (myInputManager.GetButtonDownJump())
             {
@@ -76,7 +76,7 @@ public class Player : MovingObject {
 
     protected override void HandleCollision()
     {
-
+       
     }
 
     private void jump()
@@ -163,7 +163,7 @@ public class Player : MovingObject {
 
     private void respawn()
     {
-
+        Debug.Log("Respawn player");
     }
 
     public void HandleSpellHit(Spell hit)
