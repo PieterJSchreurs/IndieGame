@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Glob {
-    public const float camSpeed = 2f;
+    public const float camYOffset = 3.25f;
+    public const float camSpeed = 0.25f;
     public const int maxLives = 5;
     public const int maxHealth = 100;
     public const float playerSpeed = 20f;
