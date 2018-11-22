@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputManager {
 
-    private const bool keyboardControls = true;
+    private const bool keyboardControls = false;
 
     private string axisMoveHorizontal = "KeyboardMoveHorizontal";
     private string axisMoveVertical = "KeyboardMoveVertical";
