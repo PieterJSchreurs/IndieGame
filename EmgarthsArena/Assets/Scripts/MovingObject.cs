@@ -8,4 +8,6 @@ public abstract class MovingObject : MonoBehaviour {
 
     protected abstract void Move();
     protected abstract void HandleCollision();
+
+
 }

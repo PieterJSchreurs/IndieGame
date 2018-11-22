@@ -82,6 +82,7 @@ public class Player : MovingObject
         float yAxis = myInputManager.GetAxisLookVertical();
         float Offset = 2f;
 
+        //If there's no input, should do forward.
         if (xAxis == 0 && yAxis == 0)
         {
             xAxis = 1;
@@ -91,16 +92,22 @@ public class Player : MovingObject
         //Give the spell a rotation from where he looks at.
         //Add it to a position with an offset compared to the player.
         Vector3 position = this.transform.position + new Vector3(xAxis * Offset, yAxis * Offset, 0);
-
         Spell launchedspelltest = Instantiate(launchedspell, position, new Quaternion());
-        Debug.Log(xAxis + " " + yAxis);
-        //Calculate rotation
-        Vector2 vec2 = new Vector2(0, -1);
+        Vector2 vec2 = new Vector2(0, 1);
         Vector2 vec0 = new Vector2(xAxis, yAxis);
-        float Degrees = Vector2.Angle(vec2, vec0);
-        Debug.Log(Degrees);
-        launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y , Degrees );
         
+        if (xAxis > 0)
+        {
+            vec2 = new Vector2(0, -1);
+            float Degrees = Vector2.Angle(vec2, vec0);
+            launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees);
+        }
+        else
+        {
+            float Degrees = Vector2.Angle(vec2, vec0);
+            launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees);
+        }
+             
         return launchedspell;
     }
 

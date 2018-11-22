@@ -36,4 +36,6 @@ public static class Glob {
         
         return Spells;
     }
+
+    public const float FireFireSpeed = 5f;
 }

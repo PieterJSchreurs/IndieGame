@@ -7,7 +7,7 @@ public class FireFireSpell : Spell {
 
 	// Use this for initialization
 	void Start () {
-       // _rb.AddForce(new Vector2(50, 1));
+        _rb.velocity = transform.forward * Glob.FireFireSpeed;
     }
 
     protected override void Move()
