@@ -11,9 +11,14 @@ public class Player : MovingObject {
     private SpellDatabase.Element _firstElement;
     private SpellDatabase.Element _secondElement;
 
-    private Transform _myMagicCircle;
+    private float _lastAimXAxis = 0;
+    private float _lastAimYAxis = 0;
+
+    private Transform _myMagicCircleLeft;
+    private Transform _myMagicCircleRight;
     private Transform _myCirclePointer;
-    private bool _changingElement = false;
+    private bool _changingElement1 = false;
+    private bool _changingElement2 = false;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
@@ -28,9 +33,12 @@ public class Player : MovingObject {
     {
         base.Start();
         _myInputManager = new InputManager();
-        _myMagicCircle = this.transform.Find("UI Elements").Find("MagicCircle");
-        _myMagicCircle.gameObject.SetActive(false);
-        _myCirclePointer = _myMagicCircle.Find("PointerPivot");
+        _myMagicCircleLeft = transform.Find("UI Elements").Find("MagicCircleLeft");
+        _myMagicCircleLeft.gameObject.SetActive(false);
+        _myMagicCircleRight = transform.Find("UI Elements").Find("MagicCircleRight");
+        _myMagicCircleRight.gameObject.SetActive(false);
+        _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
+        _myCirclePointer.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -42,10 +50,13 @@ public class Player : MovingObject {
     void Update()
     {
         Move(false);
-        if (_myMagicCircle.gameObject.activeSelf)
+        if (_changingElement1 || _changingElement2)
         {
             changeElement();
         }
+        _lastAimXAxis = _myInputManager.GetAxisLookHorizontal();
+        _lastAimYAxis = _myInputManager.GetAxisLookVertical();
+        Debug.Log(_firstElement + " - " + _secondElement);
     }
 
     protected override void Move(bool isFixed)
@@ -64,25 +75,37 @@ public class Player : MovingObject {
             {
                 launchSpell(_secondElement, _firstElement);
             }
-            if (_myInputManager.GetButtonDownElementChange1())
+            if (_myInputManager.GetButtonDownElementChange1() && !_changingElement2)
             {
-                _changingElement = true;
-                _myMagicCircle.gameObject.SetActive(true);
+                _changingElement1 = true;
+                _myMagicCircleLeft.gameObject.SetActive(true);
+                _myCirclePointer.gameObject.SetActive(true);
             }
-            else if (_myInputManager.GetButtonDownElementChange2())
+            else if (_myInputManager.GetButtonDownElementChange2() && !_changingElement1)
             {
-                _changingElement = true;
-                _myMagicCircle.gameObject.SetActive(true);
+                _changingElement2 = true;
+                _myMagicCircleRight.gameObject.SetActive(true);
+                _myCirclePointer.gameObject.SetActive(true);
             }
-            if (_myInputManager.GetButtonUpElementChange1())
+            if (_myInputManager.GetButtonUpElementChange1() && !_changingElement2)
             {
-                _changingElement = false;
-                _myMagicCircle.gameObject.SetActive(false);
+                if (changeElement() != SpellDatabase.Element.Null)
+                {
+                    _firstElement = changeElement();
+                }
+                _changingElement1 = false;
+                _myMagicCircleLeft.gameObject.SetActive(false);
+                _myCirclePointer.gameObject.SetActive(false);
             }
-            else if (_myInputManager.GetButtonUpElementChange2())
+            else if (_myInputManager.GetButtonUpElementChange2() && !_changingElement1)
             {
-                _changingElement = false;
-                _myMagicCircle.gameObject.SetActive(false);
+                if (changeElement() != SpellDatabase.Element.Null)
+                {
+                    _secondElement = changeElement();
+                }
+                _changingElement2 = false;
+                _myMagicCircleRight.gameObject.SetActive(false);
+                _myCirclePointer.gameObject.SetActive(false);
             }
         }
         else
@@ -182,7 +205,7 @@ public class Player : MovingObject {
         return launchedspell;
     }
 
-    private void changeElement()
+    private SpellDatabase.Element changeElement()
     {
         //Aim arrow using right stick
         //After aiming at an element for ... seconds, change the element (first or second based on element aimed at).
@@ -194,6 +217,7 @@ public class Player : MovingObject {
         //If there's no input, should do forward.
         if (xAxis == 0 && yAxis == 0)
         {
+            yAxis = 1;
             _myCirclePointer.gameObject.SetActive(false);
         } else
         {
@@ -216,6 +240,47 @@ public class Player : MovingObject {
             float Degrees = Vector2.Angle(vec2, vec0);
             _myCirclePointer.transform.eulerAngles = new Vector3(_myCirclePointer.transform.eulerAngles.x, _myCirclePointer.transform.eulerAngles.y, Degrees + 90);
         }
+
+        float angle = _myCirclePointer.transform.eulerAngles.z;
+        SpellDatabase.Element newElement = SpellDatabase.Element.Null;
+        if (_changingElement1)
+        {
+            //Left
+            if (angle <= 245f && angle >= 202.5f)
+            {
+                newElement = SpellDatabase.Element.Earth;
+                //Debug.Log("Earth - Left");
+            }
+            else if (angle <= 202.5f && angle >= 157.5f)
+            {
+                newElement = SpellDatabase.Element.Water;
+                //Debug.Log("Water - Left");
+            }
+            else if (angle <= 157.5f && angle >= 115f)
+            {
+                newElement = SpellDatabase.Element.Fire;
+                //Debug.Log("Fire - Left");
+            }
+        } else if (_changingElement2) {
+            //Right
+            if (angle <= 337.5f && angle >= 295f)
+            {
+                newElement = SpellDatabase.Element.Earth;
+                //Debug.Log("Earth - Right");
+            }
+            else if ((angle <= 360f && angle >= 337.5f) || (angle <= 22.5f && angle >= 0))
+            {
+                newElement = SpellDatabase.Element.Water;
+                //Debug.Log("Water - Right");
+            }
+            else if (angle <= 65f && angle >= 22.5f)
+            {
+                newElement = SpellDatabase.Element.Fire;
+                //Debug.Log("Fire - Right");
+            }
+        }
+
+        return newElement;
     }
 
     private void handleLives()

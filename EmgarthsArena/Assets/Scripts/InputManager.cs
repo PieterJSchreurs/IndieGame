@@ -66,32 +66,26 @@ public class InputManager {
     public bool GetButtonDownSpellCast1()
     {
         return Input.GetButtonDown(buttonSpellCast1);
-        //return spellCastButton1;
     }
     public bool GetButtonDownSpellCast2()
     {
         return Input.GetButtonDown(buttonSpellCast2);
-        //return spellCastButton2;
     }
 
     public bool GetButtonDownElementChange1()
     {
         return Input.GetButtonDown(buttonElementChange1);
-        //return spellCastButton1;
     }
     public bool GetButtonDownElementChange2()
     {
         return Input.GetButtonDown(buttonElementChange2);
-        //return spellCastButton2;
     }
     public bool GetButtonUpElementChange1()
     {
         return Input.GetButtonUp(buttonElementChange1);
-        //return spellCastButton1;
     }
     public bool GetButtonUpElementChange2()
     {
         return Input.GetButtonUp(buttonElementChange2);
-        //return spellCastButton2;
     }
 }
