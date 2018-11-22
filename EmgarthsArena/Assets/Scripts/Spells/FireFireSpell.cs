@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class FireFireSpell : Spell {
 
-
+    
 	// Use this for initialization
 	void Start () {
-        _rb.velocity = transform.forward * Glob.FireFireSpeed;
+        base.Start();
+        _rb.velocity = -_rb.transform.up * Glob.FireFireSpeed;
+        
     }
 
     protected override void Move(bool isFixed)

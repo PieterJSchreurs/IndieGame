@@ -116,13 +116,13 @@ public class Player : MovingObject {
 
     private Spell launchSpell(SpellDatabase.Element firstEle, SpellDatabase.Element secondEle)
     {
-        Debug.Log("Spell launched");
         Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
-        Debug.Log(launchedspell);
+
         float xAxis = myInputManager.GetAxisLookHorizontal();
         float yAxis = myInputManager.GetAxisLookVertical();
-        float Offset = 0.5f;
+        float Offset = 2f;
 
+        //If there's no input, should do forward.
         if (xAxis == 0 && yAxis == 0)
         {
             xAxis = 1;
@@ -131,11 +131,23 @@ public class Player : MovingObject {
         //Determine where the player looks at.
         //Give the spell a rotation from where he looks at.
         //Add it to a position with an offset compared to the player.
-        Vector3 position = transform.position + new Vector3(xAxis * Offset, yAxis * Offset, 0);
-        //launchedspell = Instantiate(launchedspell, position, new Quaternion());
-        //launchedspell.transform.LookAt(this.transform);
-        //launchedspell.transform.eulerAngles = new Vector3(launchedspell.transform.eulerAngles.x + 90, launchedspell.transform.eulerAngles.y, launchedspell.transform.eulerAngles.z);
-        
+        Vector3 position = this.transform.position + new Vector3(xAxis * Offset, yAxis * Offset, 0);
+        Spell launchedspelltest = Instantiate(launchedspell, position, new Quaternion());
+        Vector2 vec2 = new Vector2(0, 1);
+        Vector2 vec0 = new Vector2(xAxis, yAxis);
+
+        if (xAxis > 0)
+        {
+            vec2 = new Vector2(0, -1);
+            float Degrees = Vector2.Angle(vec2, vec0);
+            launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees);
+        }
+        else
+        {
+            float Degrees = Vector2.Angle(vec2, vec0);
+            launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees + 180);
+        }
+
         return launchedspell;
     }
 
