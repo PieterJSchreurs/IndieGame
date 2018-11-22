@@ -7,8 +7,8 @@ public class FireFireSpell : Spell {
 
 	// Use this for initialization
 	void Start () {
-
-	}
+        _rb.velocity = transform.forward * Glob.FireFireSpeed;
+    }
 
     protected override void Move(bool isFixed)
     {

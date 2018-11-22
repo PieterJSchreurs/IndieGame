@@ -18,7 +18,7 @@ public class SpellDatabase {
         allSpells.Add(Element.Fire, new Dictionary<Element, Spell>());
         allSpells.Add(Element.Water, new Dictionary<Element, Spell>());
         allSpells.Add(Element.Earth, new Dictionary<Element, Spell>());
-        allSpells[Element.Fire].Add(Element.Fire, Glob.GetSpellPrefab()[0]);
+        allSpells[Element.Fire].Add(Element.Fire,Glob.GetSpellPrefab()[0]);
         allSpells[Element.Fire].Add(Element.Water, Glob.GetSpellPrefab()[1]);
         allSpells[Element.Fire].Add(Element.Earth, Glob.GetSpellPrefab()[2]);
 
