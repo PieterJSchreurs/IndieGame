@@ -10,6 +10,11 @@ public abstract class Spell : MovingObject
     protected int knockback;
     protected SpellDatabase.Element firstElement;
     protected SpellDatabase.Element secondElement;
-    private Rigidbody2D rb;
+    
+
+    void FixedUpdate()
+    {
+        HandleCollision();
+    }
 
 }

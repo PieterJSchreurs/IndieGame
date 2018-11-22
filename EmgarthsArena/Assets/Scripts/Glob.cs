@@ -41,4 +41,12 @@ public static class Glob {
     }
 
     public const float FireFireSpeed = 10f;
+    public const float FireWaterSpeed = 7f;
+    public const float FireEarthSpeed = 10f;
+    public const float WaterFireSpeed = 10f;
+    public const float WaterWaterSpeed = 10f;
+    public const float WaterEarthSpeed = 10f;
+    public const float EarthFireSpeed = 10f;
+    public const float EarthWaterSpeed = 10f;
+    public const float EarthEarthSpeed = 10f;
 }
