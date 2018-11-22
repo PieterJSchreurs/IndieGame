@@ -7,7 +7,10 @@ public static class Glob {
     public const int maxLives = 5;
     public const int maxHealth = 100;
     public const float playerSpeed = 20f;
-    public const float jumpHeight = 1800f;
+    public const float jumpHeight = 1000f;
+    public const float jumpHeightContinuous = 6500f;
+    public const float jumpDoubleHeight = 925f;
+    public const float jumpTimeContinuous = 0.8f;
 
 
     public const string FireFirePrefab = "Spells/FireFire";

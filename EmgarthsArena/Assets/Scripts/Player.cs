@@ -13,6 +13,7 @@ public class Player : MovingObject {
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
+    private float _jumpTime = 0;
 
     public Player()
     {
@@ -27,40 +28,50 @@ public class Player : MovingObject {
 
     // Update is called once per frame
     void FixedUpdate () {
-        Move();
+        Move(true);
         HandleCollision();
 	}
 
-    protected override void Move()
+    void Update()
     {
-        _grounded = isGrounded();
+        Move(false);
+    }
 
-        if (Input.GetKeyDown(KeyCode.E))
+    protected override void Move(bool isFixed)
+    {
+        if (!isFixed)
         {
-            _rb.AddForce(new Vector2(1500, 1500), ForceMode2D.Impulse);
+            if (myInputManager.GetButtonDownJump())
+            {
+                jump();
+            }
+            if (myInputManager.GetButtonDownSpellCast1())
+            {
+                launchSpell(firstElement, secondElement);
+            }
+            if (myInputManager.GetButtonDownSpellCast2())
+            {
+                launchSpell(secondElement, firstElement);
+            }
         }
+        else
+        {
+            _grounded = isGrounded();
 
-        if (myInputManager.GetAxisMoveHorizontal() != 0)
-        {
-            _rb.velocity = new Vector2(myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
-            //Move horizontally.
+            if (myInputManager.GetAxisMoveHorizontal() != 0)
+            {
+                _rb.velocity = new Vector2(myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
+                //Move horizontally.
+            }
+            if (myInputManager.GetAxisMoveVertical() != 0)
+            {
+                //Move vertically. (idk when that would be, ladders or something? Just a placeholder.)
+            }
+            if (myInputManager.GetButtonJump() && _rb.velocity.y > 0)
+            {
+                jumpContinuous();
+            }
         }
-        if (myInputManager.GetAxisMoveVertical() != 0)
-        {
-            //Move vertically. (idk when that would be, ladders or something? Just a placeholder.)
-        }
-        if (myInputManager.GetButtonDownJump())
-        {
-            jump();
-        }
-        if (myInputManager.GetButtonDownSpellCast1())
-        {
-            launchSpell(firstElement, secondElement);
-        }
-        if (myInputManager.GetButtonDownSpellCast2())
-        {
-            launchSpell(secondElement, firstElement);
-        }        
     }
 
     protected override void HandleCollision()
@@ -74,24 +85,36 @@ public class Player : MovingObject {
         {
             GetComponent<ParticleSystem>().Play();
             _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
+            _jumpTime = Time.time;
         } else if (!_usedDoubleJump)
         {
             GetComponent<ParticleSystem>().Play();
             _rb.velocity = new Vector2(_rb.velocity.x, 0);
-            _rb.AddForce(new Vector2(0, Glob.jumpHeight * 0.75f), ForceMode2D.Impulse);
+            _rb.AddForce(new Vector2(0, Glob.jumpDoubleHeight), ForceMode2D.Impulse);
             _usedDoubleJump = true;
+        } else
+        {
+            Debug.Log("I can't jump right now.");
+        }
+    }
+    private void jumpContinuous()
+    {
+        if (Time.time - _jumpTime <= Glob.jumpTimeContinuous)
+        {
+            _rb.AddForce(new Vector2(0, Glob.jumpHeightContinuous * (1 - ((Time.time - _jumpTime) / Glob.jumpTimeContinuous))));
         }
     }
 
     private bool isGrounded()
     {
-        Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y), -Vector2.up*0.1f, Color.yellow, 1);
-        bool grounded = Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y), -Vector2.up, 0.1f);
-        if (grounded)
+        Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up*0.1f, Color.yellow, 1);
+        Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up * 0.1f, Color.yellow, 1);
+        if ((Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f) || Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f)) && _rb.velocity.y <= 0)
         {
             _usedDoubleJump = false;
+            return true;
         }
-        return grounded;
+        return false;
     }
 
     private Spell launchSpell(SpellDatabase.Element firstEle, SpellDatabase.Element secondEle)

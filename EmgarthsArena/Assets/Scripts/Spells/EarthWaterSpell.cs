@@ -9,7 +9,7 @@ public class EarthWaterSpell : Spell {
 		
 	}
 
-    protected override void Move()
+    protected override void Move(bool isFixed)
     {
 
     }

@@ -55,6 +55,10 @@ public class InputManager {
         return Input.GetButtonDown(buttonJump);
         //return jumpButton;
     }
+    public bool GetButtonJump()
+    {
+        return Input.GetButton(buttonJump);
+    }
 
     public bool GetButtonDownSpellCast1()
     {

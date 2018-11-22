@@ -10,7 +10,7 @@ public class FireFireSpell : Spell {
 
 	}
 
-    protected override void Move()
+    protected override void Move(bool isFixed)
     {
 
     }
