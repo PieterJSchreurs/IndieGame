@@ -5,11 +5,20 @@ using UnityEngine;
 
 public class Player : MovingObject {
 
-    private InputManager myInputManager = new InputManager();
-    private int healthRemaining;
-    private int livesRemaining;
-    private SpellDatabase.Element firstElement = SpellDatabase.Element.Fire;
-    private SpellDatabase.Element secondElement = SpellDatabase.Element.Water;
+    private InputManager _myInputManager = new InputManager();
+    private int _healthRemaining;
+    private int _livesRemaining;
+    private SpellDatabase.Element _firstElement;
+    private SpellDatabase.Element _secondElement;
+
+    private float _lastAimXAxis = 0;
+    private float _lastAimYAxis = 0;
+
+    private Transform _myMagicCircleLeft;
+    private Transform _myMagicCircleRight;
+    private Transform _myCirclePointer;
+    private bool _changingElement1 = false;
+    private bool _changingElement2 = false;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
@@ -23,7 +32,13 @@ public class Player : MovingObject {
     protected override void Start()
     {
         base.Start();
-        myInputManager = new InputManager();
+        _myInputManager = new InputManager();
+        _myMagicCircleLeft = transform.Find("UI Elements").Find("MagicCircleLeft");
+        _myMagicCircleLeft.gameObject.SetActive(false);
+        _myMagicCircleRight = transform.Find("UI Elements").Find("MagicCircleRight");
+        _myMagicCircleRight.gameObject.SetActive(false);
+        _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
+        _myCirclePointer.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,39 +50,78 @@ public class Player : MovingObject {
     void Update()
     {
         Move(false);
+        if (_changingElement1 || _changingElement2)
+        {
+            changeElement();
+        }
+        _lastAimXAxis = _myInputManager.GetAxisLookHorizontal();
+        _lastAimYAxis = _myInputManager.GetAxisLookVertical();
+        Debug.Log(_firstElement + " - " + _secondElement);
     }
 
     protected override void Move(bool isFixed)
     {
-        if (!isFixed)               
+        if (!isFixed)
         {
-            if (myInputManager.GetButtonDownJump())
+            if (_myInputManager.GetButtonDownJump())
             {
                 jump();
             }
-            if (myInputManager.GetButtonDownSpellCast1())
+            if (_myInputManager.GetButtonDownSpellCast1())
             {
-                launchSpell(firstElement, secondElement);
+                launchSpell(_firstElement, _secondElement);
             }
-            if (myInputManager.GetButtonDownSpellCast2())
+            if (_myInputManager.GetButtonDownSpellCast2())
             {
-                launchSpell(secondElement, firstElement);
+                launchSpell(_secondElement, _firstElement);
+            }
+            if (_myInputManager.GetButtonDownElementChange1() && !_changingElement2)
+            {
+                _changingElement1 = true;
+                _myMagicCircleLeft.gameObject.SetActive(true);
+                _myCirclePointer.gameObject.SetActive(true);
+            }
+            else if (_myInputManager.GetButtonDownElementChange2() && !_changingElement1)
+            {
+                _changingElement2 = true;
+                _myMagicCircleRight.gameObject.SetActive(true);
+                _myCirclePointer.gameObject.SetActive(true);
+            }
+            if (_myInputManager.GetButtonUpElementChange1() && !_changingElement2)
+            {
+                if (changeElement() != SpellDatabase.Element.Null)
+                {
+                    _firstElement = changeElement();
+                }
+                _changingElement1 = false;
+                _myMagicCircleLeft.gameObject.SetActive(false);
+                _myCirclePointer.gameObject.SetActive(false);
+            }
+            else if (_myInputManager.GetButtonUpElementChange2() && !_changingElement1)
+            {
+                if (changeElement() != SpellDatabase.Element.Null)
+                {
+                    _secondElement = changeElement();
+                }
+                _changingElement2 = false;
+                _myMagicCircleRight.gameObject.SetActive(false);
+                _myCirclePointer.gameObject.SetActive(false);
             }
         }
         else
         {
             _grounded = isGrounded();
 
-            if (myInputManager.GetAxisMoveHorizontal() != 0)
+            if (_myInputManager.GetAxisMoveHorizontal() != 0)
             {
-                _rb.velocity = new Vector2(myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
+                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
                 //Move horizontally.
             }
-            if (myInputManager.GetAxisMoveVertical() != 0)
+            if (_myInputManager.GetAxisMoveVertical() != 0)
             {
                 //Move vertically. (idk when that would be, ladders or something? Just a placeholder.)
             }
-            if (myInputManager.GetButtonJump() && _rb.velocity.y > 0)
+            if (_myInputManager.GetButtonJump() && _rb.velocity.y > 0)
             {
                 jumpContinuous();
             }
@@ -76,7 +130,7 @@ public class Player : MovingObject {
 
     protected override void HandleCollision()
     {
-       
+
     }
 
     private void jump()
@@ -118,8 +172,8 @@ public class Player : MovingObject {
     {
         Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
 
-        float xAxis = myInputManager.GetAxisLookHorizontal();
-        float yAxis = myInputManager.GetAxisLookVertical();
+        float xAxis = _myInputManager.GetAxisLookHorizontal();
+        float yAxis = _myInputManager.GetAxisLookVertical();
         float Offset = 2f;
 
         //If there's no input, should do forward.
@@ -151,9 +205,82 @@ public class Player : MovingObject {
         return launchedspell;
     }
 
-    private void changeElement()
+    private SpellDatabase.Element changeElement()
     {
+        //Aim arrow using right stick
+        //After aiming at an element for ... seconds, change the element (first or second based on element aimed at).
+        //Disable magic circle
 
+        float xAxis = _myInputManager.GetAxisLookHorizontal();
+        float yAxis = _myInputManager.GetAxisLookVertical();
+
+        //If there's no input, should do forward.
+        if (xAxis == 0 && yAxis == 0)
+        {
+            yAxis = 1;
+            _myCirclePointer.gameObject.SetActive(false);
+        } else
+        {
+            _myCirclePointer.gameObject.SetActive(true);
+        }
+
+        //Determine where the player looks at.
+        //Give the pointer a rotation from where he looks at.
+        Vector2 vec2 = new Vector2(0, 1);
+        Vector2 vec0 = new Vector2(xAxis, yAxis);
+
+        if (xAxis > 0)
+        {
+            vec2 = new Vector2(0, -1);
+            float Degrees = Vector2.Angle(vec2, vec0);
+            _myCirclePointer.transform.eulerAngles = new Vector3(_myCirclePointer.transform.eulerAngles.x, _myCirclePointer.transform.eulerAngles.y, Degrees - 90);
+        }
+        else
+        {
+            float Degrees = Vector2.Angle(vec2, vec0);
+            _myCirclePointer.transform.eulerAngles = new Vector3(_myCirclePointer.transform.eulerAngles.x, _myCirclePointer.transform.eulerAngles.y, Degrees + 90);
+        }
+
+        float angle = _myCirclePointer.transform.eulerAngles.z;
+        SpellDatabase.Element newElement = SpellDatabase.Element.Null;
+        if (_changingElement1)
+        {
+            //Left
+            if (angle <= 245f && angle >= 202.5f)
+            {
+                newElement = SpellDatabase.Element.Earth;
+                //Debug.Log("Earth - Left");
+            }
+            else if (angle <= 202.5f && angle >= 157.5f)
+            {
+                newElement = SpellDatabase.Element.Water;
+                //Debug.Log("Water - Left");
+            }
+            else if (angle <= 157.5f && angle >= 115f)
+            {
+                newElement = SpellDatabase.Element.Fire;
+                //Debug.Log("Fire - Left");
+            }
+        } else if (_changingElement2) {
+            //Right
+            if (angle <= 337.5f && angle >= 295f)
+            {
+                newElement = SpellDatabase.Element.Earth;
+                //Debug.Log("Earth - Right");
+            }
+            else if ((angle <= 360f && angle >= 337.5f) || (angle <= 22.5f && angle >= 0))
+            {
+                newElement = SpellDatabase.Element.Water;
+                //Debug.Log("Water - Right");
+            }
+            else if (angle <= 65f && angle >= 22.5f)
+            {
+                newElement = SpellDatabase.Element.Fire;
+                //Debug.Log("Fire - Right");
+            }
+        }
+
+        return newElement;
     }
 
     private void handleLives()
@@ -163,7 +290,7 @@ public class Player : MovingObject {
 
     private void respawn()
     {
-        Debug.Log("Respawn player");
+
     }
 
     public void HandleSpellHit(Spell hit)

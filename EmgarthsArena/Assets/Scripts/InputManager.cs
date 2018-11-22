@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputManager {
 
-    private const bool keyboardControls = true;
+    private const bool keyboardControls = false;
 
     private string axisMoveHorizontal = "KeyboardMoveHorizontal";
     private string axisMoveVertical = "KeyboardMoveVertical";
@@ -17,7 +17,10 @@ public class InputManager {
     private string buttonSpellCast1 = "JoyStickLeftBumper";
     private string buttonSpellCast2 = "JoyStickRightBumper";
 
-    public InputManager(string jumpButton)
+    private string buttonElementChange1 = "JoyStickLeftTrigger";
+    private string buttonElementChange2 = "JoyStickRightTrigger";
+
+    public InputManager()
     {
         if (!keyboardControls)
         {
@@ -28,7 +31,7 @@ public class InputManager {
             axisMoveVertical = "LeftJoyStickVertical";
             axisLookHorizontal = "RightJoyStickHorizontal";
             axisLookVertical = "RightJoyStickVertical";
-            buttonJump = jumpButton;
+            buttonJump = "XButton";
         }
     }
 
@@ -63,11 +66,26 @@ public class InputManager {
     public bool GetButtonDownSpellCast1()
     {
         return Input.GetButtonDown(buttonSpellCast1);
-        //return spellCastButton1;
     }
     public bool GetButtonDownSpellCast2()
     {
         return Input.GetButtonDown(buttonSpellCast2);
-        //return spellCastButton2;
+    }
+
+    public bool GetButtonDownElementChange1()
+    {
+        return Input.GetButtonDown(buttonElementChange1);
+    }
+    public bool GetButtonDownElementChange2()
+    {
+        return Input.GetButtonDown(buttonElementChange2);
+    }
+    public bool GetButtonUpElementChange1()
+    {
+        return Input.GetButtonUp(buttonElementChange1);
+    }
+    public bool GetButtonUpElementChange2()
+    {
+        return Input.GetButtonUp(buttonElementChange2);
     }
 }
