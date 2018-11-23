@@ -23,6 +23,16 @@ public static class Glob
     public const float jumpHeightContinuous = 6700f;
     public const float jumpDoubleHeight = 725f;
     public const float jumpTimeContinuous = 0.8f;
+    public const float spellOffset = 2f;
+    public static int amountOfPlayers = 2;
+
+    public static Vector3[] spawningPoints = new Vector3[] { new Vector3(-5, 4.5f, 0), new Vector3(5, 4.5f, 0) };
+
+
+    public static Player GetPlayerPrefab()
+    {
+        return Resources.Load<Player>("Player");
+    }
 
     public const string PlayerPrefab = "Player/Player";
     public static Player GetPlayerPrefab()
@@ -81,11 +91,56 @@ public static class Glob
         return Resources.Load<GameObject>(ExplosionPrefab);
     }
 
-    public static Dictionary<int, Dictionary<int, string>> inputControllers = new Dictionary<int, Dictionary<int, string>>()
-    {
+    public static Dictionary<int, Dictionary<Keytype, string>> inputControllers = new Dictionary<int, Dictionary<Keytype, string>>();
 
-        //{  inputControllers.Add(0, new Dictionary<int, string>());
-    };
+    public static void FillInputDictionary()
+    {
+        inputControllers.Add(0, new Dictionary<Keytype, string>());
+        inputControllers.Add(1, new Dictionary<Keytype, string>());
+        inputControllers.Add(2, new Dictionary<Keytype, string>());
+        inputControllers.Add(3, new Dictionary<Keytype, string>());
+
+        inputControllers[0].Add(Keytype.JumpButton, "XButton");
+        inputControllers[0].Add(Keytype.LeftJoystickHorizontal, "LeftJoyStickHorizontal");
+        inputControllers[0].Add(Keytype.LeftJoystickVertical, "LeftJoyStickVertical");
+        inputControllers[0].Add(Keytype.RightJoystickHorizontal, "RightJoyStickHorizontal");
+        inputControllers[0].Add(Keytype.RightJoystickVertical, "RightJoyStickVertical");
+        inputControllers[0].Add(Keytype.FireButtonLeft, "JoyStickLeftTrigger");
+        inputControllers[0].Add(Keytype.FireButtonRight, "JoyStickRightTrigger");
+        inputControllers[0].Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper");
+        inputControllers[0].Add(Keytype.SwitchButtonRight, "JoyStickRightBumper");
+
+        inputControllers[1].Add(Keytype.JumpButton, "XButton2");
+        inputControllers[1].Add(Keytype.LeftJoystickHorizontal, "LeftJoyStickHorizontal2");
+        inputControllers[1].Add(Keytype.LeftJoystickVertical, "LeftJoyStickVertical2");
+        inputControllers[1].Add(Keytype.RightJoystickHorizontal, "RightJoyStickHorizontal2");
+        inputControllers[1].Add(Keytype.RightJoystickVertical, "RightJoyStickVertical2");
+        inputControllers[1].Add(Keytype.FireButtonLeft, "JoyStickLeftTrigger2");
+        inputControllers[1].Add(Keytype.FireButtonRight, "JoyStickRightTrigger2");
+        inputControllers[1].Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper2");
+        inputControllers[1].Add(Keytype.SwitchButtonRight, "JoyStickRightBumper2");
+
+        
+    }
+
+    public static Dictionary<int, Dictionary<Keytype, string>> GetInputDictionary()
+    {
+        return inputControllers;
+    }
+
+
+    public enum Keytype
+    {
+        JumpButton,
+        LeftJoystickHorizontal,
+        LeftJoystickVertical,
+        RightJoystickHorizontal,
+        RightJoystickVertical,
+        FireButtonLeft,
+        FireButtonRight,
+        SwitchButtonLeft,
+        SwitchButtonRight
+    }
 
     public const float FireFireSpeed = 10f;
     public const float FireWaterSpeed = 15f;

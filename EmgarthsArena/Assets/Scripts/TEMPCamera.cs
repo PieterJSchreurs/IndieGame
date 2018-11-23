@@ -13,7 +13,8 @@ public class TEMPCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float YDist = _target.position.y - transform.position.y + Glob.camYOffset;
-        transform.position = new Vector3(transform.position.x, transform.position.y + (YDist*Glob.camSpeed), transform.position.z);
+
+        //float YDist = _target.position.y - transform.position.y + Glob.camYOffset;
+        //transform.position = new Vector3(transform.position.x, transform.position.y + (YDist*Glob.camSpeed), transform.position.z);
 	}
 }

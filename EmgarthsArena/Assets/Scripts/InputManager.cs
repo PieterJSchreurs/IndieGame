@@ -6,86 +6,88 @@ public class InputManager {
 
     private const bool keyboardControls = false;
 
-    private string axisMoveHorizontal = "KeyboardMoveHorizontal";
-    private string axisMoveVertical = "KeyboardMoveVertical";
+    //private string axisMoveHorizontal = "KeyboardMoveHorizontal";
+    //private string axisMoveVertical = "KeyboardMoveVertical";
 
-    private string axisLookHorizontal = "MouseX";
-    private string axisLookVertical = "MouseY";
+    //private string axisLookHorizontal = "MouseX";
+    //private string axisLookVertical = "MouseY";
 
-    private string buttonJump = "XButton";
+    //private string buttonJump = "XButton";
 
-    private string buttonSpellCast1 = "JoyStickLeftBumper";
-    private string buttonSpellCast2 = "JoyStickRightBumper";
+    //private string buttonSpellCast1 = "JoyStickLeftBumper";
+    //private string buttonSpellCast2 = "JoyStickRightBumper";
 
-    private string buttonElementChange1 = "JoyStickLeftTrigger";
-    private string buttonElementChange2 = "JoyStickRightTrigger";
+    //private string buttonElementChange1 = "JoyStickLeftTrigger";
+    //private string buttonElementChange2 = "JoyStickRightTrigger";
+
+    Dictionary<int, Dictionary<Glob.Keytype, string>> inputDictionary = Glob.GetInputDictionary();
+
 
     public InputManager()
     {
         if (!keyboardControls)
         {
             //Initialize all the button layouts here.
-            buttonSpellCast1 = "JoyStickLeftBumper";
-            buttonSpellCast2 = "JoyStickRightBumper";
-            axisMoveHorizontal = "LeftJoyStickHorizontal";
-            axisMoveVertical = "LeftJoyStickVertical";
-            axisLookHorizontal = "RightJoyStickHorizontal";
-            axisLookVertical = "RightJoyStickVertical";
-            buttonJump = "XButton";
+            //buttonSpellCast1 = "JoyStickLeftBumper";
+            //buttonSpellCast2 = "JoyStickRightBumper";
+            //axisMoveHorizontal = "LeftJoyStickHorizontal";
+            //axisMoveVertical = "LeftJoyStickVertical";
+            //axisLookHorizontal = "RightJoyStickHorizontal";
+            //axisLookVertical = "RightJoyStickVertical";
+            //buttonJump = "XButton";
         }
     }
 
-    public float GetAxisMoveHorizontal()
+    public float GetAxisMoveHorizontal(int pPlayerNumber)
     {
-        return Input.GetAxis(axisMoveHorizontal);
+        return Input.GetAxis(inputDictionary[pPlayerNumber][Glob.Keytype.LeftJoystickHorizontal]);
     }
-    public float GetAxisMoveVertical()
+    public float GetAxisMoveVertical(int pPlayerNumber)
     {
-        return Input.GetAxis(axisMoveVertical);
-    }
-
-    public float GetAxisLookHorizontal()
-    {
-        return Input.GetAxis(axisLookHorizontal);
-    }
-    public float GetAxisLookVertical()
-    {
-        return Input.GetAxis(axisLookVertical);
+        return Input.GetAxis(inputDictionary[pPlayerNumber][Glob.Keytype.LeftJoystickVertical]);
     }
 
-    public bool GetButtonDownJump()
+    public float GetAxisLookHorizontal(int pPlayerNumber)
     {
-        return Input.GetButtonDown(buttonJump);
-        //return jumpButton;
+        return Input.GetAxis(inputDictionary[pPlayerNumber][Glob.Keytype.RightJoystickHorizontal]);
     }
-    public bool GetButtonJump()
+    public float GetAxisLookVertical(int pPlayerNumber)
     {
-        return Input.GetButton(buttonJump);
-    }
-
-    public bool GetButtonDownSpellCast1()
-    {
-        return Input.GetButtonDown(buttonSpellCast1);
-    }
-    public bool GetButtonDownSpellCast2()
-    {
-        return Input.GetButtonDown(buttonSpellCast2);
+        return Input.GetAxis(inputDictionary[pPlayerNumber][Glob.Keytype.RightJoystickVertical]);
     }
 
-    public bool GetButtonDownElementChange1()
+    public bool GetButtonDownJump(int pPlayerNumber)
     {
-        return Input.GetButtonDown(buttonElementChange1);
+        return Input.GetButtonDown(inputDictionary[pPlayerNumber][Glob.Keytype.JumpButton]);
     }
-    public bool GetButtonDownElementChange2()
+    public bool GetButtonJump(int pPlayerNumber)
     {
-        return Input.GetButtonDown(buttonElementChange2);
+        return Input.GetButton(inputDictionary[pPlayerNumber][Glob.Keytype.JumpButton]);
     }
-    public bool GetButtonUpElementChange1()
+
+    public bool GetButtonDownSpellCast1(int pPlayerNumber)
     {
-        return Input.GetButtonUp(buttonElementChange1);
+        return Input.GetButtonDown(inputDictionary[pPlayerNumber][Glob.Keytype.FireButtonLeft]);
     }
-    public bool GetButtonUpElementChange2()
+    public bool GetButtonDownSpellCast2(int pPlayerNumber)
     {
-        return Input.GetButtonUp(buttonElementChange2);
+        return Input.GetButtonDown(inputDictionary[pPlayerNumber][Glob.Keytype.FireButtonRight]);
+    }
+
+    public bool GetButtonDownElementChange1(int pPlayerNumber)
+    {
+        return Input.GetButtonDown(inputDictionary[pPlayerNumber][Glob.Keytype.SwitchButtonLeft]);
+    }
+    public bool GetButtonDownElementChange2(int pPlayerNumber)
+    {
+        return Input.GetButtonDown(inputDictionary[pPlayerNumber][Glob.Keytype.SwitchButtonRight]);
+    }
+    public bool GetButtonUpElementChange1(int pPlayerNumber)
+    {
+        return Input.GetButtonUp(inputDictionary[pPlayerNumber][Glob.Keytype.SwitchButtonLeft]);
+    }
+    public bool GetButtonUpElementChange2(int pPlayerNumber)
+    {
+        return Input.GetButtonUp(inputDictionary[pPlayerNumber][Glob.Keytype.SwitchButtonRight]);
     }
 }
