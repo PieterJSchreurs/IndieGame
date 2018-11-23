@@ -85,51 +85,46 @@ public static class Glob
         return Resources.Load<GameObject>(ExplosionPrefab);
     }
 
-    public static Dictionary<int, Dictionary<Keytype, string>> inputControllers = new Dictionary<int, Dictionary<Keytype, string>>();
+    public static Dictionary<Keytype, string>[] InputDictionaries = new Dictionary<Keytype, string>[amountOfPlayers];
+    public static Dictionary<Keytype, string> inputControllersP1 = new  Dictionary<Keytype, string>();
+    public static Dictionary<Keytype, string> inputControllersP2 = new Dictionary<Keytype, string>();
 
     public static void FillInputDictionary()
     {
-        inputControllers.Add(0, new Dictionary<Keytype, string>());
-        inputControllers.Add(1, new Dictionary<Keytype, string>());
-        inputControllers.Add(2, new Dictionary<Keytype, string>());
-        inputControllers.Add(3, new Dictionary<Keytype, string>());
+        inputControllersP1.Add(Keytype.JumpButton, "XButton");
+        inputControllersP1.Add(Keytype.LeftJoystickHorizontal, "LeftJoyStickHorizontal");
+        inputControllersP1.Add(Keytype.LeftJoystickVertical, "LeftJoyStickVertical");
+        inputControllersP1.Add(Keytype.RightJoystickHorizontal, "RightJoyStickHorizontal");
+        inputControllersP1.Add(Keytype.RightJoystickVertical, "RightJoyStickVertical");
+        inputControllersP1.Add(Keytype.FireButtonLeft, "JoyStickLeftTrigger");
+        inputControllersP1.Add(Keytype.FireButtonRight, "JoyStickRightTrigger");
+        inputControllersP1.Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper");
+        inputControllersP1.Add(Keytype.SwitchButtonRight, "JoyStickRightBumper");
 
-        inputControllers[0].Add(Keytype.JumpButton, "XButton");
-        inputControllers[0].Add(Keytype.LeftJoystickHorizontal, "LeftJoyStickHorizontal");
-        inputControllers[0].Add(Keytype.LeftJoystickVertical, "LeftJoyStickVertical");
-        inputControllers[0].Add(Keytype.RightJoystickHorizontal, "RightJoyStickHorizontal");
-        inputControllers[0].Add(Keytype.RightJoystickVertical, "RightJoyStickVertical");
-        inputControllers[0].Add(Keytype.FireButtonLeft, "JoyStickLeftTrigger");
-        inputControllers[0].Add(Keytype.FireButtonRight, "JoyStickRightTrigger");
-        inputControllers[0].Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper");
-        inputControllers[0].Add(Keytype.SwitchButtonRight, "JoyStickRightBumper");
-
-        inputControllers[1].Add(Keytype.JumpButton, "XButton2");
-        inputControllers[1].Add(Keytype.LeftJoystickHorizontal, "LeftJoyStickHorizontal2");
-        inputControllers[1].Add(Keytype.LeftJoystickVertical, "LeftJoyStickVertical2");
-        inputControllers[1].Add(Keytype.RightJoystickHorizontal, "RightJoyStickHorizontal2");
-        inputControllers[1].Add(Keytype.RightJoystickVertical, "RightJoyStickVertical2");
-        inputControllers[1].Add(Keytype.FireButtonLeft, "JoyStickLeftTrigger2");
-        inputControllers[1].Add(Keytype.FireButtonRight, "JoyStickRightTrigger2");
-        inputControllers[1].Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper2");
-        inputControllers[1].Add(Keytype.SwitchButtonRight, "JoyStickRightBumper2");
-
-        inputControllers[2].Add(Keytype.JumpButton, "XButton3");
-        inputControllers[2].Add(Keytype.LeftJoystickHorizontal, "LeftJoyStickHorizontal3");
-        inputControllers[2].Add(Keytype.LeftJoystickVertical, "LeftJoyStickVertical3");
-        inputControllers[2].Add(Keytype.RightJoystickHorizontal, "RightJoyStickHorizontal3");
-        inputControllers[2].Add(Keytype.RightJoystickVertical, "RightJoyStickVertical3");
-        inputControllers[2].Add(Keytype.FireButtonLeft, "JoyStickLeftTrigger3");
-        inputControllers[2].Add(Keytype.FireButtonRight, "JoyStickRightTrigger3");
-        inputControllers[2].Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper3");
-        inputControllers[2].Add(Keytype.SwitchButtonRight, "JoyStickRightBumper3");
-
-
+        inputControllersP2.Add(Keytype.JumpButton, "XButton2");
+        inputControllersP2.Add(Keytype.LeftJoystickHorizontal, "LeftJoyStickHorizontal2");
+        inputControllersP2.Add(Keytype.LeftJoystickVertical, "LeftJoyStickVertical2");
+        inputControllersP2.Add(Keytype.RightJoystickHorizontal, "RightJoyStickHorizontal2");
+        inputControllersP2.Add(Keytype.RightJoystickVertical, "RightJoyStickVertical2");
+        inputControllersP2.Add(Keytype.FireButtonLeft, "JoyStickLeftTrigger2");
+        inputControllersP2.Add(Keytype.FireButtonRight, "JoyStickRightTrigger2");
+        inputControllersP2.Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper2");
+        inputControllersP2.Add(Keytype.SwitchButtonRight, "JoyStickRightBumper2");
     }
 
-    public static Dictionary<int, Dictionary<Keytype, string>> GetInputDictionary()
+    public static Dictionary<Keytype, string> GetInputDictionary(int pPlayerNumber)
     {
-        return inputControllers;
+        switch(pPlayerNumber)
+        {
+            case 0:
+                return inputControllersP1;
+                break;
+            case 1:
+                return inputControllersP2;
+                break;
+        }
+        Debug.Log("Something went wrong");
+        return inputControllersP1;
     }
 
 

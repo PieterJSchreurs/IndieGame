@@ -4,7 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public abstract class MovingObject : MonoBehaviour {
+public abstract class MovingObject : MonoBehaviour
+{
     protected Rigidbody2D _rb;
     protected Collider2D _coll;
 
@@ -25,8 +26,11 @@ public abstract class MovingObject : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(this.gameObject + " collided with " + col.gameObject.name);
-        HandleCollision();
+        if (!col.isTrigger)
+        {
+            Debug.Log(this.gameObject + " collided with " + col.gameObject.name);
+            HandleCollision();
+        }
     }
 
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MovingObject {
 
-    private InputManager _myInputManager = new InputManager();
+    private InputManager _myInputManager;
     private int _healthRemaining;
     private int _livesRemaining;
     private SpellDatabase.Element _firstElement;
@@ -41,7 +41,7 @@ public class Player : MovingObject {
     protected override void Start()
     {
         base.Start();
-        _myInputManager = new InputManager();
+        _myInputManager = new InputManager(ID);
         _myMagicCircleLeft = transform.Find("UI Elements").Find("MagicCircleLeft");
         _myMagicCircleLeft.gameObject.SetActive(false);
         _myMagicCircleRight = transform.Find("UI Elements").Find("MagicCircleRight");
@@ -64,8 +64,8 @@ public class Player : MovingObject {
         {
             changeElement();
         }
-        _lastAimXAxis = _myInputManager.GetAxisLookHorizontal(ID);
-        _lastAimYAxis = _myInputManager.GetAxisLookVertical(ID);
+        _lastAimXAxis = _myInputManager.GetAxisLookHorizontal();
+        _lastAimYAxis = _myInputManager.GetAxisLookVertical();
        // Debug.Log(_firstElement + " - " + _secondElement);
     }
 
@@ -73,31 +73,31 @@ public class Player : MovingObject {
     {
         if (!isFixed)
         {
-            if (_myInputManager.GetButtonDownJump(ID))
+            if (_myInputManager.GetButtonDownJump())
             {
                 jump();
             }
-            if (_myInputManager.GetButtonDownSpellCast1(ID))
+            if (_myInputManager.GetButtonDownSpellCast1())
             {
                 launchSpell(_firstElement, _secondElement);
             }
-            if (_myInputManager.GetButtonDownSpellCast2(ID))
+            if (_myInputManager.GetButtonDownSpellCast2())
             {
                 launchSpell(_secondElement, _firstElement);
             }
-            if (_myInputManager.GetButtonDownElementChange1(ID) && !_changingElement2)
+            if (_myInputManager.GetButtonDownElementChange1() && !_changingElement2)
             {
                 _changingElement1 = true;
                 _myMagicCircleLeft.gameObject.SetActive(true);
                 _myCirclePointer.gameObject.SetActive(true);
             }
-            else if (_myInputManager.GetButtonDownElementChange2(ID) && !_changingElement1)
+            else if (_myInputManager.GetButtonDownElementChange2() && !_changingElement1)
             {
                 _changingElement2 = true;
                 _myMagicCircleRight.gameObject.SetActive(true);
                 _myCirclePointer.gameObject.SetActive(true);
             }
-            if (_myInputManager.GetButtonUpElementChange1(ID) && !_changingElement2)
+            if (_myInputManager.GetButtonUpElementChange1() && !_changingElement2)
             {
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
@@ -108,7 +108,7 @@ public class Player : MovingObject {
                 _myMagicCircleLeft.gameObject.SetActive(false);
                 _myCirclePointer.gameObject.SetActive(false);
             }
-            else if (_myInputManager.GetButtonUpElementChange2(ID) && !_changingElement1)
+            else if (_myInputManager.GetButtonUpElementChange2() && !_changingElement1)
             {
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
@@ -123,18 +123,20 @@ public class Player : MovingObject {
         else
         {
             _grounded = isGrounded();
-            if (_myInputManager.GetAxisMoveHorizontal(ID) != 0)
+            if (_myInputManager.GetAxisMoveHorizontal() != 0)
             {
                
-                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal(ID) * Glob.playerSpeed, _rb.velocity.y);
+                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
                 //Move horizontally.
             }
-            if (_myInputManager.GetAxisMoveVertical(ID) != 0)
+            if (_myInputManager.GetAxisMoveVertical() != 0)
             {
                 //Move vertically. (idk when that would be, ladders or something? Just a placeholder.)
             }
-            if (_myInputManager.GetButtonJump(ID) && _rb.velocity.y > 0)
+            if (_myInputManager.GetButtonJump() && _rb.velocity.y > 0)
             {
+                Debug.Log("Jumping for " + _myInputManager.GetButtonJump());
+                Debug.Log(_myInputManager.Test123());
                 jumpContinuous();
             }
         }
@@ -184,12 +186,9 @@ public class Player : MovingObject {
     {
         Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
 
-        float xAxis = _myInputManager.GetAxisLookHorizontal(ID);
-        float yAxis = _myInputManager.GetAxisLookVertical(ID);
+        float xAxis = _myInputManager.GetAxisLookHorizontal();
+        float yAxis = _myInputManager.GetAxisLookVertical();
         float Offset = Glob.spellOffset;
-
-        Vector2 vec2 = new Vector2(0, 1);
-        Vector2 vec0 = new Vector2(xAxis, yAxis);
 
         //If there's no input, should do forward.
         if (xAxis == 0 && yAxis == 0)
@@ -197,11 +196,10 @@ public class Player : MovingObject {
             xAxis = 1;
         }
 
-
-        Debug.Log("xAxis = " + xAxis + " yAxis = " + yAxis);
+        Vector2 vec2 = new Vector2(0, 1);
+        Vector2 vec0 = new Vector2(xAxis, yAxis);
         vec0.Normalize();
-        Debug.Log("Vec X =  " + vec0.x + " vec Y = " + vec0.y);
-
+        
         Vector3 position = this.transform.position + new Vector3(vec0.x * Offset, vec0.y * Offset, 0);
         Spell launchedspelltest = Instantiate(launchedspell, position, new Quaternion());
 
@@ -227,8 +225,8 @@ public class Player : MovingObject {
         //After aiming at an element for ... seconds, change the element (first or second based on element aimed at).
         //Disable magic circle
 
-        float xAxis = _myInputManager.GetAxisLookHorizontal(ID);
-        float yAxis = _myInputManager.GetAxisLookVertical(ID);
+        float xAxis = _myInputManager.GetAxisLookHorizontal();
+        float yAxis = _myInputManager.GetAxisLookVertical();
 
         //If there's no input, should do forward.
         if (xAxis == 0 && yAxis == 0)
