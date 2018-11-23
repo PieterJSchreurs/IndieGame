@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MovingObject {
 
-    private InputManager _myInputManager = new InputManager();
+    private InputManager _myInputManager;
     private int _healthRemaining;
     private int _livesRemaining;
     private SpellDatabase.Element _firstElement;

@@ -60,7 +60,7 @@ public static class Glob
     public const string WaterEarthPrefab = "Spells/WaterEarth";
     public const string EarthFirePrefab = "Spells/EarthFire";
     public const string EarthWaterPrefab = "Spells/EarthWater";
-    public const string EarthEarthPrefab = "Spells/EarthEarthPrefab";
+    public const string EarthEarthPrefab = "Spells/EarthEarth";
     public const int SpellCount = 9;
 
     public static Spell[] GetSpellPrefab()
@@ -89,10 +89,21 @@ public static class Glob
 
     public static void FillInputDictionary()
     {
+        inputControllers.Add(-1, new Dictionary<Keytype, string>());
         inputControllers.Add(0, new Dictionary<Keytype, string>());
         inputControllers.Add(1, new Dictionary<Keytype, string>());
         inputControllers.Add(2, new Dictionary<Keytype, string>());
         inputControllers.Add(3, new Dictionary<Keytype, string>());
+
+        inputControllers[-1].Add(Keytype.JumpButton, "XButton");
+        inputControllers[-1].Add(Keytype.LeftJoystickHorizontal, "KeyboardMoveHorizontal");
+        inputControllers[-1].Add(Keytype.LeftJoystickVertical, "KeyboardMoveVertical");
+        inputControllers[-1].Add(Keytype.RightJoystickHorizontal, "RightJoyStickHorizontal");
+        inputControllers[-1].Add(Keytype.RightJoystickVertical, "RightJoyStickVertical");
+        inputControllers[-1].Add(Keytype.FireButtonLeft, "JoyStickLeftTrigger");
+        inputControllers[-1].Add(Keytype.FireButtonRight, "JoyStickRightTrigger");
+        inputControllers[-1].Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper");
+        inputControllers[-1].Add(Keytype.SwitchButtonRight, "JoyStickRightBumper");
 
         inputControllers[0].Add(Keytype.JumpButton, "XButton");
         inputControllers[0].Add(Keytype.LeftJoystickHorizontal, "LeftJoyStickHorizontal");

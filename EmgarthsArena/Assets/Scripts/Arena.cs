@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Arena : MonoBehaviour {
 
+    private Camera _myCamera;
+    private Transform[] _cameraTargets;
+
     private struct playerInfoBanner
     {
         public GameObject banner;
@@ -19,8 +22,8 @@ public class Arena : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //The respawnPoints array is populated through the inspector of the prefab.
-        //Spawn player info banners for every player here. (amount can be passed from the scenemanager.)
+        _myCamera = GetComponentInChildren<Camera>();
+
         characterInfoParent = GameObject.FindGameObjectWithTag("CharacterInfo");
         playerBanners = new playerInfoBanner[Glob.GetPlayerCount()];
         for (int i = 0; i < playerBanners.Length; i++)
@@ -35,8 +38,9 @@ public class Arena : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        handleCamera();
+        handleBoundaries();
+    }
 
     public Vector3[] GetAllRespawnPoints()
     {
@@ -91,9 +95,69 @@ public class Arena : MonoBehaviour {
         }
     }
 
+    public void SetCameraTargets(Player[] players)
+    {
+        _cameraTargets = new Transform[players.Length];
+        for (int i = 0; i < players.Length; i++)
+        {
+            _cameraTargets[i] = players[i].transform;
+        }
+    }
+
     private void handleCamera()
     {
+        if (_cameraTargets == null)
+        {
+            return;
+        }
 
+        float minimumX = 100000;
+        float maximumX = -100000;
+        float minimumY = 100000;
+        float maximumY = -100000;
+        float largestDiff = 0;
+        for (int i = 0; i < _cameraTargets.Length; i++)
+        {
+            if (_cameraTargets[i].position.x < minimumX)
+            {
+                minimumX = _cameraTargets[i].position.x;
+                if (maximumX - minimumX > largestDiff)
+                {
+                    largestDiff = maximumX - minimumX;
+                }
+            }
+            if (_cameraTargets[i].position.x > maximumX)
+            {
+                maximumX = _cameraTargets[i].position.x;
+                if (maximumX - minimumX > largestDiff)
+                {
+                    largestDiff = maximumX - minimumX;
+                }
+            }
+
+            if (_cameraTargets[i].position.y < minimumY)
+            {
+                minimumY = _cameraTargets[i].position.y;
+                if (maximumY - minimumY > largestDiff)
+                {
+                    largestDiff = maximumY - minimumY;
+                }
+            }
+            if (_cameraTargets[i].position.y > maximumY)
+            {
+                maximumY = _cameraTargets[i].position.y;
+                if (maximumY - minimumY > largestDiff)
+                {
+                    largestDiff = maximumY - minimumY;
+                }
+            }
+        }
+
+        float XPos = minimumX + ((maximumX - minimumX) / 2);
+        float YPos = minimumY + ((maximumY - minimumY) / 2);
+        Vector3 targetPos = new Vector3(XPos, YPos + Glob.camYOffset, 0);
+        Vector3 targetDiff = targetPos - _myCamera.transform.position;
+        _myCamera.transform.position = new Vector3(_myCamera.transform.position.x + (targetDiff.x * Glob.camSpeed), _myCamera.transform.position.y + (targetDiff.y * Glob.camSpeed), -10 - (largestDiff / 2));
     }
 
     private void handleBoundaries()
