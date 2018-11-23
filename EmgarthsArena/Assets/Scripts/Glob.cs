@@ -4,6 +4,16 @@ using UnityEngine;
 
 public static class Glob
 {
+    private static int playerCount = -1;
+    public static int GetPlayerCount()
+    {
+        if (playerCount == -1)
+        {
+            playerCount = Input.GetJoystickNames().Length+1;
+        }
+        return playerCount;
+    }
+
     public const float camYOffset = 3.25f;
     public const float camSpeed = 0.25f;
     public const int maxLives = 5;
@@ -14,6 +24,29 @@ public static class Glob
     public const float jumpDoubleHeight = 725f;
     public const float jumpTimeContinuous = 0.8f;
 
+    public const string PlayerPrefab = "Player/Player";
+    public static Player GetPlayerPrefab()
+    {
+        return Resources.Load<Player>(PlayerPrefab);
+    }
+    public const string PlayerBannerPrefab = "PlayerBanner/CharacterBanner";
+
+    public const string FireElementIcon = "PlayerBanner/ElementIcon/FireRune";
+    public const string WaterElementIcon = "PlayerBanner/ElementIcon/WaterRune";
+    public const string EarthElementIcon = "PlayerBanner/ElementIcon/EarthRune";
+
+    private const int arenaCount = 1;
+    public const string BaseArenaPrefab = "Arenas/Arena";
+    public const string Arena1Prefab = "Arenas/Arena1";
+
+    public static Arena GetArenaPrefab(int id)
+    {
+        if (id >= arenaCount)
+        {
+            return null;
+        }
+        return Resources.Load<Arena>(BaseArenaPrefab + (id+1));
+    }
 
     public const string FireFirePrefab = "Spells/FireFire";
     public const string FireWaterPrefab = "Spells/FireWater";

@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class Player : MovingObject {
 
+    public int ID;
+
     private InputManager _myInputManager = new InputManager();
     private int _healthRemaining;
     private int _livesRemaining;
     private SpellDatabase.Element _firstElement;
     private SpellDatabase.Element _secondElement;
-
-    private float _lastAimXAxis = 0;
-    private float _lastAimYAxis = 0;
 
     private Transform _myMagicCircleLeft;
     private Transform _myMagicCircleRight;
@@ -24,7 +23,7 @@ public class Player : MovingObject {
     private bool _usedDoubleJump = false;
     private float _jumpTime = 0;
 
-    public Player()
+    public Player(int id, InputManager inputMngr)
     {
 
     }
@@ -54,9 +53,6 @@ public class Player : MovingObject {
         {
             changeElement();
         }
-        _lastAimXAxis = _myInputManager.GetAxisLookHorizontal();
-        _lastAimYAxis = _myInputManager.GetAxisLookVertical();
-        Debug.Log(_firstElement + " - " + _secondElement);
     }
 
     protected override void Move(bool isFixed)
@@ -92,6 +88,7 @@ public class Player : MovingObject {
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
                     _firstElement = changeElement();
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement);
                 }
                 _changingElement1 = false;
                 _myMagicCircleLeft.gameObject.SetActive(false);
@@ -102,6 +99,7 @@ public class Player : MovingObject {
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
                     _secondElement = changeElement();
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement);
                 }
                 _changingElement2 = false;
                 _myMagicCircleRight.gameObject.SetActive(false);
