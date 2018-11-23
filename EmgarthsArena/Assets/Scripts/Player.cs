@@ -23,10 +23,13 @@ public class Player : MovingObject {
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
     private float _jumpTime = 0;
+    public int playerNumber;
 
-    public Player()
+
+    public Player(int pPlayerIndex)
     {
-
+        playerNumber = pPlayerIndex;
+        Debug.Log("Added player with ID: " + pPlayerIndex);
     }
 
     protected override void Start()
@@ -39,6 +42,7 @@ public class Player : MovingObject {
         _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
         _myCirclePointer.gameObject.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -54,40 +58,40 @@ public class Player : MovingObject {
         {
             changeElement();
         }
-        _lastAimXAxis = _myInputManager.GetAxisLookHorizontal();
-        _lastAimYAxis = _myInputManager.GetAxisLookVertical();
-        Debug.Log(_firstElement + " - " + _secondElement);
+        _lastAimXAxis = _myInputManager.GetAxisLookHorizontal(playerNumber);
+        _lastAimYAxis = _myInputManager.GetAxisLookVertical(playerNumber);
+       // Debug.Log(_firstElement + " - " + _secondElement);
     }
 
     protected override void Move(bool isFixed)
     {
         if (!isFixed)
         {
-            if (_myInputManager.GetButtonDownJump())
+            if (_myInputManager.GetButtonDownJump(playerNumber))
             {
                 jump();
             }
-            if (_myInputManager.GetButtonDownSpellCast1())
+            if (_myInputManager.GetButtonDownSpellCast1(playerNumber))
             {
                 launchSpell(_firstElement, _secondElement);
             }
-            if (_myInputManager.GetButtonDownSpellCast2())
+            if (_myInputManager.GetButtonDownSpellCast2(playerNumber))
             {
                 launchSpell(_secondElement, _firstElement);
             }
-            if (_myInputManager.GetButtonDownElementChange1() && !_changingElement2)
+            if (_myInputManager.GetButtonDownElementChange1(playerNumber) && !_changingElement2)
             {
                 _changingElement1 = true;
                 _myMagicCircleLeft.gameObject.SetActive(true);
                 _myCirclePointer.gameObject.SetActive(true);
             }
-            else if (_myInputManager.GetButtonDownElementChange2() && !_changingElement1)
+            else if (_myInputManager.GetButtonDownElementChange2(playerNumber) && !_changingElement1)
             {
                 _changingElement2 = true;
                 _myMagicCircleRight.gameObject.SetActive(true);
                 _myCirclePointer.gameObject.SetActive(true);
             }
-            if (_myInputManager.GetButtonUpElementChange1() && !_changingElement2)
+            if (_myInputManager.GetButtonUpElementChange1(playerNumber) && !_changingElement2)
             {
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
@@ -97,7 +101,7 @@ public class Player : MovingObject {
                 _myMagicCircleLeft.gameObject.SetActive(false);
                 _myCirclePointer.gameObject.SetActive(false);
             }
-            else if (_myInputManager.GetButtonUpElementChange2() && !_changingElement1)
+            else if (_myInputManager.GetButtonUpElementChange2(playerNumber) && !_changingElement1)
             {
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
@@ -112,16 +116,17 @@ public class Player : MovingObject {
         {
             _grounded = isGrounded();
 
-            if (_myInputManager.GetAxisMoveHorizontal() != 0)
+            if (_myInputManager.GetAxisMoveHorizontal(playerNumber) != 0)
             {
-                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
+               
+                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal(playerNumber) * Glob.playerSpeed, _rb.velocity.y);
                 //Move horizontally.
             }
-            if (_myInputManager.GetAxisMoveVertical() != 0)
+            if (_myInputManager.GetAxisMoveVertical(playerNumber) != 0)
             {
                 //Move vertically. (idk when that would be, ladders or something? Just a placeholder.)
             }
-            if (_myInputManager.GetButtonJump() && _rb.velocity.y > 0)
+            if (_myInputManager.GetButtonJump(playerNumber) && _rb.velocity.y > 0)
             {
                 jumpContinuous();
             }
@@ -172,23 +177,27 @@ public class Player : MovingObject {
     {
         Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
 
-        float xAxis = _myInputManager.GetAxisLookHorizontal();
-        float yAxis = _myInputManager.GetAxisLookVertical();
-        float Offset = 2f;
+        float xAxis = _myInputManager.GetAxisLookHorizontal(playerNumber);
+        float yAxis = _myInputManager.GetAxisLookVertical(playerNumber);
+        float Offset = Glob.spellOffset;
+
+        Vector2 vec2 = new Vector2(0, 1);
+        Vector2 vec0 = new Vector2(xAxis, yAxis);
 
         //If there's no input, should do forward.
         if (xAxis == 0 && yAxis == 0)
         {
             xAxis = 1;
         }
-        //Get a spell from the spell database.
-        //Determine where the player looks at.
-        //Give the spell a rotation from where he looks at.
-        //Add it to a position with an offset compared to the player.
-        Vector3 position = this.transform.position + new Vector3(xAxis * Offset, yAxis * Offset, 0);
+
+
+        Debug.Log("xAxis = " + xAxis + " yAxis = " + yAxis);
+        vec0.Normalize();
+        Debug.Log("Vec X =  " + vec0.x + " vec Y = " + vec0.y);
+
+        Vector3 position = this.transform.position + new Vector3(vec0.x * Offset, vec0.y * Offset, 0);
         Spell launchedspelltest = Instantiate(launchedspell, position, new Quaternion());
-        Vector2 vec2 = new Vector2(0, 1);
-        Vector2 vec0 = new Vector2(xAxis, yAxis);
+
 
         if (xAxis > 0)
         {
@@ -211,8 +220,8 @@ public class Player : MovingObject {
         //After aiming at an element for ... seconds, change the element (first or second based on element aimed at).
         //Disable magic circle
 
-        float xAxis = _myInputManager.GetAxisLookHorizontal();
-        float yAxis = _myInputManager.GetAxisLookVertical();
+        float xAxis = _myInputManager.GetAxisLookHorizontal(playerNumber);
+        float yAxis = _myInputManager.GetAxisLookVertical(playerNumber);
 
         //If there's no input, should do forward.
         if (xAxis == 0 && yAxis == 0)

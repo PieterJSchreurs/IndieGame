@@ -16,6 +16,7 @@ public class SceneManager : MonoBehaviour {
     private SceneManager()
     {
         //Initialize menu's etc here.
+      
     }
 
     private int currentScene;
@@ -25,8 +26,13 @@ public class SceneManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+        Glob.FillInputDictionary();
+        //Swap this out for Input.GetJoystickNames()
+        for (int i = 0; i < 2; i++)
+        {
+            Player player = Instantiate(Glob.GetPlayerPrefab(), Glob.spawningPoints[i], Quaternion.identity);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
