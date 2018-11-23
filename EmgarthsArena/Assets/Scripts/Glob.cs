@@ -28,16 +28,10 @@ public static class Glob
 
     public static Vector3[] spawningPoints = new Vector3[] { new Vector3(-5, 4.5f, 0), new Vector3(5, 4.5f, 0) };
 
-
-    public static Player GetPlayerPrefab()
-    {
-        return Resources.Load<Player>("Player");
-    }
-
     public const string PlayerPrefab = "Player/Player";
-    public static Player GetPlayerPrefab()
+    public static GameObject GetPlayerPrefab()
     {
-        return Resources.Load<Player>(PlayerPrefab);
+        return Resources.Load<GameObject>(PlayerPrefab);
     }
     public const string PlayerBannerPrefab = "PlayerBanner/CharacterBanner";
 
@@ -120,7 +114,17 @@ public static class Glob
         inputControllers[1].Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper2");
         inputControllers[1].Add(Keytype.SwitchButtonRight, "JoyStickRightBumper2");
 
-        
+        inputControllers[2].Add(Keytype.JumpButton, "XButton3");
+        inputControllers[2].Add(Keytype.LeftJoystickHorizontal, "LeftJoyStickHorizontal3");
+        inputControllers[2].Add(Keytype.LeftJoystickVertical, "LeftJoyStickVertical3");
+        inputControllers[2].Add(Keytype.RightJoystickHorizontal, "RightJoyStickHorizontal3");
+        inputControllers[2].Add(Keytype.RightJoystickVertical, "RightJoyStickVertical3");
+        inputControllers[2].Add(Keytype.FireButtonLeft, "JoyStickLeftTrigger3");
+        inputControllers[2].Add(Keytype.FireButtonRight, "JoyStickRightTrigger3");
+        inputControllers[2].Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper3");
+        inputControllers[2].Add(Keytype.SwitchButtonRight, "JoyStickRightBumper3");
+
+
     }
 
     public static Dictionary<int, Dictionary<Keytype, string>> GetInputDictionary()

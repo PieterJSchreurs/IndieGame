@@ -26,11 +26,14 @@ public class SceneManager : MonoBehaviour {
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        Glob.FillInputDictionary();
+
         if (_instance == null)
         {
             _instance = this;
         }
         Application.LoadLevel(1);
+
     }
 
     // Use this for initialization
@@ -60,7 +63,10 @@ public class SceneManager : MonoBehaviour {
         allPlayers = new Player[Glob.GetPlayerCount()];
         for (int i = 0; i < allPlayers.Length; i++)
         {
-            allPlayers[i] = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
+            GameObject newPlayer = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
+            allPlayers[i] = newPlayer.AddComponent<Player>().GetPlayer(i);
+            
+
             //Give the players their correct ID, and their correct InputManager.
         }
         //Load an arena.
