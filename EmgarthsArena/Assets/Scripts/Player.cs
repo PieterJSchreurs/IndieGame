@@ -11,9 +11,6 @@ public class Player : MovingObject {
     private SpellDatabase.Element _firstElement;
     private SpellDatabase.Element _secondElement;
 
-    private float _lastAimXAxis = 0;
-    private float _lastAimYAxis = 0;
-
     private Transform _myMagicCircleLeft;
     private Transform _myMagicCircleRight;
     private Transform _myCirclePointer;
@@ -35,6 +32,8 @@ public class Player : MovingObject {
     {
         ID = pPlayerIndex;
         Debug.Log("Added player with ID: " + pPlayerIndex);
+        _healthRemaining = Glob.maxHealth;
+        _livesRemaining = Glob.maxLives;
         return this;
     }
 
@@ -64,8 +63,6 @@ public class Player : MovingObject {
         {
             changeElement();
         }
-        _lastAimXAxis = _myInputManager.GetAxisLookHorizontal(ID);
-        _lastAimYAxis = _myInputManager.GetAxisLookVertical(ID);
        // Debug.Log(_firstElement + " - " + _secondElement);
     }
 
@@ -306,7 +303,16 @@ public class Player : MovingObject {
 
     private void respawn()
     {
-
+        _livesRemaining--;
+        if (_livesRemaining <= 0)
+        {
+            Debug.Log("Player is dead.");
+            //Dead
+        } else
+        {
+            _rb.velocity = Vector3.zero;
+            transform.position = SceneManager.GetInstance().GetCurrentArena().GetRandomRespawnPoint();
+        }
     }
 
     public void HandleSpellHit(Spell hit)
