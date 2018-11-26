@@ -61,14 +61,36 @@ public class SceneManager : MonoBehaviour {
         Arena newArena = Instantiate(Glob.GetArenaPrefab(0), Vector3.zero, new Quaternion(0, 0, 0, 0));
         currentArena = newArena;
         allPlayers = new Player[Glob.GetPlayerCount()];
-        for (int i = 0; i < allPlayers.Length; i++)
+        if (allPlayers.Length == 0)
         {
+            Debug.Log("no players");
+            allPlayers = new Player[1];
             GameObject newPlayer = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
-            allPlayers[i] = newPlayer.AddComponent<Player>().GetPlayer(i);
-            
-
-            //Give the players their correct ID, and their correct InputManager.
+            allPlayers[0] = newPlayer.AddComponent<Player>().GetPlayer(-1);
         }
+        else
+        {
+            Debug.Log(Input.GetJoystickNames().Length);
+            if (allPlayers.Length == 1 && Input.GetJoystickNames()[0] == "")
+            {
+                Debug.Log("no players2");
+                allPlayers = new Player[1];
+                GameObject newPlayer = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
+                allPlayers[0] = newPlayer.AddComponent<Player>().GetPlayer(-1);
+            }
+            else
+            {
+                for (int i = 0; i < allPlayers.Length; i++)
+                {
+                    GameObject newPlayer = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
+                    allPlayers[i] = newPlayer.AddComponent<Player>().GetPlayer(i);
+                    //Give the players their correct ID, and their correct InputManager.
+                }
+            }
+        }
+
+        currentArena.SetCameraTargets(allPlayers);
+
         //Load an arena.
         //Use the Player constructor to place players at spawn points in the arena. (Don't forget to give them an InputManager.)
     }
