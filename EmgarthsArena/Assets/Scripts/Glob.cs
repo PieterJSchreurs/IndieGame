@@ -9,7 +9,7 @@ public static class Glob
     {
         if (playerCount == -1)
         {
-            playerCount = Input.GetJoystickNames().Length+1;
+            playerCount = Input.GetJoystickNames().Length;
         }
         return playerCount;
     }
@@ -60,7 +60,7 @@ public static class Glob
     public const string WaterEarthPrefab = "Spells/WaterEarth";
     public const string EarthFirePrefab = "Spells/EarthFire";
     public const string EarthWaterPrefab = "Spells/EarthWater";
-    public const string EarthEarthPrefab = "Spells/EarthEarthPrefab";
+    public const string EarthEarthPrefab = "Spells/EarthEarth";
     public const int SpellCount = 9;
 
     public static Spell[] GetSpellPrefab()
