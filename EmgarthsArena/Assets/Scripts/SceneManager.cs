@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SceneManager : MonoBehaviour {
     private static SceneManager _instance;
@@ -22,6 +23,7 @@ public class SceneManager : MonoBehaviour {
     private static int currentScene;
     private static Arena currentArena;
     private static Player[] allPlayers;
+    private int playersAlive;
 
     void Awake()
     {
@@ -61,6 +63,7 @@ public class SceneManager : MonoBehaviour {
         Arena newArena = Instantiate(Glob.GetArenaPrefab(0), Vector3.zero, new Quaternion(0, 0, 0, 0));
         currentArena = newArena;
         allPlayers = new Player[Glob.GetPlayerCount()];
+        playersAlive = allPlayers.Length;
         if (allPlayers.Length == 0)
         {
             Debug.Log("no players");
@@ -95,8 +98,24 @@ public class SceneManager : MonoBehaviour {
         //Use the Player constructor to place players at spawn points in the arena. (Don't forget to give them an InputManager.)
     }
 
-    public void FinalizeMatch()
+    public void PlayerDown()
     {
+        playersAlive--;
+        if (playersAlive <= 1)
+        {
+            FinalizeMatch();
+        }
+    }
 
+    public void FinalizeMatch() //TODO: Fix this mess.
+    {
+        GameObject resolutionScreen = GameObject.FindGameObjectWithTag("ResolutionScreen");
+        resolutionScreen.GetComponent<Image>().color = Color.white;
+        GameObject[] playerStats = new GameObject[Glob.GetPlayerCount()];
+        for (int i = 0; i < playerStats.Length; i++)
+        {
+            playerStats[i] = Instantiate(Resources.Load<GameObject>(Glob.ResolutionScreenStatsPrefab), resolutionScreen.transform);
+            playerStats[i].transform.Find("PlayerName").GetComponent<Text>().text = "Player " + (i+1);
+        }
     }
 }

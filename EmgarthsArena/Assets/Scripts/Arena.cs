@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Collider2D))]
 public class Arena : MonoBehaviour {
 
     private Camera _myCamera;
+    private Collider2D _myColl;
     private Transform[] _cameraTargets;
 
     private struct playerInfoBanner
     {
         public GameObject banner;
+        public Image healthBar;
+        public Image manaBar;
+        public Image[] lifeCrystals;
         public Image firstElementIcon;
         public Image secondElementIcon;
     }
@@ -23,16 +28,24 @@ public class Arena : MonoBehaviour {
     // Use this for initialization
     void Start () {
         _myCamera = GetComponentInChildren<Camera>();
+        _myColl = GetComponent<Collider2D>();
 
         characterInfoParent = GameObject.FindGameObjectWithTag("CharacterInfo");
         playerBanners = new playerInfoBanner[Glob.GetPlayerCount()];
         for (int i = 0; i < playerBanners.Length; i++)
         {
             playerBanners[i] = new playerInfoBanner();
+            playerBanners[i].lifeCrystals = new Image[Glob.maxLives];
             GameObject newBanner = Instantiate(Resources.Load<GameObject>(Glob.PlayerBannerPrefab), characterInfoParent.transform);
             playerBanners[i].banner = newBanner;
+            playerBanners[i].healthBar = newBanner.transform.Find("HealthBar").GetComponent<Image>();
+            playerBanners[i].manaBar = newBanner.transform.Find("ManaBar").GetComponent<Image>();
             playerBanners[i].firstElementIcon = newBanner.transform.Find("Element1").GetComponent<Image>();
             playerBanners[i].secondElementIcon = newBanner.transform.Find("Element2").GetComponent<Image>();
+            for (int j = 0; j < playerBanners[i].lifeCrystals.Length; j++)
+            {
+                playerBanners[i].lifeCrystals[j] = newBanner.transform.Find("HealthCrystal" + (j+1).ToString()).GetComponent<Image>();
+            }
         }
 	}
 	
@@ -59,8 +72,21 @@ public class Arena : MonoBehaviour {
         return respawnPoints[Random.Range(0, respawnPoints.Length)];
     }
 
-    public void UpdatePlayerBanner(int id, SpellDatabase.Element firstEle, SpellDatabase.Element secondEle)
+    public void UpdatePlayerBanner(int id, SpellDatabase.Element firstEle, SpellDatabase.Element secondEle, int health, int mana, int lives)
     {
+        playerBanners[id].healthBar.fillAmount = (float)health / Glob.maxHealth;
+        playerBanners[id].manaBar.fillAmount = mana / Glob.maxMana;
+        for (int i = 0; i < playerBanners[id].lifeCrystals.Length; i++)
+        {
+            if (playerBanners[id].lifeCrystals.Length - i <= lives)
+            {
+                playerBanners[id].lifeCrystals[i].sprite = Resources.Load<Sprite>(Glob.FullLifeCrystal);
+            } else
+            {
+                playerBanners[id].lifeCrystals[i].sprite = Resources.Load<Sprite>(Glob.EmptyLifeCrystal);
+            }
+        }
+
         switch (firstEle)
         {
             case SpellDatabase.Element.Fire:
@@ -111,16 +137,20 @@ public class Arena : MonoBehaviour {
             return;
         }
 
-        float minimumX = 100000;
-        float maximumX = -100000;
-        float minimumY = 100000;
-        float maximumY = -100000;
+        float minimumX = _myColl.bounds.max.x;
+        float maximumX = _myColl.bounds.min.x;
+        float minimumY = _myColl.bounds.max.y;
+        float maximumY = _myColl.bounds.min.y;
         float largestDiff = 0;
         for (int i = 0; i < _cameraTargets.Length; i++)
         {
+            if (!_cameraTargets[i].gameObject.activeSelf || !_cameraTargets[i].GetComponent<MeshRenderer>().enabled) //TODO: Very ugly check, improve it.
+            {
+                continue;
+            }
             if (_cameraTargets[i].position.x < minimumX)
             {
-                minimumX = _cameraTargets[i].position.x;
+                minimumX = Mathf.Max(_cameraTargets[i].position.x, _myColl.bounds.min.x);
                 if (maximumX - minimumX > largestDiff)
                 {
                     largestDiff = maximumX - minimumX;
@@ -128,7 +158,7 @@ public class Arena : MonoBehaviour {
             }
             if (_cameraTargets[i].position.x > maximumX)
             {
-                maximumX = _cameraTargets[i].position.x;
+                maximumX = Mathf.Min(_cameraTargets[i].position.x, _myColl.bounds.max.x);
                 if (maximumX - minimumX > largestDiff)
                 {
                     largestDiff = maximumX - minimumX;
@@ -137,7 +167,7 @@ public class Arena : MonoBehaviour {
 
             if (_cameraTargets[i].position.y < minimumY)
             {
-                minimumY = _cameraTargets[i].position.y;
+                minimumY = Mathf.Max(_cameraTargets[i].position.y, _myColl.bounds.min.y);
                 if (maximumY - minimumY > largestDiff)
                 {
                     largestDiff = maximumY - minimumY;
@@ -145,7 +175,7 @@ public class Arena : MonoBehaviour {
             }
             if (_cameraTargets[i].position.y > maximumY)
             {
-                maximumY = _cameraTargets[i].position.y;
+                maximumY = Mathf.Min(_cameraTargets[i].position.y, _myColl.bounds.max.y);
                 if (maximumY - minimumY > largestDiff)
                 {
                     largestDiff = maximumY - minimumY;
@@ -163,5 +193,13 @@ public class Arena : MonoBehaviour {
     private void handleBoundaries()
     {
 
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<Player>() != null)
+        {
+            Player player = other.gameObject.GetComponent<Player>();
+            player.TakeDamage(Glob.maxHealth);
+        }
     }
 }

@@ -15,33 +15,39 @@ public static class Glob
     }
 
     public const float camYOffset = 3.25f;
-    public const float camSpeed = 0.25f;
+    public const float camSpeed = 0.15f;
     public const int maxLives = 5;
     public const int maxHealth = 100;
+    public const int maxMana = 100;
+    public const float respawnDelay = 3;
+    public const float maxInvulnerableTime = 2;
     public const float playerSpeed = 20f;
     public const float jumpHeight = 800f;
     public const float jumpHeightContinuous = 6700f;
     public const float jumpDoubleHeight = 725f;
     public const float jumpTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
-    public static int amountOfPlayers = 2;
-
-    public static Vector3[] spawningPoints = new Vector3[] { new Vector3(-5, 4.5f, 0), new Vector3(5, 4.5f, 0) };
 
     public const string PlayerPrefab = "Player/Player";
     public static GameObject GetPlayerPrefab()
     {
         return Resources.Load<GameObject>(PlayerPrefab);
     }
-    public const string PlayerBannerPrefab = "PlayerBanner/CharacterBanner";
+    public const string PlayerBannerPrefab = "UI/PlayerBanner/CharacterBanner";
+    public const string ResolutionScreenStatsPrefab = "UI/ResolutionScreen/PlayerStats";
 
-    public const string FireElementIcon = "PlayerBanner/ElementIcon/FireRune";
-    public const string WaterElementIcon = "PlayerBanner/ElementIcon/WaterRune";
-    public const string EarthElementIcon = "PlayerBanner/ElementIcon/EarthRune";
+    public const string FullLifeCrystal = "UI/PlayerBanner/CrystalBlueLive";
+    public const string EmptyLifeCrystal = "UI/PlayerBanner/CrystalBlueDead";
+
+    public const string FireElementIcon = "UI/PlayerBanner/ElementIcon/FireSymbol";
+    public const string WaterElementIcon = "UI/PlayerBanner/ElementIcon/WaterSymbol";
+    public const string EarthElementIcon = "UI/PlayerBanner/ElementIcon/EarthSymbol";
 
     private const int arenaCount = 1;
     public const string BaseArenaPrefab = "Arenas/Arena";
     public const string Arena1Prefab = "Arenas/Arena1";
+
+    public const string DeathParticle = "Player/DeathParticle";
 
     public static Arena GetArenaPrefab(int id)
     {
@@ -85,12 +91,22 @@ public static class Glob
         return Resources.Load<GameObject>(ExplosionPrefab);
     }
 
-    public static Dictionary<Keytype, string>[] InputDictionaries = new Dictionary<Keytype, string>[amountOfPlayers];
+    public static Dictionary<Keytype, string> keyboardControllers = new Dictionary<Keytype, string>();
     public static Dictionary<Keytype, string> inputControllersP1 = new  Dictionary<Keytype, string>();
     public static Dictionary<Keytype, string> inputControllersP2 = new Dictionary<Keytype, string>();
 
     public static void FillInputDictionary()
     {
+        keyboardControllers.Add(Keytype.JumpButton, "XButton");
+        keyboardControllers.Add(Keytype.LeftJoystickHorizontal, "KeyboardMoveHorizontal");
+        keyboardControllers.Add(Keytype.LeftJoystickVertical, "KeyboardMoveVertical");
+        keyboardControllers.Add(Keytype.RightJoystickHorizontal, "MouseX");
+        keyboardControllers.Add(Keytype.RightJoystickVertical, "MouseY");
+        keyboardControllers.Add(Keytype.FireButtonLeft, "JoyStickLeftTrigger");
+        keyboardControllers.Add(Keytype.FireButtonRight, "JoyStickRightTrigger");
+        keyboardControllers.Add(Keytype.SwitchButtonLeft, "JoyStickLeftBumper");
+        keyboardControllers.Add(Keytype.SwitchButtonRight, "JoyStickRightBumper");
+
         inputControllersP1.Add(Keytype.JumpButton, "XButton");
         inputControllersP1.Add(Keytype.LeftJoystickHorizontal, "LeftJoyStickHorizontal");
         inputControllersP1.Add(Keytype.LeftJoystickVertical, "LeftJoyStickVertical");
@@ -116,6 +132,9 @@ public static class Glob
     {
         switch(pPlayerNumber)
         {
+            case -1:
+                return keyboardControllers;
+                break;
             case 0:
                 return inputControllersP1;
                 break;

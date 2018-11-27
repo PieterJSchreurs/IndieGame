@@ -8,6 +8,10 @@ public class Player : MovingObject {
     private InputManager _myInputManager;
     private int _healthRemaining;
     private int _livesRemaining;
+    private bool _isDead = false;
+    private float _deathTime = 0;
+    private bool _invulnerable = false;
+    private float _invulnerableStartTime = 0;
     private SpellDatabase.Element _firstElement;
     private SpellDatabase.Element _secondElement;
 
@@ -58,6 +62,11 @@ public class Player : MovingObject {
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            TakeDamage(20);
+        }
+
         Move(false);
         if (_changingElement1 || _changingElement2)
         {
@@ -99,7 +108,7 @@ public class Player : MovingObject {
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
                     _firstElement = changeElement();
-                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement);
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
                 }
                 _changingElement1 = false;
                 _myMagicCircleLeft.gameObject.SetActive(false);
@@ -110,7 +119,7 @@ public class Player : MovingObject {
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
                     _secondElement = changeElement();
-                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement);
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
                 }
                 _changingElement2 = false;
                 _myMagicCircleRight.gameObject.SetActive(false);
@@ -139,7 +148,20 @@ public class Player : MovingObject {
 
     protected override void HandleCollision()
     {
-
+        if (_isDead)
+        {
+            if (Time.time - _deathTime >= Glob.respawnDelay)
+            {
+                respawn();
+            }
+        }
+        if (_invulnerable)
+        {
+            if (Time.time - _invulnerableStartTime >= Glob.maxInvulnerableTime)
+            {
+                setInvulnerable(false);
+            }
+        }
     }
 
     private void jump()
@@ -213,6 +235,11 @@ public class Player : MovingObject {
         {
             float Degrees = Vector2.Angle(vec2, vec0);
             launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees + 180);
+        }
+
+        if (_invulnerable) //If you shoot whilst invulnerable, disable the invulnerability.
+        {
+            setInvulnerable(false);
         }
 
         return launchedspell;
@@ -298,21 +325,58 @@ public class Player : MovingObject {
 
     private void handleLives()
     {
+        Debug.Log("Health: " + _healthRemaining + "/" + Glob.maxHealth + ", Lives: " + _livesRemaining + "/" + Glob.maxLives);
+        //SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining); //TODO: Make this work
+        if (_healthRemaining <= 0)
+        {
+            _livesRemaining--;
+            //SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
+            setIsDead(true);
+            if (_livesRemaining <= 0)
+            {
+                Debug.Log("Player is out of lives.");
+                gameObject.SetActive(false);
+                SceneManager.GetInstance().PlayerDown(); //TODO: End after one player remains, not when the first one falls.
 
+                //Dead
+            }
+            //respawn();
+        }
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
+    }
+
+    private void setInvulnerable(bool toggle)
+    {
+        _invulnerable = toggle;
+        if (_invulnerable)
+        {
+            _invulnerableStartTime = Time.time;
+            GetComponent<MeshRenderer>().material.color = Color.blue; //TODO: Improve invulnerability feedback.
+        } else
+        {
+            GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+    }
+    private void setIsDead(bool toggle)
+    {
+        _isDead = toggle;
+        GetComponent<MeshRenderer>().enabled = !_isDead; //TODO: Very ugly way of doing this, improve it.
+        if (_isDead)
+        {
+            _deathTime = Time.time;
+            GameObject deathParticle = Instantiate(Resources.Load<GameObject>(Glob.DeathParticle), transform.position, new Quaternion()); //TODO: Improve reuse, instead of instantiating
+        }
     }
 
     private void respawn()
     {
-        _livesRemaining--;
-        if (_livesRemaining <= 0)
-        {
-            Debug.Log("Player is dead.");
-            //Dead
-        } else
-        {
-            _rb.velocity = Vector3.zero;
-            transform.position = SceneManager.GetInstance().GetCurrentArena().GetRandomRespawnPoint();
-        }
+        setIsDead(false);
+        setInvulnerable(true);
+        _healthRemaining = Glob.maxHealth;
+        _rb.velocity = Vector3.zero;
+        transform.position = SceneManager.GetInstance().GetCurrentArena().GetRandomRespawnPoint();
+        Debug.Log("Respawned! Health: " + _healthRemaining + "/" + Glob.maxHealth + ", Lives: " + _livesRemaining + "/" + Glob.maxLives);
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
     }
 
     public void HandleSpellHit(Spell hit)
@@ -322,6 +386,7 @@ public class Player : MovingObject {
 
     public void TakeDamage(int dmg)
     {
-
+        _healthRemaining -= dmg;
+        handleLives();
     }
 }
