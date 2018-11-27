@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class FireEarthSpell : Spell {
 
-	// Use this for initialization
-	void Start () {
+    private void InitializeSpell()
+    {
+        knockback = 50;
+        damage = 40;
+        castTime = 1;
+        manaDrain = 15;
+        spellType = SpellDatabase.SpellType.Projectile;
+        attackType = SpellDatabase.AttackType.Medium;
+    }
+    // Use this for initialization
+    void Start () {
         base.Start();
         _rb.velocity = -_rb.transform.up * Glob.FireEarthSpeed;
+        InitializeSpell();
     }
 
     protected override void Move(bool isFixed)
@@ -24,6 +34,12 @@ public class FireEarthSpell : Spell {
     {
 
     }
+
+    public override float GetCastTime()
+    {
+        return castTime;
+    }
+
 
     // Update is called once per frame
     void Update () {

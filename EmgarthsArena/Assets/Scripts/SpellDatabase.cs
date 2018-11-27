@@ -41,6 +41,20 @@ public class SpellDatabase {
         Null
     }
 
+    public enum SpellType
+    {
+        Projectile,
+        SolidObject,
+        Aoe
+    }
+
+    public enum AttackType
+    {
+        Heavy,
+        Medium,
+        Light
+    }
+
     public Spell GetSpell(Element firstEle, Element secondEle)
     {
         if (!allSpells.ContainsKey(firstEle))

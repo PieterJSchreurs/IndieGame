@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class EarthFireSpell : Spell {
 
-	// Use this for initialization
-	void Start () {
+    private void InitializeSpell()
+    {
+        knockback = 50;
+        damage = 30;
+        castTime = 1;
+        manaDrain = 30;
+        spellType = SpellDatabase.SpellType.SolidObject;
+        attackType = SpellDatabase.AttackType.Medium;
+    }
+    // Use this for initialization
+    void Start () {
         base.Start();
         _rb.velocity = -_rb.transform.up * Glob.EarthFireSpeed;
+        InitializeSpell();
     }
 
     protected override void Move(bool isFixed)
@@ -23,6 +33,11 @@ public class EarthFireSpell : Spell {
     protected override void HandleExplosion()
     {
 
+    }
+
+    public override float GetCastTime()
+    {
+        return castTime;
     }
 
     // Update is called once per frame

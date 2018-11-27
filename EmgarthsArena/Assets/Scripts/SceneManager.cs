@@ -70,7 +70,6 @@ public class SceneManager : MonoBehaviour {
         }
         else
         {
-            Debug.Log(Input.GetJoystickNames().Length);
             if (allPlayers.Length == 1 && Input.GetJoystickNames()[0] == "") //TODO: Throws an error if no controllers connected.
             {
                 Debug.Log("no players2");

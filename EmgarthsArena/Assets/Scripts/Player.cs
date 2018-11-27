@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MovingObject {
+public class Player : MovingObject
+{
 
     private InputManager _myInputManager;
     private int _healthRemaining;
@@ -16,12 +17,13 @@ public class Player : MovingObject {
     private Transform _myCirclePointer;
     private bool _changingElement1 = false;
     private bool _changingElement2 = false;
+    private bool _disableMovement = false;
+    private bool _castingSpell = false;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
     private float _jumpTime = 0;
     public int ID;
-
 
     public Player()
     {
@@ -31,7 +33,6 @@ public class Player : MovingObject {
     public Player GetPlayer(int pPlayerIndex)
     {
         ID = pPlayerIndex;
-        Debug.Log("Added player with ID: " + pPlayerIndex);
         _healthRemaining = Glob.maxHealth;
         _livesRemaining = Glob.maxLives;
         return this;
@@ -47,14 +48,14 @@ public class Player : MovingObject {
         _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
         _myCirclePointer.gameObject.SetActive(false);
-        
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate()
+    {
         Move(true);
         HandleCollision();
-	}
+    }
 
     void Update()
     {
@@ -63,22 +64,21 @@ public class Player : MovingObject {
         {
             changeElement();
         }
-       // Debug.Log(_firstElement + " - " + _secondElement);
     }
 
     protected override void Move(bool isFixed)
     {
         if (!isFixed)
         {
-            if (_myInputManager.GetButtonDownJump())
+            if (_myInputManager.GetButtonDownJump() && _castingSpell == false)
             {
                 jump();
             }
-            if (_myInputManager.GetButtonDownSpellCast1())
+            if (_myInputManager.GetButtonDownSpellCast1() && _castingSpell == false)
             {
                 launchSpell(_firstElement, _secondElement);
             }
-            if (_myInputManager.GetButtonDownSpellCast2())
+            if (_myInputManager.GetButtonDownSpellCast2() && _castingSpell == false)
             {
                 launchSpell(_secondElement, _firstElement);
             }
@@ -120,9 +120,10 @@ public class Player : MovingObject {
         else
         {
             _grounded = isGrounded();
-            if (_myInputManager.GetAxisMoveHorizontal() != 0)
+            if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false) _disableMovement = false;
+            if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
-               
+
                 _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
                 //Move horizontally.
             }
@@ -149,7 +150,8 @@ public class Player : MovingObject {
             GetComponent<ParticleSystem>().Play();
             _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
             _jumpTime = Time.time;
-        } else if (!_usedDoubleJump)
+        }
+        else if (!_usedDoubleJump)
         {
             GetComponent<ParticleSystem>().Play();
             _rb.velocity = new Vector2(_rb.velocity.x, 0);
@@ -167,7 +169,7 @@ public class Player : MovingObject {
 
     private bool isGrounded()
     {
-        Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up*0.1f, Color.yellow, 1);
+        Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up * 0.1f, Color.yellow, 1);
         Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up * 0.1f, Color.yellow, 1);
         if ((Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f) || Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f)) && _rb.velocity.y <= 0)
         {
@@ -183,40 +185,49 @@ public class Player : MovingObject {
 
         float xAxis = _myInputManager.GetAxisLookHorizontal();
         float yAxis = _myInputManager.GetAxisLookVertical();
-        float Offset = Glob.spellOffset;
-
-        Vector2 vec2 = new Vector2(0, 1);
-        Vector2 vec0 = new Vector2(xAxis, yAxis);
 
         //If there's no input, should do forward.
         if (xAxis == 0 && yAxis == 0)
         {
             xAxis = 1;
         }
-
-
-        Debug.Log("xAxis = " + xAxis + " yAxis = " + yAxis);
+        Vector2 vec2 = new Vector2(0, 1);
+        Vector2 vec0 = new Vector2(xAxis, yAxis);
         vec0.Normalize();
-        Debug.Log("Vec X =  " + vec0.x + " vec Y = " + vec0.y);
 
-        Vector3 position = this.transform.position + new Vector3(vec0.x * Offset, vec0.y * Offset, 0);
-        Spell launchedspelltest = Instantiate(launchedspell, position, new Quaternion());
+        StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
+        HandleCastingBehaviour();
+        return launchedspell;
+    }
 
+    IEnumerator SpawnSpell(Spell pSpell,  Vector2 pInput, Vector2 pNullPoint)
+    { 
+        yield return new WaitForSeconds(pSpell.GetCastTime());
+        _disableMovement = false;
+        _castingSpell = false;
+        Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
+        Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
 
-        if (xAxis > 0)
+        if (pInput.x > 0)
         {
-            vec2 = new Vector2(0, -1);
-            float Degrees = Vector2.Angle(vec2, vec0);
+            pNullPoint = new Vector2(0, -1);
+            float Degrees = Vector2.Angle(pNullPoint, pInput);
             launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees);
         }
         else
         {
-            float Degrees = Vector2.Angle(vec2, vec0);
+            float Degrees = Vector2.Angle(pNullPoint, pInput);
             launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees + 180);
         }
-
-        return launchedspell;
     }
+
+    //This is for loading animations etc.
+    private void HandleCastingBehaviour()
+    {
+        _castingSpell = true;
+        _disableMovement = true;
+    }
+
 
     private SpellDatabase.Element changeElement()
     {
@@ -232,7 +243,8 @@ public class Player : MovingObject {
         {
             yAxis = 1;
             _myCirclePointer.gameObject.SetActive(false);
-        } else
+        }
+        else
         {
             _myCirclePointer.gameObject.SetActive(true);
         }
@@ -274,7 +286,9 @@ public class Player : MovingObject {
                 newElement = SpellDatabase.Element.Fire;
                 //Debug.Log("Fire - Left");
             }
-        } else if (_changingElement2) {
+        }
+        else if (_changingElement2)
+        {
             //Right
             if (angle <= 337.5f && angle >= 295f)
             {
@@ -308,16 +322,19 @@ public class Player : MovingObject {
         {
             Debug.Log("Player is dead.");
             //Dead
-        } else
+        }
+        else
         {
             _rb.velocity = Vector3.zero;
             transform.position = SceneManager.GetInstance().GetCurrentArena().GetRandomRespawnPoint();
         }
     }
 
-    public void HandleSpellHit(Spell hit)
+    public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
     {
-
+        Debug.Log(this.name + " is hit by :" + hit + " knockback:" + pKnockback + " damage:" + pDamage);
+        _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
+        _disableMovement = true;
     }
 
     public void TakeDamage(int dmg)

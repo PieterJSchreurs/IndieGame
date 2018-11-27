@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class WaterWaterSpell : Spell {
 
-	// Use this for initialization
-	void Start () {
+    private void InitializeSpell()
+    {
+        knockback = 50;
+        damage = 30;
+        castTime = 1;
+        manaDrain = 15;
+        spellType = SpellDatabase.SpellType.Projectile;
+        attackType = SpellDatabase.AttackType.Medium;
+    }
+
+    // Use this for initialization
+    void Start () {
         base.Start();
         _rb.velocity = -_rb.transform.up * Glob.WaterWaterSpeed;
+        InitializeSpell();
     }
 
     protected override void Move(bool isFixed)
@@ -23,6 +34,11 @@ public class WaterWaterSpell : Spell {
     protected override void HandleExplosion()
     {
 
+    }
+
+    public override float GetCastTime()
+    {
+        return castTime;
     }
 
     // Update is called once per frame
