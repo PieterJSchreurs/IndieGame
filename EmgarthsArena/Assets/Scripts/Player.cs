@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MovingObject {
+public class Player : MovingObject
+{
 
     private InputManager _myInputManager;
     private int _healthRemaining;
@@ -41,6 +42,7 @@ public class Player : MovingObject {
     public Player GetPlayer(int pPlayerIndex)
     {
         ID = pPlayerIndex;
+        this.gameObject.name = "Player" + ID;
         Debug.Log("Added player with ID: " + pPlayerIndex);
         _healthRemaining = Glob.maxHealth;
         _livesRemaining = Glob.maxLives;
@@ -53,26 +55,26 @@ public class Player : MovingObject {
         _myInputManager = new InputManager(ID);
         _myMagicCircleLeft = transform.Find("UI Elements").Find("MagicCircleLeft");
         elementIconsLeft = new SpriteRenderer[3];
-            elementIconsLeft[0] = _myMagicCircleLeft.Find("LeftSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
-            elementIconsLeft[1] = _myMagicCircleLeft.Find("LeftSelection").Find("Water").GetComponent<SpriteRenderer>();
-            elementIconsLeft[2] = _myMagicCircleLeft.Find("LeftSelection").Find("Earth").GetComponent<SpriteRenderer>();
+        elementIconsLeft[0] = _myMagicCircleLeft.Find("LeftSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
+        elementIconsLeft[1] = _myMagicCircleLeft.Find("LeftSelection").Find("Water").GetComponent<SpriteRenderer>();
+        elementIconsLeft[2] = _myMagicCircleLeft.Find("LeftSelection").Find("Earth").GetComponent<SpriteRenderer>();
 
         _myMagicCircleLeft.gameObject.SetActive(false);
         _myMagicCircleRight = transform.Find("UI Elements").Find("MagicCircleRight");
         elementIconsRight = new SpriteRenderer[3];
-            elementIconsRight[0] = _myMagicCircleRight.Find("RightSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
-            elementIconsRight[1] = _myMagicCircleRight.Find("RightSelection").Find("Water").GetComponent<SpriteRenderer>();
-            elementIconsRight[2] = _myMagicCircleRight.Find("RightSelection").Find("Earth").GetComponent<SpriteRenderer>();
+        elementIconsRight[0] = _myMagicCircleRight.Find("RightSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
+        elementIconsRight[1] = _myMagicCircleRight.Find("RightSelection").Find("Water").GetComponent<SpriteRenderer>();
+        elementIconsRight[2] = _myMagicCircleRight.Find("RightSelection").Find("Earth").GetComponent<SpriteRenderer>();
         _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
         _myCirclePointer.gameObject.SetActive(false);
         _jumpParticle = GetComponent<ParticleSystem>();
         _castingParticle = transform.Find("Casting").GetComponent<ParticleSystem>();
-        Debug.Log(_jumpParticle);
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate()
+    {
         if (!_isDead)
         {
             Move(true);
@@ -95,7 +97,7 @@ public class Player : MovingObject {
                 changeElement();
             }
         }
-       // Debug.Log(_firstElement + " - " + _secondElement);
+        // Debug.Log(_firstElement + " - " + _secondElement);
     }
 
     protected override void Move(bool isFixed)
@@ -106,16 +108,17 @@ public class Player : MovingObject {
             {
                 jump();
             }
-            if (_myInputManager.GetButtonDownSpellCast1() > 0.8f && _castingSpell == false)
+            if (_myInputManager.GetButtonDownSpellCast1() && _castingSpell == false)
             {
                 launchSpell(_firstElement, _secondElement);
             }
-            if (_myInputManager.GetButtonDownSpellCast2() > 0.8f && _castingSpell == false)
+            if (_myInputManager.GetButtonDownSpellCast2() && _castingSpell == false)
             {
                 launchSpell(_secondElement, _firstElement);
             }
             if (_myInputManager.GetButtonDownElementChange1() && !_changingElement2)
             {
+                Debug.Log(_myInputManager.GetButtonDownSpellCast1() + " for player" + this.name);
                 _changingElement1 = true;
                 _myMagicCircleLeft.gameObject.SetActive(true);
                 _myCirclePointer.gameObject.SetActive(true);
@@ -152,10 +155,10 @@ public class Player : MovingObject {
         else
         {
             _grounded = isGrounded();
-            //if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false) _disableMovement = false;
+            if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false) _disableMovement = false;
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
-               
+
                 _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
                 //Move horizontally.
             }
@@ -219,7 +222,7 @@ public class Player : MovingObject {
 
     private bool isGrounded()
     {
-        Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up*0.1f, Color.yellow, 1);
+        Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up * 0.1f, Color.yellow, 1);
         Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up * 0.1f, Color.yellow, 1);
         RaycastHit2D hit = Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f);
         RaycastHit2D hit2 = Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f);
@@ -232,7 +235,8 @@ public class Player : MovingObject {
                     _usedDoubleJump = false;
                     return true;
                 }
-            } else
+            }
+            else
             {
                 _usedDoubleJump = false;
                 return true;
@@ -273,17 +277,30 @@ public class Player : MovingObject {
         Vector2 vec0 = new Vector2(xAxis, yAxis);
         vec0.Normalize();
 
-        StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
-        HandleCastingBehaviour();
+        Debug.DrawRay(this.transform.position, new Vector3(vec0.x * 2, vec0.y * 2, 0), Color.red, 5f);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f);
+        if (hit)
+        {
+            if (hit.transform.GetComponent<Collider2D>() != null)
+            {
+
+            }
+        }
+        else
+        {
+            StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
+            HandleCastingBehaviour();
+        }
+
         return launchedspell;
     }
 
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
         yield return new WaitForSeconds(pSpell.GetCastTime());
+        _castingSpell = false;
         _disableMovement = false;
         _castingParticle.Stop();
-        _castingSpell = false;
         Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
 
@@ -302,7 +319,7 @@ public class Player : MovingObject {
 
     //This is for loading animations etc.
     private void HandleCastingBehaviour()
-    {        
+    {
         _castingParticle.Play();
         _castingSpell = true;
         _disableMovement = true;
@@ -323,7 +340,8 @@ public class Player : MovingObject {
         {
             yAxis = 1;
             _myCirclePointer.gameObject.SetActive(false);
-        } else
+        }
+        else
         {
             _myCirclePointer.gameObject.SetActive(true);
         }
@@ -372,7 +390,9 @@ public class Player : MovingObject {
                 elementIconsLeft[0].sprite = Resources.Load<Sprite>(Glob.FireElementSelectedIcon);
                 //Debug.Log("Fire - Left");
             }
-        } else if (_changingElement2) {
+        }
+        else if (_changingElement2)
+        {
 
             elementIconsRight[0].sprite = Resources.Load<Sprite>(Glob.FireElementIcon);
             elementIconsRight[1].sprite = Resources.Load<Sprite>(Glob.WaterElementIcon);
@@ -431,7 +451,8 @@ public class Player : MovingObject {
         {
             _invulnerableStartTime = Time.time;
             GetComponent<MeshRenderer>().material.color = Color.blue; //TODO: Improve invulnerability feedback.
-        } else
+        }
+        else
         {
             GetComponent<MeshRenderer>().material.color = Color.red;
         }
