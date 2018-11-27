@@ -9,6 +9,7 @@ public static class Glob
     {
         if (playerCount == -1)
         {
+            //Testing purposes adding an empty player.
             playerCount = Input.GetJoystickNames().Length;
         }
         return playerCount;
@@ -160,7 +161,7 @@ public static class Glob
         SwitchButtonRight
     }
 
-    public const float FireFireSpeed = 10f;
+    public const float FireFireSpeed = 30f;
     public const float FireWaterSpeed = 15f;
     public const float FireEarthSpeed = 10f;
     public const float WaterFireSpeed = 6f;

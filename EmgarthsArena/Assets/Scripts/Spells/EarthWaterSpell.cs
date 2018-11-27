@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class EarthWaterSpell : Spell {
 
-	// Use this for initialization
-	void Start () {
+    private void InitializeSpell()
+    {
+        knockback = 50;
+        damage = 0;
+        castTime = 0.5f;
+        manaDrain = 20;
+        spellType = SpellDatabase.SpellType.SolidObject;
+        attackType = SpellDatabase.AttackType.Medium;
+    }
+
+    // Use this for initialization
+    void Start () {
         base.Start();
         _rb.velocity = -_rb.transform.up * Glob.EarthWaterSpeed;
+        InitializeSpell();
     }
 
     protected override void Move(bool isFixed)
@@ -24,6 +35,12 @@ public class EarthWaterSpell : Spell {
     {
 
     }
+
+    public override float GetCastTime()
+    {
+        return castTime;
+    }
+
 
     // Update is called once per frame
     void Update () {

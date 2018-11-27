@@ -20,6 +20,8 @@ public class Player : MovingObject {
     private Transform _myCirclePointer;
     private bool _changingElement1 = false;
     private bool _changingElement2 = false;
+    private bool _disableMovement = false;
+    private bool _castingSpell = false;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
@@ -83,11 +85,11 @@ public class Player : MovingObject {
             {
                 jump();
             }
-            if (_myInputManager.GetButtonDownSpellCast1())
+            if (_myInputManager.GetButtonDownSpellCast1() > 0.8f && _castingSpell == false)
             {
                 launchSpell(_firstElement, _secondElement);
             }
-            if (_myInputManager.GetButtonDownSpellCast2())
+            if (_myInputManager.GetButtonDownSpellCast2() > 0.8f && _castingSpell == false)
             {
                 launchSpell(_secondElement, _firstElement);
             }
@@ -129,7 +131,8 @@ public class Player : MovingObject {
         else
         {
             _grounded = isGrounded();
-            if (_myInputManager.GetAxisMoveHorizontal() != 0)
+            //if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false) _disableMovement = false;
+            if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
                
                 _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
@@ -166,17 +169,21 @@ public class Player : MovingObject {
 
     private void jump()
     {
-        if (_grounded)
+        if (!_disableMovement)
         {
-            GetComponent<ParticleSystem>().Play();
-            _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
-            _jumpTime = Time.time;
-        } else if (!_usedDoubleJump)
-        {
-            GetComponent<ParticleSystem>().Play();
-            _rb.velocity = new Vector2(_rb.velocity.x, 0);
-            _rb.AddForce(new Vector2(0, Glob.jumpDoubleHeight), ForceMode2D.Impulse);
-            _usedDoubleJump = true;
+            if (_grounded)
+            {
+                GetComponent<ParticleSystem>().Play();
+                _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
+                _jumpTime = Time.time;
+            }
+            else if (!_usedDoubleJump)
+            {
+                GetComponent<ParticleSystem>().Play();
+                _rb.velocity = new Vector2(_rb.velocity.x, 0);
+                _rb.AddForce(new Vector2(0, Glob.jumpDoubleHeight), ForceMode2D.Impulse);
+                _usedDoubleJump = true;
+            }
         }
     }
     private void jumpContinuous()
@@ -205,45 +212,49 @@ public class Player : MovingObject {
 
         float xAxis = _myInputManager.GetAxisLookHorizontal();
         float yAxis = _myInputManager.GetAxisLookVertical();
-        float Offset = Glob.spellOffset;
-
-        Vector2 vec2 = new Vector2(0, 1);
-        Vector2 vec0 = new Vector2(xAxis, yAxis);
 
         //If there's no input, should do forward.
         if (xAxis == 0 && yAxis == 0)
         {
             xAxis = 1;
         }
-
-
-        Debug.Log("xAxis = " + xAxis + " yAxis = " + yAxis);
+        Vector2 vec2 = new Vector2(0, 1);
+        Vector2 vec0 = new Vector2(xAxis, yAxis);
         vec0.Normalize();
-        Debug.Log("Vec X =  " + vec0.x + " vec Y = " + vec0.y);
 
-        Vector3 position = this.transform.position + new Vector3(vec0.x * Offset, vec0.y * Offset, 0);
-        Spell launchedspelltest = Instantiate(launchedspell, position, new Quaternion());
+        StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
+        HandleCastingBehaviour();
+        return launchedspell;
+    }
 
+    IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
+    {
+        yield return new WaitForSeconds(pSpell.GetCastTime());
+        _disableMovement = false;
+        _castingSpell = false;
+        Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
+        Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
 
-        if (xAxis > 0)
+        if (pInput.x > 0)
         {
-            vec2 = new Vector2(0, -1);
-            float Degrees = Vector2.Angle(vec2, vec0);
+            pNullPoint = new Vector2(0, -1);
+            float Degrees = Vector2.Angle(pNullPoint, pInput);
             launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees);
         }
         else
         {
-            float Degrees = Vector2.Angle(vec2, vec0);
+            float Degrees = Vector2.Angle(pNullPoint, pInput);
             launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees + 180);
         }
-
-        if (_invulnerable) //If you shoot whilst invulnerable, disable the invulnerability.
-        {
-            setInvulnerable(false);
-        }
-
-        return launchedspell;
     }
+
+    //This is for loading animations etc.
+    private void HandleCastingBehaviour()
+    {
+        _castingSpell = true;
+        _disableMovement = true;
+    }
+
 
     private SpellDatabase.Element changeElement()
     {
@@ -379,11 +390,12 @@ public class Player : MovingObject {
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
     }
 
-    public void HandleSpellHit(Spell hit)
+    public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
     {
-
+        Debug.Log(this.name + " is hit by :" + hit + " knockback:" + pKnockback + " damage:" + pDamage);
+        _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
+        _disableMovement = true;
     }
-
     public void TakeDamage(int dmg)
     {
         _healthRemaining -= dmg;

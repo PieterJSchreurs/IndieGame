@@ -5,18 +5,41 @@ using UnityEngine;
 
 public abstract class Spell : MovingObject
 {
-
     protected int damage;
     protected int knockback;
+    protected float castTime = -1;
+    protected float manaDrain;
     protected abstract void HandleExplosion();
     protected SpellDatabase.Element firstElement;
     protected SpellDatabase.Element secondElement;
+    protected SpellDatabase.SpellType spellType;
+    protected SpellDatabase.AttackType attackType;
 
     protected override void HandleCollision()
     {
-       
+
     }
 
-    
+    public int[] GetKnockBackAndDamage()
+    {
+        int[] values = new int[2] { knockback, damage };
+        return values;
+    }
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (!col.isTrigger)
+        {
+            if (col.gameObject.tag == "Player")
+            {
+                Player player = col.gameObject.GetComponent<Player>();
+
+                player.HandleSpellHit(this, knockback, damage, this.gameObject.GetComponent<Rigidbody2D>().velocity.normalized);
+            }
+
+            HandleCollision();
+        }
+    }
+
+    public abstract float GetCastTime();
 }
