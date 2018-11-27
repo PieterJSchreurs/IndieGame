@@ -185,9 +185,9 @@ public class Arena : MonoBehaviour {
 
         float XPos = minimumX + ((maximumX - minimumX) / 2);
         float YPos = minimumY + ((maximumY - minimumY) / 2);
-        Vector3 targetPos = new Vector3(XPos, YPos + Glob.camYOffset, 0);
+        Vector3 targetPos = new Vector3(XPos + Glob.camXOffset, YPos + Glob.camYOffset, 0);
         Vector3 targetDiff = targetPos - _myCamera.transform.position;
-        _myCamera.transform.position = new Vector3(_myCamera.transform.position.x + (targetDiff.x * Glob.camSpeed), _myCamera.transform.position.y + (targetDiff.y * Glob.camSpeed), -10 - (largestDiff / 2));
+        _myCamera.transform.position = new Vector3(_myCamera.transform.position.x + (targetDiff.x * Glob.camSpeed), _myCamera.transform.position.y + (targetDiff.y * Glob.camSpeed), Glob.camZOffset - (largestDiff / 2));
     }
 
     private void handleBoundaries()

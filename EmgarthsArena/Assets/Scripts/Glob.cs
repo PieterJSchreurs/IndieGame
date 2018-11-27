@@ -15,7 +15,9 @@ public static class Glob
         return playerCount;
     }
 
+    public const float camXOffset = 0f;
     public const float camYOffset = 3.25f;
+    public const float camZOffset = -15f;
     public const float camSpeed = 0.15f;
     public const int maxLives = 5;
     public const int maxHealth = 100;
