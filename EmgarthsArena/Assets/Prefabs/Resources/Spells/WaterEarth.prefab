@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4779786513627972}
   - component: {fileID: 33950840661193208}
   - component: {fileID: 23951277907775038}
-  - component: {fileID: 70083859544346290}
   - component: {fileID: 50020626031967362}
   - component: {fileID: 114945086725305536}
+  - component: {fileID: 58265864307870012}
   m_Layer: 0
   m_Name: WaterEarth
   m_TagString: Untagged
@@ -39,7 +39,7 @@ Transform:
   m_GameObject: {fileID: 1846890242415208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -84,7 +84,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846890242415208}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!50 &50020626031967362
 Rigidbody2D:
   serializedVersion: 4
@@ -105,8 +105,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &70083859544346290
-CapsuleCollider2D:
+--- !u!58 &58265864307870012
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -114,12 +114,12 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.0000002, y: 2.0000005}
-  m_Direction: 0
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!114 &114945086725305536
 MonoBehaviour:
   m_ObjectHideFlags: 1
