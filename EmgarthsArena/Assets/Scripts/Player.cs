@@ -84,7 +84,39 @@ public class Player : MovingObject {
     {
         if (!_isDead)
         {
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                launchSpell(_firstElement, _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                launchSpell(_secondElement, _firstElement);
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (_firstElement + 1 >= SpellDatabase.Element.Null)
+                {
+                    _firstElement = 0;
+                }
+                else
+                {
+                    _firstElement = _firstElement + 1;
+                }
+                Debug.Log(_firstElement + " - " + _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (_secondElement + 1 >= SpellDatabase.Element.Null)
+                {
+                    _secondElement = 0;
+                }
+                else
+                {
+                    _secondElement = _secondElement + 1;
+                }
+                Debug.Log(_firstElement + " - " + _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 TakeDamage(20);
             }
@@ -95,7 +127,6 @@ public class Player : MovingObject {
                 changeElement();
             }
         }
-       // Debug.Log(_firstElement + " - " + _secondElement);
     }
 
     protected override void Move(bool isFixed)
@@ -219,7 +250,7 @@ public class Player : MovingObject {
 
     private bool isGrounded()
     {
-        Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up*0.1f, Color.yellow, 1);
+        Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up * 0.1f, Color.yellow, 1);
         Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up * 0.1f, Color.yellow, 1);
         RaycastHit2D hit = Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f);
         RaycastHit2D hit2 = Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f);
