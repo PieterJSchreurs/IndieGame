@@ -66,13 +66,13 @@ public class InputManager {
         return Input.GetButton(inputDictionary[Glob.Keytype.JumpButton]);
     }
 
-    public bool GetButtonDownSpellCast1()
+    public float GetButtonDownSpellCast1()
     {
-        return Input.GetButtonDown(inputDictionary[Glob.Keytype.FireButtonLeft]);
+        return Input.GetAxis(inputDictionary[Glob.Keytype.FireButtonLeft]);
     }
-    public bool GetButtonDownSpellCast2()
+    public float GetButtonDownSpellCast2()
     {
-        return Input.GetButtonDown(inputDictionary[Glob.Keytype.FireButtonRight]);
+        return Input.GetAxis(inputDictionary[Glob.Keytype.FireButtonRight]);
     }
 
     public bool GetButtonDownElementChange1()
