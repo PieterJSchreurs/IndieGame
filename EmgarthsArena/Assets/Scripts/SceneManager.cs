@@ -60,7 +60,7 @@ public class SceneManager : MonoBehaviour {
 
     public void InitializeMatch()
     {
-        Arena newArena = Instantiate(Glob.GetArenaPrefab(0), Vector3.zero, new Quaternion(0, 0, 0, 0));
+        Arena newArena = Instantiate(Glob.GetArenaPrefab(1), Vector3.zero, new Quaternion(0, 0, 0, 0));
         currentArena = newArena;
         allPlayers = new Player[Glob.GetPlayerCount()];
         playersAlive = allPlayers.Length;

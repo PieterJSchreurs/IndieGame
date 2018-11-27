@@ -47,7 +47,7 @@ public static class Glob
     public const string WaterElementSelectedIcon = "UI/PlayerBanner/ElementIcon/WaterSymbolSelected";
     public const string EarthElementSelectedIcon = "UI/PlayerBanner/ElementIcon/EarthSymbolSelected";
 
-    private const int arenaCount = 1;
+    private const int arenaCount = 2;
     public const string BaseArenaPrefab = "Arenas/Arena";
     public const string Arena1Prefab = "Arenas/Arena1";
 
