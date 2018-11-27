@@ -24,6 +24,8 @@ public class Player : MovingObject {
     private bool _changingElement2 = false;
     private bool _disableMovement = false;
     private bool _castingSpell = false;
+    public ParticleSystem _castingParticle;
+    public ParticleSystem _jumpParticle;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
@@ -64,7 +66,9 @@ public class Player : MovingObject {
         _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
         _myCirclePointer.gameObject.SetActive(false);
-        
+        _jumpParticle = GetComponent<ParticleSystem>();
+        _castingParticle = transform.Find("Casting").GetComponent<ParticleSystem>();
+        Debug.Log(_jumpParticle);
     }
 
     // Update is called once per frame
@@ -190,13 +194,15 @@ public class Player : MovingObject {
         {
             if (_grounded)
             {
-                GetComponent<ParticleSystem>().Play();
+                _jumpParticle.Play();
+                _castingParticle.Stop();
                 _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
                 _jumpTime = Time.time;
             }
             else if (!_usedDoubleJump)
             {
-                GetComponent<ParticleSystem>().Play();
+                _jumpParticle.Play();
+                _castingParticle.Stop();
                 _rb.velocity = new Vector2(_rb.velocity.x, 0);
                 _rb.AddForce(new Vector2(0, Glob.jumpDoubleHeight), ForceMode2D.Impulse);
                 _usedDoubleJump = true;
@@ -276,6 +282,7 @@ public class Player : MovingObject {
     {
         yield return new WaitForSeconds(pSpell.GetCastTime());
         _disableMovement = false;
+        _castingParticle.Stop();
         _castingSpell = false;
         Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
@@ -295,7 +302,8 @@ public class Player : MovingObject {
 
     //This is for loading animations etc.
     private void HandleCastingBehaviour()
-    {
+    {        
+        _castingParticle.Play();
         _castingSpell = true;
         _disableMovement = true;
     }
