@@ -26,13 +26,28 @@ public abstract class Spell : MovingObject
         return values;
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    /*void OnTriggerEnter2D(Collider2D col)
     {
         if (!col.isTrigger)
         {
             if (col.gameObject.tag == "Player")
             {
                 Player player = col.gameObject.GetComponent<Player>();
+
+                player.HandleSpellHit(this, knockback, damage, this.gameObject.GetComponent<Rigidbody2D>().velocity.normalized);
+            }
+
+            HandleCollision();
+        }
+    }*/
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.otherCollider.isTrigger)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                Player player = collision.gameObject.GetComponent<Player>();
 
                 player.HandleSpellHit(this, knockback, damage, this.gameObject.GetComponent<Rigidbody2D>().velocity.normalized);
             }

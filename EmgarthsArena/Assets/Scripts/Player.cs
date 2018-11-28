@@ -16,6 +16,7 @@ public class Player : MovingObject {
     private SpellDatabase.Element _firstElement = SpellDatabase.Element.Fire;
     private SpellDatabase.Element _secondElement = SpellDatabase.Element.Water;
 
+    private SpriteRenderer _myIndicator;
     private Transform _myMagicCircleLeft;
     private SpriteRenderer[] elementIconsLeft;
     private Transform _myMagicCircleRight;
@@ -56,6 +57,8 @@ public class Player : MovingObject {
     {
         base.Start();
         _myInputManager = new InputManager(ID);
+        _myIndicator = transform.Find("UI Elements").Find("Indicator").GetComponent<SpriteRenderer>();
+        _myIndicator.sprite = Resources.Load<Sprite>(Glob.PlayerIndicatorBase + (ID + 1).ToString());
         _myMagicCircleLeft = transform.Find("UI Elements").Find("MagicCircleLeft");
         elementIconsLeft = new SpriteRenderer[3];
             elementIconsLeft[0] = _myMagicCircleLeft.Find("LeftSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
@@ -96,7 +99,7 @@ public class Player : MovingObject {
             }
             if (Input.GetKeyDown(KeyCode.T))
             {
-                launchSpell(_secondElement, _firstElement);
+                launchSpell(_firstElement, _secondElement, true);
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -149,7 +152,7 @@ public class Player : MovingObject {
             }
             if (_myInputManager.GetButtonDownSpellCast2() && _castingSpell == false)
             {
-                launchSpell(_secondElement, _firstElement);
+                launchSpell(_firstElement, _secondElement, true);
             }
             if (_myInputManager.GetButtonDownElementChange1() && !_changingElement2)
             {
@@ -294,9 +297,13 @@ public class Player : MovingObject {
         return false;
     }
 
-    private Spell launchSpell(SpellDatabase.Element firstEle, SpellDatabase.Element secondEle)
+    private Spell launchSpell(SpellDatabase.Element firstEle, SpellDatabase.Element secondEle, bool reversed = false)
     {
         Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
+        if (reversed)
+        {
+            launchedspell = SpellDatabase.GetInstance().GetSpell(secondEle, firstEle);
+        }
 
         float xAxis = _myInputManager.GetAxisLookHorizontal();
         float yAxis = _myInputManager.GetAxisLookVertical();
@@ -310,8 +317,22 @@ public class Player : MovingObject {
         Vector2 vec0 = new Vector2(xAxis, yAxis);
         vec0.Normalize();
 
-        StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
-        HandleCastingBehaviour();
+        Debug.DrawRay(this.transform.position, new Vector3(vec0.x * 2, vec0.y * 2, 0), Color.red, 5f);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f);
+        if (!hit)
+        { 
+            StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
+            HandleCastingBehaviour();
+            if (reversed)
+            {
+                SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, secondEle, true);
+            }
+            else
+            {
+                SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, firstEle, true);
+            }
+        }
+
         return launchedspell;
     }
 
@@ -323,6 +344,9 @@ public class Player : MovingObject {
         _castingSpell = false;
         Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
+
+        SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, false, _firstElement, false);
+        SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, true, _secondElement, false);
 
         if (pInput.x > 0)
         {
@@ -389,24 +413,30 @@ public class Player : MovingObject {
             elementIconsLeft[0].sprite = Resources.Load<Sprite>(Glob.FireElementIcon);
             elementIconsLeft[1].sprite = Resources.Load<Sprite>(Glob.WaterElementIcon);
             elementIconsLeft[2].sprite = Resources.Load<Sprite>(Glob.EarthElementIcon);
+            elementIconsLeft[0].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
+            elementIconsLeft[1].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
+            elementIconsLeft[2].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
 
             //Left
             if (angle <= 245f && angle >= 202.5f)
             {
                 newElement = SpellDatabase.Element.Earth;
                 elementIconsLeft[2].sprite = Resources.Load<Sprite>(Glob.EarthElementSelectedIcon);
+                elementIconsLeft[2].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
                 //Debug.Log("Earth - Left");
             }
             else if (angle <= 202.5f && angle >= 157.5f)
             {
                 newElement = SpellDatabase.Element.Water;
                 elementIconsLeft[1].sprite = Resources.Load<Sprite>(Glob.WaterElementSelectedIcon);
+                elementIconsLeft[1].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
                 //Debug.Log("Water - Left");
             }
             else if (angle <= 157.5f && angle >= 115f)
             {
                 newElement = SpellDatabase.Element.Fire;
                 elementIconsLeft[0].sprite = Resources.Load<Sprite>(Glob.FireElementSelectedIcon);
+                elementIconsLeft[0].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
                 //Debug.Log("Fire - Left");
             }
         } else if (_changingElement2) {
@@ -414,24 +444,30 @@ public class Player : MovingObject {
             elementIconsRight[0].sprite = Resources.Load<Sprite>(Glob.FireElementIcon);
             elementIconsRight[1].sprite = Resources.Load<Sprite>(Glob.WaterElementIcon);
             elementIconsRight[2].sprite = Resources.Load<Sprite>(Glob.EarthElementIcon);
+            elementIconsRight[0].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
+            elementIconsRight[1].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
+            elementIconsRight[2].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
 
             //Right
             if (angle <= 337.5f && angle >= 295f)
             {
                 newElement = SpellDatabase.Element.Earth;
                 elementIconsRight[2].sprite = Resources.Load<Sprite>(Glob.EarthElementSelectedIcon);
+                elementIconsRight[2].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
                 //Debug.Log("Earth - Right");
             }
             else if ((angle <= 360f && angle >= 337.5f) || (angle <= 22.5f && angle >= 0))
             {
                 newElement = SpellDatabase.Element.Water;
                 elementIconsRight[1].sprite = Resources.Load<Sprite>(Glob.WaterElementSelectedIcon);
+                elementIconsRight[1].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
                 //Debug.Log("Water - Right");
             }
             else if (angle <= 65f && angle >= 22.5f)
             {
                 newElement = SpellDatabase.Element.Fire;
                 elementIconsRight[0].sprite = Resources.Load<Sprite>(Glob.FireElementSelectedIcon);
+                elementIconsRight[0].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
                 //Debug.Log("Fire - Right");
             }
         }
@@ -477,6 +513,7 @@ public class Player : MovingObject {
     {
         _isDead = toggle;
         GetComponent<MeshRenderer>().enabled = !_isDead; //TODO: Very ugly way of doing this, improve it.
+        transform.position = new Vector3(28, 2, 0); //TODO: Ugly way of disabling the player.
         _changingElement1 = false;
         _changingElement2 = false;
         _myMagicCircleLeft.gameObject.SetActive(false);
@@ -504,6 +541,7 @@ public class Player : MovingObject {
     {
         Debug.Log(this.name + " is hit by :" + hit + " knockback:" + pKnockback + " damage:" + pDamage);
         _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
+        TakeDamage(pDamage);
         _disableMovement = true;
     }
     public void TakeDamage(int dmg)

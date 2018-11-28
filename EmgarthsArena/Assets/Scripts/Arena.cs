@@ -70,8 +70,8 @@ public class Arena : MonoBehaviour {
             playerBanners[i].banner = newBanner;
             playerBanners[i].healthBar = newBanner.transform.Find("HealthBar").GetComponent<Image>();
             playerBanners[i].manaBar = newBanner.transform.Find("ManaBar").GetComponent<Image>();
-            playerBanners[i].firstElementIcon = newBanner.transform.Find("Element1").GetComponent<Image>();
-            playerBanners[i].secondElementIcon = newBanner.transform.Find("Element2").GetComponent<Image>();
+            playerBanners[i].firstElementIcon = newBanner.transform.Find("Glow1").Find("Element").GetComponent<Image>();
+            playerBanners[i].secondElementIcon = newBanner.transform.Find("Glow2").Find("Element").GetComponent<Image>();
             for (int j = 0; j < playerBanners[i].lifeCrystals.Length; j++)
             {
                 playerBanners[i].lifeCrystals[j] = newBanner.transform.Find("HealthCrystal" + (j + 1).ToString()).GetComponent<Image>();
@@ -130,6 +130,92 @@ public class Arena : MonoBehaviour {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void GlowPlayerBannerElement(int id, bool firstOrSecondElement, SpellDatabase.Element element, bool toggle)
+    {
+        if (toggle)
+        {
+            if (!firstOrSecondElement)
+            {
+                switch (element)
+                {
+                    case SpellDatabase.Element.Fire:
+                        playerBanners[id].firstElementIcon.sprite = Resources.Load<Sprite>(Glob.FireElementSelectedIcon);
+                        break;
+                    case SpellDatabase.Element.Water:
+                        playerBanners[id].firstElementIcon.sprite = Resources.Load<Sprite>(Glob.WaterElementSelectedIcon);
+                        break;
+                    case SpellDatabase.Element.Earth:
+                        playerBanners[id].firstElementIcon.sprite = Resources.Load<Sprite>(Glob.EarthElementSelectedIcon);
+                        break;
+                    case SpellDatabase.Element.Null:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (element)
+                {
+                    case SpellDatabase.Element.Fire:
+                        playerBanners[id].secondElementIcon.sprite = Resources.Load<Sprite>(Glob.FireElementSelectedIcon);
+                        break;
+                    case SpellDatabase.Element.Water:
+                        playerBanners[id].secondElementIcon.sprite = Resources.Load<Sprite>(Glob.WaterElementSelectedIcon);
+                        break;
+                    case SpellDatabase.Element.Earth:
+                        playerBanners[id].secondElementIcon.sprite = Resources.Load<Sprite>(Glob.EarthElementSelectedIcon);
+                        break;
+                    case SpellDatabase.Element.Null:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        else
+        {
+            if (!firstOrSecondElement)
+            {
+                switch (element)
+                {
+                    case SpellDatabase.Element.Fire:
+                        playerBanners[id].firstElementIcon.sprite = Resources.Load<Sprite>(Glob.FireElementIcon);
+                        break;
+                    case SpellDatabase.Element.Water:
+                        playerBanners[id].firstElementIcon.sprite = Resources.Load<Sprite>(Glob.WaterElementIcon);
+                        break;
+                    case SpellDatabase.Element.Earth:
+                        playerBanners[id].firstElementIcon.sprite = Resources.Load<Sprite>(Glob.EarthElementIcon);
+                        break;
+                    case SpellDatabase.Element.Null:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (element)
+                {
+                    case SpellDatabase.Element.Fire:
+                        playerBanners[id].secondElementIcon.sprite = Resources.Load<Sprite>(Glob.FireElementIcon);
+                        break;
+                    case SpellDatabase.Element.Water:
+                        playerBanners[id].secondElementIcon.sprite = Resources.Load<Sprite>(Glob.WaterElementIcon);
+                        break;
+                    case SpellDatabase.Element.Earth:
+                        playerBanners[id].secondElementIcon.sprite = Resources.Load<Sprite>(Glob.EarthElementIcon);
+                        break;
+                    case SpellDatabase.Element.Null:
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 

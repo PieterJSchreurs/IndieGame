@@ -11,7 +11,10 @@ public class WaterEarthSpell : Spell {
 
     private void InitializeSpell()
     {
-        knockback = 50;
+        base.Start();
+        _rb.velocity = -_rb.transform.up * Glob.WaterEarthSpeed;
+        _lastVelocityX = _rb.velocity.x;
+        knockback = -50; //TODO: Improve this, so that it isnt negative anymore.
         damage = 40;
         castTime = 1.5f;
         manaDrain = 25;
@@ -23,9 +26,11 @@ public class WaterEarthSpell : Spell {
     // Use this for initialization
     void Start () {
         base.Start();
-        _rb.velocity = -_rb.transform.up * Glob.WaterEarthSpeed;
-        _lastVelocityX = _rb.velocity.x;
-        InitializeSpell();
+        if (castTime == -1)
+        {
+            InitializeSpell();
+            Debug.Log("Initializing spell");
+        }
     }
 
     protected override void Move(bool isFixed)
@@ -59,7 +64,8 @@ public class WaterEarthSpell : Spell {
 
     protected override void HandleCollision()
     {
-
+        //Destroy the object.
+        //Destroy(this.gameObject);
     }
 
     protected override void HandleExplosion()
