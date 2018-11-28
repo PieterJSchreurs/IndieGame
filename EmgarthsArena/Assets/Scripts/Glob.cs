@@ -30,6 +30,10 @@ public static class Glob
     public const float jumpDoubleHeight = 725f;
     public const float jumpTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
+    public static GameObject GetKnockback()
+    {
+        return Resources.Load<GameObject>("Spells/Knockback");
+    }
 
     public const string PlayerPrefab = "Player/Player";
     public static GameObject GetPlayerPrefab()
@@ -168,7 +172,7 @@ public static class Glob
 
     public const float FireFireSpeed = 30f;
     public const float FireWaterSpeed = 15f;
-    public const float FireEarthSpeed = 10f;
+    public const float FireEarthSpeed = 20f;
     public const float WaterFireSpeed = 6f;
     public const float WaterWaterSpeed = 10f;
     public const float WaterEarthSpeed = 10f;
