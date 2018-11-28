@@ -9,6 +9,7 @@ public abstract class MovingObject : MonoBehaviour
     protected Rigidbody2D _rb;
     protected Collider2D _coll;
 
+
     protected virtual void Start()
     {
         if (_rb == null)

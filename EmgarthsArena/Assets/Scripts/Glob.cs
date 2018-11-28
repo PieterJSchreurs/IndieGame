@@ -27,7 +27,7 @@ public static class Glob
     public const float playerSpeed = 20f;
     public const float jumpHeight = 800f;
     public const float jumpHeightContinuous = 6700f;
-    public const float jumpDoubleHeight = 825f;
+    public const float jumpDoubleHeight = 900f;
     public const float jumpTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
     public static GameObject GetKnockback()
@@ -49,6 +49,12 @@ public static class Glob
     public const string FullLifeCrystal3 = "UI/PlayerBanner/CrystalLive3";
     public const string FullLifeCrystal4 = "UI/PlayerBanner/CrystalLive4";
     public const string EmptyLifeCrystal = "UI/PlayerBanner/CrystalBlueDead";
+
+    public const string PlayerIndicatorBase = "UI/PlayerIndicator";
+    public const string PlayerIndicator1 = "UI/PlayerIndicator1";
+    public const string PlayerIndicator2 = "UI/PlayerIndicator2";
+    public const string PlayerIndicator3 = "UI/PlayerIndicator3";
+    public const string PlayerIndicator4 = "UI/PlayerIndicator4";
 
     public const string FireElementIcon = "UI/PlayerBanner/ElementIcon/FireSymbol";
     public const string WaterElementIcon = "UI/PlayerBanner/ElementIcon/WaterSymbol";
