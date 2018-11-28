@@ -14,7 +14,7 @@ public class WaterEarthSpell : Spell {
         base.Start();
         _rb.velocity = -_rb.transform.up * Glob.WaterEarthSpeed;
         _lastVelocityX = _rb.velocity.x;
-        knockback = -50; //TODO: Improve this, so that it isnt negative anymore.
+        knockback = 50; //TODO: Improve this, so that it isnt negative anymore.
         damage = 40;
         castTime = 1.5f;
         manaDrain = 25;

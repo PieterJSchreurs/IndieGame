@@ -192,10 +192,12 @@ public class Player : MovingObject {
         else
         {
             _grounded = isGrounded();
-            //if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false) _disableMovement = false;
+            if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false)
+            {
+                _disableMovement = false;
+            }
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
-               
                 _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
                 //Move horizontally.
             }
@@ -339,7 +341,10 @@ public class Player : MovingObject {
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
         yield return new WaitForSeconds(pSpell.GetCastTime());
-        _disableMovement = false;
+        if (pInput != new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && _myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0)
+        {
+            pInput = new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical());
+        }
         _castingParticle.Stop();
         _castingSpell = false;
         Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);

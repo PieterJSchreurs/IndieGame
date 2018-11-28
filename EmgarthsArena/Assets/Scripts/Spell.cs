@@ -51,13 +51,14 @@ public abstract class Spell : MovingObject
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if (!collision.otherCollider.isTrigger)
         {
             if (collision.gameObject.tag == "Player")
             {
                 Player player = collision.gameObject.GetComponent<Player>();
 
-                player.HandleSpellHit(this, knockback, damage, this.gameObject.GetComponent<Rigidbody2D>().velocity.normalized);
+                player.HandleSpellHit(this, knockback, damage, -collision.relativeVelocity.normalized);
             }
 
             HandleCollision();
