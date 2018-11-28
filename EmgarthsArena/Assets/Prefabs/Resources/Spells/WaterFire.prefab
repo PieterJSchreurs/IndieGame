@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 70340713089820252}
   - component: {fileID: 50233005910255722}
   - component: {fileID: 114039462520242420}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WaterFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}

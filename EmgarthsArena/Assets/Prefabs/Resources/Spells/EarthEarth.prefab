@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 70352672634748692}
   - component: {fileID: 50761846062748908}
   - component: {fileID: 114820674944503940}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EarthEarth
   m_TagString: Untagged
   m_Icon: {fileID: 0}

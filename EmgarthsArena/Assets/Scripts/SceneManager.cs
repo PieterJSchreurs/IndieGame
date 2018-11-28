@@ -85,6 +85,7 @@ public class SceneManager : MonoBehaviour {
                 for (int i = 0; i < allPlayers.Length; i++)
                 {
                     GameObject newPlayer = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
+                    newPlayer.name = "Player" + i;
                     allPlayers[i] = newPlayer.AddComponent<Player>().GetPlayer(i);
                     //Give the players their correct ID, and their correct InputManager.
                 }

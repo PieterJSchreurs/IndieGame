@@ -34,7 +34,15 @@ public abstract class Spell : MovingObject
             {
                 Player player = col.gameObject.GetComponent<Player>();
 
-                player.HandleSpellHit(this, knockback, damage, this.gameObject.GetComponent<Rigidbody2D>().velocity.normalized);
+                //Fire earth doesn't need a spellhit since it explodes on impact, the explosion is the thing that deals the hit.
+                if (this.GetComponent<FireEarthSpell>() != null)
+                {
+                    Debug.Log("Fire earth spell hit.");
+                }
+                else
+                {
+                    player.HandleSpellHit(this, knockback, damage, this.gameObject.GetComponent<Rigidbody2D>().velocity.normalized);
+                }
             }
 
             HandleCollision();

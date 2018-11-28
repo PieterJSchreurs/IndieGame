@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 70571943887270954}
   - component: {fileID: 50246262718885956}
   - component: {fileID: 114476020937468870}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EarthWater
   m_TagString: Untagged
   m_Icon: {fileID: 0}

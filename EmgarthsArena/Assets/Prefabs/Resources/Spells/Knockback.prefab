@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33258343262925778}
   - component: {fileID: 23621135485668594}
   - component: {fileID: 58708611240776744}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Knockback
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -7,8 +7,8 @@ public class FireEarthSpell : Spell
 
     private void InitializeSpell()
     {
-        knockback = 50;
-        damage = 40;
+        knockback = 20;
+        damage = 25;
         castTime = 1;
         manaDrain = 15;
         spellType = SpellDatabase.SpellType.Projectile;
@@ -38,15 +38,38 @@ public class FireEarthSpell : Spell
 
     protected override void HandleExplosion()
     {
-        //GameObject knockback = Glob.GetKnockback();
-        //knockback = Instantiate(knockback, this.gameObject.transform);
-        //knockback.transform.parent = this.gameObject.transform.parent;
-        //CircleCollider2D circleCollider = knockback.GetComponent<CircleCollider2D>();
-        //circleCollider.enabled = false;
-        //circleCollider.enabled = true;
+        Debug.Log("Exploooooosion");
+        GameObject knockBackGameObject = Glob.GetKnockback();
+        knockBackGameObject = Instantiate(knockBackGameObject, this.gameObject.transform);
+        knockBackGameObject.transform.parent = this.gameObject.transform.parent;
+        knockBackGameObject.transform.localScale += new Vector3(3, 3, 3);
+        CircleCollider2D circleCollider = knockBackGameObject.GetComponent<CircleCollider2D>();
+        circleCollider.enabled = false;
+        circleCollider.enabled = true;
 
-       // Collider2D[] listOfColliders = circleCollider.OverlapCollider();
-        
+        ContactFilter2D contactFilter2D = new ContactFilter2D();
+        Collider2D[] intersectingresults = new Collider2D[9];
+        circleCollider.OverlapCollider(contactFilter2D, intersectingresults);
+
+        int i = 0;
+        foreach (Collider2D col in intersectingresults)
+        {
+            
+            if (col != null)
+            {
+                Debug.Log(i + " " + col.gameObject.name);
+                i++;
+                if (col.gameObject.tag == "Player")
+                {
+                    Player player = col.gameObject.GetComponent<Player>();
+                    Vector2 hitAngle = new Vector2(player.transform.position.x - this.transform.position.x, player.transform.position.y - this.transform.position.y);
+                    player.HandleSpellHit(this, knockback, damage, hitAngle.normalized);
+                   
+                }
+            }
+        }
+
+        Destroy(knockBackGameObject.gameObject, 2.0f);
     }
 
     public override float GetCastTime()

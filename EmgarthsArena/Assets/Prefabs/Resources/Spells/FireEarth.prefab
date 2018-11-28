@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 58794536775217550}
   - component: {fileID: 50987582326817468}
   - component: {fileID: 114244678692279294}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FireEarth
   m_TagString: Untagged
   m_Icon: {fileID: 0}

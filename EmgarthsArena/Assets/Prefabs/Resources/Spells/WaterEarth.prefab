@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50020626031967362}
   - component: {fileID: 114945086725305536}
   - component: {fileID: 58265864307870012}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WaterEarth
   m_TagString: Untagged
   m_Icon: {fileID: 0}

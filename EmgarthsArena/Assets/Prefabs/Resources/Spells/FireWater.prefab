@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 70424462478690170}
   - component: {fileID: 50471494856879886}
   - component: {fileID: 114195832852579406}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: FireWater
   m_TagString: Untagged
   m_Icon: {fileID: 0}

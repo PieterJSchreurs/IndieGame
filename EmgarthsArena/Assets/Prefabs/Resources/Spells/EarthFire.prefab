@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 70488061428468786}
   - component: {fileID: 50538573034308818}
   - component: {fileID: 114284733962310930}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EarthFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}

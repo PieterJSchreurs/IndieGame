@@ -189,7 +189,7 @@ public class Player : MovingObject {
         else
         {
             _grounded = isGrounded();
-            //if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false) _disableMovement = false;
+            if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false) _disableMovement = false;
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
                
@@ -310,15 +310,29 @@ public class Player : MovingObject {
         Vector2 vec0 = new Vector2(xAxis, yAxis);
         vec0.Normalize();
 
-        StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
-        HandleCastingBehaviour();
+        Debug.DrawRay(this.transform.position, new Vector3(vec0.x * 2, vec0.y * 2, 0), Color.red, 5f);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f);
+        if (hit)
+        {
+            if (hit.transform.GetComponent<Collider2D>() != null)
+            {
+            }
+        }
+        else
+        {
+            StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
+            HandleCastingBehaviour();
+        }
         return launchedspell;
     }
 
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
         yield return new WaitForSeconds(pSpell.GetCastTime());
-        _disableMovement = false;
+        if(pInput != new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && _myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0)
+        {
+            pInput = new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical());
+        }
         _castingParticle.Stop();
         _castingSpell = false;
         Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
@@ -342,7 +356,6 @@ public class Player : MovingObject {
     {        
         _castingParticle.Play();
         _castingSpell = true;
-        _disableMovement = true;
     }
 
 
@@ -502,7 +515,7 @@ public class Player : MovingObject {
 
     public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
     {
-        Debug.Log(this.name + " is hit by :" + hit + " knockback:" + pKnockback + " damage:" + pDamage);
+        TakeDamage(pDamage);
         _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
         _disableMovement = true;
     }
