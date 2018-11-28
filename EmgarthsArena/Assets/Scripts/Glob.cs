@@ -10,7 +10,7 @@ public static class Glob
         if (playerCount == -1)
         {
             //Testing purposes adding an empty player.
-            playerCount = Input.GetJoystickNames().Length+2;
+            playerCount = Input.GetJoystickNames().Length;
         }
         return playerCount;
     }
@@ -148,13 +148,10 @@ public static class Glob
         {
             case -1:
                 return keyboardControllers;
-                break;
             case 0:
                 return inputControllersP1;
-                break;
             case 1:
                 return inputControllersP2;
-                break;
         }
         Debug.Log("Something went wrong");
         return inputControllersP1;

@@ -143,11 +143,11 @@ public class Player : MovingObject {
             {
                 jump();
             }
-            if (_myInputManager.GetButtonDownSpellCast1() > 0.8f && _castingSpell == false)
+            if (_myInputManager.GetButtonDownSpellCast1() && _castingSpell == false)
             {
                 launchSpell(_firstElement, _secondElement);
             }
-            if (_myInputManager.GetButtonDownSpellCast2() > 0.8f && _castingSpell == false)
+            if (_myInputManager.GetButtonDownSpellCast2() && _castingSpell == false)
             {
                 launchSpell(_secondElement, _firstElement);
             }
