@@ -10,7 +10,7 @@ public static class Glob
         if (playerCount == -1)
         {
             //Testing purposes adding an empty player.
-            playerCount = Input.GetJoystickNames().Length;
+            playerCount = Input.GetJoystickNames().Length+2;
         }
         return playerCount;
     }
@@ -27,7 +27,7 @@ public static class Glob
     public const float playerSpeed = 20f;
     public const float jumpHeight = 800f;
     public const float jumpHeightContinuous = 6700f;
-    public const float jumpDoubleHeight = 725f;
+    public const float jumpDoubleHeight = 825f;
     public const float jumpTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
 
@@ -39,7 +39,11 @@ public static class Glob
     public const string PlayerBannerPrefab = "UI/PlayerBanner/CharacterBanner";
     public const string ResolutionScreenStatsPrefab = "UI/ResolutionScreen/PlayerStats";
 
-    public const string FullLifeCrystal = "UI/PlayerBanner/CrystalBlueLive";
+    public const string FullLifeCrystalBase = "UI/PlayerBanner/CrystalLive";
+    public const string FullLifeCrystal1 = "UI/PlayerBanner/CrystalLive1";
+    public const string FullLifeCrystal2 = "UI/PlayerBanner/CrystalLive2";
+    public const string FullLifeCrystal3 = "UI/PlayerBanner/CrystalLive3";
+    public const string FullLifeCrystal4 = "UI/PlayerBanner/CrystalLive4";
     public const string EmptyLifeCrystal = "UI/PlayerBanner/CrystalBlueDead";
 
     public const string FireElementIcon = "UI/PlayerBanner/ElementIcon/FireSymbol";

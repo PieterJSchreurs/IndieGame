@@ -7,13 +7,14 @@ public class Player : MovingObject {
 
     private InputManager _myInputManager;
     private int _healthRemaining;
+    private int _manaRemaining;
     private int _livesRemaining;
     private bool _isDead = false;
     private float _deathTime = 0;
     private bool _invulnerable = false;
     private float _invulnerableStartTime = 0;
-    private SpellDatabase.Element _firstElement;
-    private SpellDatabase.Element _secondElement;
+    private SpellDatabase.Element _firstElement = SpellDatabase.Element.Fire;
+    private SpellDatabase.Element _secondElement = SpellDatabase.Element.Water;
 
     private Transform _myMagicCircleLeft;
     private SpriteRenderer[] elementIconsLeft;
@@ -43,7 +44,11 @@ public class Player : MovingObject {
         ID = pPlayerIndex;
         Debug.Log("Added player with ID: " + pPlayerIndex);
         _healthRemaining = Glob.maxHealth;
+        _manaRemaining = Glob.maxMana;
         _livesRemaining = Glob.maxLives;
+
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+
         return this;
     }
 
@@ -68,6 +73,7 @@ public class Player : MovingObject {
         _myCirclePointer.gameObject.SetActive(false);
         _jumpParticle = GetComponent<ParticleSystem>();
         _castingParticle = transform.Find("Casting").GetComponent<ParticleSystem>();
+
         Debug.Log(_jumpParticle);
     }
 
@@ -162,7 +168,7 @@ public class Player : MovingObject {
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
                     _firstElement = changeElement();
-                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
                 }
                 _changingElement1 = false;
                 _myMagicCircleLeft.gameObject.SetActive(false);
@@ -173,7 +179,7 @@ public class Player : MovingObject {
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
                     _secondElement = changeElement();
-                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
                 }
                 _changingElement2 = false;
                 _myMagicCircleRight.gameObject.SetActive(false);
@@ -452,7 +458,7 @@ public class Player : MovingObject {
             }
             //respawn();
         }
-        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
     }
 
     private void setInvulnerable(bool toggle)
@@ -491,7 +497,7 @@ public class Player : MovingObject {
         _rb.velocity = Vector3.zero;
         transform.position = SceneManager.GetInstance().GetCurrentArena().GetRandomRespawnPoint();
         Debug.Log("Respawned! Health: " + _healthRemaining + "/" + Glob.maxHealth + ", Lives: " + _livesRemaining + "/" + Glob.maxLives);
-        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
     }
 
     public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
