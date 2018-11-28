@@ -38,9 +38,13 @@ public class EarthWaterSpell : Spell {
 
     public override float GetCastTime()
     {
+        if (castTime == -1)
+        {
+            InitializeSpell();
+            Debug.Log("Initializing spell");
+        }
         return castTime;
     }
-
 
     // Update is called once per frame
     void Update () {

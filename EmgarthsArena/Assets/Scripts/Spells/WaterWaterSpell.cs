@@ -38,6 +38,11 @@ public class WaterWaterSpell : Spell {
 
     public override float GetCastTime()
     {
+        if (castTime == -1)
+        {
+            InitializeSpell();
+            Debug.Log("Initializing spell");
+        }
         return castTime;
     }
 

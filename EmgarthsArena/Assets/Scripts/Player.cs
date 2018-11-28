@@ -118,7 +118,6 @@ public class Player : MovingObject
             }
             if (_myInputManager.GetButtonDownElementChange1() && !_changingElement2)
             {
-                Debug.Log(_myInputManager.GetButtonDownSpellCast1() + " for player" + this.name);
                 _changingElement1 = true;
                 _myMagicCircleLeft.gameObject.SetActive(true);
                 _myCirclePointer.gameObject.SetActive(true);
@@ -486,7 +485,8 @@ public class Player : MovingObject
 
     public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
     {
-        Debug.Log(this.name + " is hit by :" + hit + " knockback:" + pKnockback + " damage:" + pDamage);
+        Debug.Log("Player hit by " + hit);
+        TakeDamage(pDamage);
         _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
         _disableMovement = true;
     }
