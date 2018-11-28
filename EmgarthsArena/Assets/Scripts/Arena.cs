@@ -29,25 +29,11 @@ public class Arena : MonoBehaviour {
     void Start () {
         _myCamera = GetComponentInChildren<Camera>();
         _myColl = GetComponent<Collider2D>();
-
-        characterInfoParent = GameObject.FindGameObjectWithTag("CharacterInfo");
-        playerBanners = new playerInfoBanner[Glob.GetPlayerCount()];
-        for (int i = 0; i < playerBanners.Length; i++)
+        if (playerBanners == null)
         {
-            playerBanners[i] = new playerInfoBanner();
-            playerBanners[i].lifeCrystals = new Image[Glob.maxLives];
-            GameObject newBanner = Instantiate(Resources.Load<GameObject>(Glob.PlayerBannerPrefab), characterInfoParent.transform);
-            playerBanners[i].banner = newBanner;
-            playerBanners[i].healthBar = newBanner.transform.Find("HealthBar").GetComponent<Image>();
-            playerBanners[i].manaBar = newBanner.transform.Find("ManaBar").GetComponent<Image>();
-            playerBanners[i].firstElementIcon = newBanner.transform.Find("Element1").GetComponent<Image>();
-            playerBanners[i].secondElementIcon = newBanner.transform.Find("Element2").GetComponent<Image>();
-            for (int j = 0; j < playerBanners[i].lifeCrystals.Length; j++)
-            {
-                playerBanners[i].lifeCrystals[j] = newBanner.transform.Find("HealthCrystal" + (j+1).ToString()).GetComponent<Image>();
-            }
+            initializePlayerBanners();
         }
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -72,15 +58,41 @@ public class Arena : MonoBehaviour {
         return respawnPoints[Random.Range(0, respawnPoints.Length)];
     }
 
+    private void initializePlayerBanners()
+    {
+        characterInfoParent = GameObject.FindGameObjectWithTag("CharacterInfo");
+        playerBanners = new playerInfoBanner[Glob.GetPlayerCount()];
+        for (int i = 0; i < playerBanners.Length; i++)
+        {
+            playerBanners[i] = new playerInfoBanner();
+            playerBanners[i].lifeCrystals = new Image[Glob.maxLives];
+            GameObject newBanner = Instantiate(Resources.Load<GameObject>(Glob.PlayerBannerPrefab), characterInfoParent.transform);
+            playerBanners[i].banner = newBanner;
+            playerBanners[i].healthBar = newBanner.transform.Find("HealthBar").GetComponent<Image>();
+            playerBanners[i].manaBar = newBanner.transform.Find("ManaBar").GetComponent<Image>();
+            playerBanners[i].firstElementIcon = newBanner.transform.Find("Element1").GetComponent<Image>();
+            playerBanners[i].secondElementIcon = newBanner.transform.Find("Element2").GetComponent<Image>();
+            for (int j = 0; j < playerBanners[i].lifeCrystals.Length; j++)
+            {
+                playerBanners[i].lifeCrystals[j] = newBanner.transform.Find("HealthCrystal" + (j + 1).ToString()).GetComponent<Image>();
+            }
+        }
+    }
+
     public void UpdatePlayerBanner(int id, SpellDatabase.Element firstEle, SpellDatabase.Element secondEle, int health, int mana, int lives)
     {
+        if (playerBanners == null)
+        {
+            initializePlayerBanners();
+        }
+
         playerBanners[id].healthBar.fillAmount = (float)health / Glob.maxHealth;
         playerBanners[id].manaBar.fillAmount = mana / Glob.maxMana;
         for (int i = 0; i < playerBanners[id].lifeCrystals.Length; i++)
         {
             if (playerBanners[id].lifeCrystals.Length - i <= lives)
             {
-                playerBanners[id].lifeCrystals[i].sprite = Resources.Load<Sprite>(Glob.FullLifeCrystal);
+                playerBanners[id].lifeCrystals[i].sprite = Resources.Load<Sprite>(Glob.FullLifeCrystalBase + (id + 1).ToString());
             } else
             {
                 playerBanners[id].lifeCrystals[i].sprite = Resources.Load<Sprite>(Glob.EmptyLifeCrystal);

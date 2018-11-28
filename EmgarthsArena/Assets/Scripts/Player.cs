@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MovingObject
-{
+public class Player : MovingObject {
 
     private InputManager _myInputManager;
     private int _healthRemaining;
+    private int _manaRemaining;
     private int _livesRemaining;
     private bool _isDead = false;
     private float _deathTime = 0;
     private bool _invulnerable = false;
     private float _invulnerableStartTime = 0;
-    private SpellDatabase.Element _firstElement;
-    private SpellDatabase.Element _secondElement;
+    private SpellDatabase.Element _firstElement = SpellDatabase.Element.Fire;
+    private SpellDatabase.Element _secondElement = SpellDatabase.Element.Water;
 
     private Transform _myMagicCircleLeft;
     private SpriteRenderer[] elementIconsLeft;
@@ -42,10 +42,13 @@ public class Player : MovingObject
     public Player GetPlayer(int pPlayerIndex)
     {
         ID = pPlayerIndex;
-        this.gameObject.name = "Player" + ID;
         Debug.Log("Added player with ID: " + pPlayerIndex);
         _healthRemaining = Glob.maxHealth;
+        _manaRemaining = Glob.maxMana;
         _livesRemaining = Glob.maxLives;
+
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+
         return this;
     }
 
@@ -55,26 +58,27 @@ public class Player : MovingObject
         _myInputManager = new InputManager(ID);
         _myMagicCircleLeft = transform.Find("UI Elements").Find("MagicCircleLeft");
         elementIconsLeft = new SpriteRenderer[3];
-        elementIconsLeft[0] = _myMagicCircleLeft.Find("LeftSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
-        elementIconsLeft[1] = _myMagicCircleLeft.Find("LeftSelection").Find("Water").GetComponent<SpriteRenderer>();
-        elementIconsLeft[2] = _myMagicCircleLeft.Find("LeftSelection").Find("Earth").GetComponent<SpriteRenderer>();
+            elementIconsLeft[0] = _myMagicCircleLeft.Find("LeftSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
+            elementIconsLeft[1] = _myMagicCircleLeft.Find("LeftSelection").Find("Water").GetComponent<SpriteRenderer>();
+            elementIconsLeft[2] = _myMagicCircleLeft.Find("LeftSelection").Find("Earth").GetComponent<SpriteRenderer>();
 
         _myMagicCircleLeft.gameObject.SetActive(false);
         _myMagicCircleRight = transform.Find("UI Elements").Find("MagicCircleRight");
         elementIconsRight = new SpriteRenderer[3];
-        elementIconsRight[0] = _myMagicCircleRight.Find("RightSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
-        elementIconsRight[1] = _myMagicCircleRight.Find("RightSelection").Find("Water").GetComponent<SpriteRenderer>();
-        elementIconsRight[2] = _myMagicCircleRight.Find("RightSelection").Find("Earth").GetComponent<SpriteRenderer>();
+            elementIconsRight[0] = _myMagicCircleRight.Find("RightSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
+            elementIconsRight[1] = _myMagicCircleRight.Find("RightSelection").Find("Water").GetComponent<SpriteRenderer>();
+            elementIconsRight[2] = _myMagicCircleRight.Find("RightSelection").Find("Earth").GetComponent<SpriteRenderer>();
         _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
         _myCirclePointer.gameObject.SetActive(false);
         _jumpParticle = GetComponent<ParticleSystem>();
         _castingParticle = transform.Find("Casting").GetComponent<ParticleSystem>();
+
+        Debug.Log(_jumpParticle);
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
+    void FixedUpdate () {
         if (!_isDead)
         {
             Move(true);
@@ -86,7 +90,39 @@ public class Player : MovingObject
     {
         if (!_isDead)
         {
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                launchSpell(_firstElement, _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                launchSpell(_secondElement, _firstElement);
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (_firstElement + 1 >= SpellDatabase.Element.Null)
+                {
+                    _firstElement = 0;
+                }
+                else
+                {
+                    _firstElement = _firstElement + 1;
+                }
+                Debug.Log(_firstElement + " - " + _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (_secondElement + 1 >= SpellDatabase.Element.Null)
+                {
+                    _secondElement = 0;
+                }
+                else
+                {
+                    _secondElement = _secondElement + 1;
+                }
+                Debug.Log(_firstElement + " - " + _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 TakeDamage(20);
             }
@@ -97,7 +133,6 @@ public class Player : MovingObject
                 changeElement();
             }
         }
-        // Debug.Log(_firstElement + " - " + _secondElement);
     }
 
     protected override void Move(bool isFixed)
@@ -108,11 +143,11 @@ public class Player : MovingObject
             {
                 jump();
             }
-            if (_myInputManager.GetButtonDownSpellCast1() && _castingSpell == false)
+            if (_myInputManager.GetButtonDownSpellCast1() > 0.8f && _castingSpell == false)
             {
                 launchSpell(_firstElement, _secondElement);
             }
-            if (_myInputManager.GetButtonDownSpellCast2() && _castingSpell == false)
+            if (_myInputManager.GetButtonDownSpellCast2() > 0.8f && _castingSpell == false)
             {
                 launchSpell(_secondElement, _firstElement);
             }
@@ -133,7 +168,7 @@ public class Player : MovingObject
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
                     _firstElement = changeElement();
-                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
                 }
                 _changingElement1 = false;
                 _myMagicCircleLeft.gameObject.SetActive(false);
@@ -144,7 +179,7 @@ public class Player : MovingObject
                 if (changeElement() != SpellDatabase.Element.Null)
                 {
                     _secondElement = changeElement();
-                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
                 }
                 _changingElement2 = false;
                 _myMagicCircleRight.gameObject.SetActive(false);
@@ -154,10 +189,10 @@ public class Player : MovingObject
         else
         {
             _grounded = isGrounded();
-            if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false) _disableMovement = false;
+            //if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false) _disableMovement = false;
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
-
+               
                 _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
                 //Move horizontally.
             }
@@ -234,8 +269,7 @@ public class Player : MovingObject
                     _usedDoubleJump = false;
                     return true;
                 }
-            }
-            else
+            } else
             {
                 _usedDoubleJump = false;
                 return true;
@@ -276,30 +310,17 @@ public class Player : MovingObject
         Vector2 vec0 = new Vector2(xAxis, yAxis);
         vec0.Normalize();
 
-        Debug.DrawRay(this.transform.position, new Vector3(vec0.x * 2, vec0.y * 2, 0), Color.red, 5f);
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f);
-        if (hit)
-        {
-            if (hit.transform.GetComponent<Collider2D>() != null)
-            {
-
-            }
-        }
-        else
-        {
-            StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
-            HandleCastingBehaviour();
-        }
-
+        StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
+        HandleCastingBehaviour();
         return launchedspell;
     }
 
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
         yield return new WaitForSeconds(pSpell.GetCastTime());
-        _castingSpell = false;
         _disableMovement = false;
         _castingParticle.Stop();
+        _castingSpell = false;
         Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
 
@@ -318,7 +339,7 @@ public class Player : MovingObject
 
     //This is for loading animations etc.
     private void HandleCastingBehaviour()
-    {
+    {        
         _castingParticle.Play();
         _castingSpell = true;
         _disableMovement = true;
@@ -339,8 +360,7 @@ public class Player : MovingObject
         {
             yAxis = 1;
             _myCirclePointer.gameObject.SetActive(false);
-        }
-        else
+        } else
         {
             _myCirclePointer.gameObject.SetActive(true);
         }
@@ -389,9 +409,7 @@ public class Player : MovingObject
                 elementIconsLeft[0].sprite = Resources.Load<Sprite>(Glob.FireElementSelectedIcon);
                 //Debug.Log("Fire - Left");
             }
-        }
-        else if (_changingElement2)
-        {
+        } else if (_changingElement2) {
 
             elementIconsRight[0].sprite = Resources.Load<Sprite>(Glob.FireElementIcon);
             elementIconsRight[1].sprite = Resources.Load<Sprite>(Glob.WaterElementIcon);
@@ -440,7 +458,7 @@ public class Player : MovingObject
             }
             //respawn();
         }
-        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
     }
 
     private void setInvulnerable(bool toggle)
@@ -450,8 +468,7 @@ public class Player : MovingObject
         {
             _invulnerableStartTime = Time.time;
             GetComponent<MeshRenderer>().material.color = Color.blue; //TODO: Improve invulnerability feedback.
-        }
-        else
+        } else
         {
             GetComponent<MeshRenderer>().material.color = Color.red;
         }
@@ -480,13 +497,12 @@ public class Player : MovingObject
         _rb.velocity = Vector3.zero;
         transform.position = SceneManager.GetInstance().GetCurrentArena().GetRandomRespawnPoint();
         Debug.Log("Respawned! Health: " + _healthRemaining + "/" + Glob.maxHealth + ", Lives: " + _livesRemaining + "/" + Glob.maxLives);
-        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
     }
 
     public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
     {
-        Debug.Log("Player hit by " + hit);
-        TakeDamage(pDamage);
+        Debug.Log(this.name + " is hit by :" + hit + " knockback:" + pKnockback + " damage:" + pDamage);
         _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
         _disableMovement = true;
     }
