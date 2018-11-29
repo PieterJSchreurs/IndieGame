@@ -16,7 +16,7 @@ public class WaterEarthSpell : Spell {
         _lastVelocityX = _rb.velocity.x;
         knockback = 50; //TODO: Improve this, so that it isnt negative anymore.
         damage = 40;
-        castTime = 1.5f;
+        castTime = 0.75f;
         manaDrain = 25;
         _rb.gravityScale = 3;
         spellType = SpellDatabase.SpellType.Projectile;

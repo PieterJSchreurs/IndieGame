@@ -70,4 +70,19 @@ public class InputManager {
     {
         return Input.GetButtonUp(inputDictionary[Glob.Keytype.SwitchButtonRight]);
     }
+
+    public bool GetButtonFireElement()
+    {
+        return Input.GetButtonDown(inputDictionary[Glob.Keytype.FireElementButton]);
+    }
+
+    public bool GetButtonWaterElement()
+    {
+        return Input.GetButtonDown(inputDictionary[Glob.Keytype.WaterElementButton]);
+    }
+
+    public bool GetButtonEarthElement()
+    {
+        return Input.GetButtonDown(inputDictionary[Glob.Keytype.EarthElementButton]);
+    }
 }

@@ -8,7 +8,7 @@ public class WaterFireSpell : Spell {
     {
         knockback = 50;
         damage = 10;
-        castTime = 1;
+        castTime = 0.5f;
         manaDrain = 5;
         spellType = SpellDatabase.SpellType.Projectile;
         attackType = SpellDatabase.AttackType.Light;

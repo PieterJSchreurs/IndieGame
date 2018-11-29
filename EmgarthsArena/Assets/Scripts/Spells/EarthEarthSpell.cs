@@ -8,7 +8,7 @@ public class EarthEarthSpell : Spell {
     {
         knockback = 50;
         damage = 20;
-        castTime = 2;
+        castTime = 0.5f;
         manaDrain = 70;
         spellType = SpellDatabase.SpellType.SolidObject;
         attackType = SpellDatabase.AttackType.Heavy;

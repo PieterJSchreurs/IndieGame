@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MovingObject {
+public class Player : MovingObject
+{
 
     private InputManager _myInputManager;
     private int _healthRemaining;
@@ -22,18 +23,16 @@ public class Player : MovingObject {
     private Transform _myMagicCircleRight;
     private SpriteRenderer[] elementIconsRight;
     private Transform _myCirclePointer;
-    private bool _changingElement1 = false;
-    private bool _changingElement2 = false;
     private bool _disableMovement = false;
     private bool _castingSpell = false;
-    public ParticleSystem _castingParticle;
-    public ParticleSystem _jumpParticle;
+    private ParticleSystem _castingParticle;
+    private ParticleSystem _jumpParticle;
+    private bool _isSwitchingElement = false;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
     private float _jumpTime = 0;
-    public int ID;
-
+    private int ID;
 
     public Player()
     {
@@ -61,16 +60,16 @@ public class Player : MovingObject {
         _myIndicator.sprite = Resources.Load<Sprite>(Glob.PlayerIndicatorBase + (ID + 1).ToString());
         _myMagicCircleLeft = transform.Find("UI Elements").Find("MagicCircleLeft");
         elementIconsLeft = new SpriteRenderer[3];
-            elementIconsLeft[0] = _myMagicCircleLeft.Find("LeftSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
-            elementIconsLeft[1] = _myMagicCircleLeft.Find("LeftSelection").Find("Water").GetComponent<SpriteRenderer>();
-            elementIconsLeft[2] = _myMagicCircleLeft.Find("LeftSelection").Find("Earth").GetComponent<SpriteRenderer>();
+        elementIconsLeft[0] = _myMagicCircleLeft.Find("LeftSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
+        elementIconsLeft[1] = _myMagicCircleLeft.Find("LeftSelection").Find("Water").GetComponent<SpriteRenderer>();
+        elementIconsLeft[2] = _myMagicCircleLeft.Find("LeftSelection").Find("Earth").GetComponent<SpriteRenderer>();
 
         _myMagicCircleLeft.gameObject.SetActive(false);
         _myMagicCircleRight = transform.Find("UI Elements").Find("MagicCircleRight");
         elementIconsRight = new SpriteRenderer[3];
-            elementIconsRight[0] = _myMagicCircleRight.Find("RightSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
-            elementIconsRight[1] = _myMagicCircleRight.Find("RightSelection").Find("Water").GetComponent<SpriteRenderer>();
-            elementIconsRight[2] = _myMagicCircleRight.Find("RightSelection").Find("Earth").GetComponent<SpriteRenderer>();
+        elementIconsRight[0] = _myMagicCircleRight.Find("RightSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
+        elementIconsRight[1] = _myMagicCircleRight.Find("RightSelection").Find("Water").GetComponent<SpriteRenderer>();
+        elementIconsRight[2] = _myMagicCircleRight.Find("RightSelection").Find("Earth").GetComponent<SpriteRenderer>();
         _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
         _myCirclePointer.gameObject.SetActive(false);
@@ -81,7 +80,8 @@ public class Player : MovingObject {
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate()
+    {
         if (!_isDead)
         {
             Move(true);
@@ -131,10 +131,6 @@ public class Player : MovingObject {
             }
 
             Move(false);
-            if (_changingElement1 || _changingElement2)
-            {
-                changeElement();
-            }
         }
     }
 
@@ -154,39 +150,38 @@ public class Player : MovingObject {
             {
                 launchSpell(_firstElement, _secondElement, true);
             }
-            if (_myInputManager.GetButtonDownElementChange1() && !_changingElement2)
+            if (_myInputManager.GetButtonFireElement())
             {
-                _changingElement1 = true;
-                _myMagicCircleLeft.gameObject.SetActive(true);
-                _myCirclePointer.gameObject.SetActive(true);
-            }
-            else if (_myInputManager.GetButtonDownElementChange2() && !_changingElement1)
-            {
-                _changingElement2 = true;
-                _myMagicCircleRight.gameObject.SetActive(true);
-                _myCirclePointer.gameObject.SetActive(true);
-            }
-            if (_myInputManager.GetButtonUpElementChange1() && !_changingElement2)
-            {
-                if (changeElement() != SpellDatabase.Element.Null)
+                if (!_isSwitchingElement)
                 {
-                    _firstElement = changeElement();
-                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+                    ChangeElement(SpellDatabase.Element.Fire, 0);
                 }
-                _changingElement1 = false;
-                _myMagicCircleLeft.gameObject.SetActive(false);
-                _myCirclePointer.gameObject.SetActive(false);
-            }
-            else if (_myInputManager.GetButtonUpElementChange2() && !_changingElement1)
-            {
-                if (changeElement() != SpellDatabase.Element.Null)
+                else
                 {
-                    _secondElement = changeElement();
-                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+                    ChangeElement(SpellDatabase.Element.Fire, 1);
                 }
-                _changingElement2 = false;
-                _myMagicCircleRight.gameObject.SetActive(false);
-                _myCirclePointer.gameObject.SetActive(false);
+            }
+            if (_myInputManager.GetButtonWaterElement())
+            {
+                if (!_isSwitchingElement)
+                {
+                    ChangeElement(SpellDatabase.Element.Water, 0);
+                }
+                else
+                {
+                    ChangeElement(SpellDatabase.Element.Water, 1);
+                }
+            }
+            if (_myInputManager.GetButtonEarthElement())
+            {
+                if (!_isSwitchingElement)
+                {
+                    ChangeElement(SpellDatabase.Element.Earth, 0);
+                }
+                else
+                {
+                    ChangeElement(SpellDatabase.Element.Earth, 1);
+                }
             }
         }
         else
@@ -209,6 +204,21 @@ public class Player : MovingObject {
             {
                 jumpContinuous();
             }
+        }
+    }
+
+    private void ChangeElement(SpellDatabase.Element pElement, int pElementSlot)
+    {
+        if (pElementSlot == 0)
+        {
+            _firstElement = pElement;
+            _isSwitchingElement = true;
+        }
+        else if (pElementSlot == 1)
+        {
+            _secondElement = pElement;
+            SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+            _isSwitchingElement = false;
         }
     }
 
@@ -274,7 +284,8 @@ public class Player : MovingObject {
                     _usedDoubleJump = false;
                     return true;
                 }
-            } else
+            }
+            else
             {
                 _usedDoubleJump = false;
                 return true;
@@ -322,7 +333,7 @@ public class Player : MovingObject {
         Debug.DrawRay(this.transform.position, new Vector3(vec0.x * 2, vec0.y * 2, 0), Color.red, 5f);
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f);
         if (!hit)
-        { 
+        {
             StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
             HandleCastingBehaviour();
             if (reversed)
@@ -368,116 +379,10 @@ public class Player : MovingObject {
 
     //This is for loading animations etc.
     private void HandleCastingBehaviour()
-    {        
+    {
         _castingParticle.Play();
         _castingSpell = true;
-        _disableMovement = true;
-    }
 
-
-    private SpellDatabase.Element changeElement()
-    {
-        //Aim arrow using right stick
-        //After aiming at an element for ... seconds, change the element (first or second based on element aimed at).
-        //Disable magic circle
-
-        float xAxis = _myInputManager.GetAxisLookHorizontal();
-        float yAxis = _myInputManager.GetAxisLookVertical();
-
-        //If there's no input, should do forward.
-        if (xAxis == 0 && yAxis == 0)
-        {
-            yAxis = 1;
-            _myCirclePointer.gameObject.SetActive(false);
-        } else
-        {
-            _myCirclePointer.gameObject.SetActive(true);
-        }
-
-        //Determine where the player looks at.
-        //Give the pointer a rotation from where he looks at.
-        Vector2 vec2 = new Vector2(0, 1);
-        Vector2 vec0 = new Vector2(xAxis, yAxis);
-
-        if (xAxis > 0)
-        {
-            vec2 = new Vector2(0, -1);
-            float Degrees = Vector2.Angle(vec2, vec0);
-            _myCirclePointer.transform.eulerAngles = new Vector3(_myCirclePointer.transform.eulerAngles.x, _myCirclePointer.transform.eulerAngles.y, Degrees - 90);
-        }
-        else
-        {
-            float Degrees = Vector2.Angle(vec2, vec0);
-            _myCirclePointer.transform.eulerAngles = new Vector3(_myCirclePointer.transform.eulerAngles.x, _myCirclePointer.transform.eulerAngles.y, Degrees + 90);
-        }
-
-        float angle = _myCirclePointer.transform.eulerAngles.z;
-        SpellDatabase.Element newElement = SpellDatabase.Element.Null;
-        if (_changingElement1)
-        {
-            elementIconsLeft[0].sprite = Resources.Load<Sprite>(Glob.FireElementIcon);
-            elementIconsLeft[1].sprite = Resources.Load<Sprite>(Glob.WaterElementIcon);
-            elementIconsLeft[2].sprite = Resources.Load<Sprite>(Glob.EarthElementIcon);
-            elementIconsLeft[0].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
-            elementIconsLeft[1].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
-            elementIconsLeft[2].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
-
-            //Left
-            if (angle <= 245f && angle >= 202.5f)
-            {
-                newElement = SpellDatabase.Element.Earth;
-                elementIconsLeft[2].sprite = Resources.Load<Sprite>(Glob.EarthElementSelectedIcon);
-                elementIconsLeft[2].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
-                //Debug.Log("Earth - Left");
-            }
-            else if (angle <= 202.5f && angle >= 157.5f)
-            {
-                newElement = SpellDatabase.Element.Water;
-                elementIconsLeft[1].sprite = Resources.Load<Sprite>(Glob.WaterElementSelectedIcon);
-                elementIconsLeft[1].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
-                //Debug.Log("Water - Left");
-            }
-            else if (angle <= 157.5f && angle >= 115f)
-            {
-                newElement = SpellDatabase.Element.Fire;
-                elementIconsLeft[0].sprite = Resources.Load<Sprite>(Glob.FireElementSelectedIcon);
-                elementIconsLeft[0].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
-                //Debug.Log("Fire - Left");
-            }
-        } else if (_changingElement2) {
-
-            elementIconsRight[0].sprite = Resources.Load<Sprite>(Glob.FireElementIcon);
-            elementIconsRight[1].sprite = Resources.Load<Sprite>(Glob.WaterElementIcon);
-            elementIconsRight[2].sprite = Resources.Load<Sprite>(Glob.EarthElementIcon);
-            elementIconsRight[0].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
-            elementIconsRight[1].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
-            elementIconsRight[2].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = false;
-
-            //Right
-            if (angle <= 337.5f && angle >= 295f)
-            {
-                newElement = SpellDatabase.Element.Earth;
-                elementIconsRight[2].sprite = Resources.Load<Sprite>(Glob.EarthElementSelectedIcon);
-                elementIconsRight[2].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
-                //Debug.Log("Earth - Right");
-            }
-            else if ((angle <= 360f && angle >= 337.5f) || (angle <= 22.5f && angle >= 0))
-            {
-                newElement = SpellDatabase.Element.Water;
-                elementIconsRight[1].sprite = Resources.Load<Sprite>(Glob.WaterElementSelectedIcon);
-                elementIconsRight[1].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
-                //Debug.Log("Water - Right");
-            }
-            else if (angle <= 65f && angle >= 22.5f)
-            {
-                newElement = SpellDatabase.Element.Fire;
-                elementIconsRight[0].sprite = Resources.Load<Sprite>(Glob.FireElementSelectedIcon);
-                elementIconsRight[0].transform.Find("Glow").GetComponent<SpriteRenderer>().enabled = true;
-                //Debug.Log("Fire - Right");
-            }
-        }
-
-        return newElement;
     }
 
     private void handleLives()
@@ -509,7 +414,8 @@ public class Player : MovingObject {
         {
             _invulnerableStartTime = Time.time;
             GetComponent<MeshRenderer>().material.color = Color.blue; //TODO: Improve invulnerability feedback.
-        } else
+        }
+        else
         {
             GetComponent<MeshRenderer>().material.color = Color.red;
         }
@@ -519,8 +425,6 @@ public class Player : MovingObject {
         _isDead = toggle;
         GetComponent<MeshRenderer>().enabled = !_isDead; //TODO: Very ugly way of doing this, improve it.
         transform.position = new Vector3(28, 2, 0); //TODO: Ugly way of disabling the player.
-        _changingElement1 = false;
-        _changingElement2 = false;
         _myMagicCircleLeft.gameObject.SetActive(false);
         _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer.gameObject.SetActive(false);

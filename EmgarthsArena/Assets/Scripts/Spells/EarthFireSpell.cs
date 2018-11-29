@@ -8,7 +8,7 @@ public class EarthFireSpell : Spell {
     {
         knockback = 50;
         damage = 30;
-        castTime = 1;
+        castTime = 0.5f;
         manaDrain = 30;
         spellType = SpellDatabase.SpellType.SolidObject;
         attackType = SpellDatabase.AttackType.Medium;

@@ -9,7 +9,7 @@ public class FireEarthSpell : Spell
     {
         knockback = 20;
         damage = 25;
-        castTime = 1;
+        castTime = 0.5f;
         manaDrain = 15;
         spellType = SpellDatabase.SpellType.Projectile;
         attackType = SpellDatabase.AttackType.Medium;
