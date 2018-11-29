@@ -5,6 +5,7 @@ using UnityEngine;
 public class Rock : Spell {
 
     private const int rockRemainTime = 5;
+    private const float rockLockTime = 0.75f;
 
     private float _lastVelocityX = 0;
     private float _lastVelocityY = 0;
@@ -20,7 +21,6 @@ public class Rock : Spell {
         damage = 20;
         castTime = 0f;
         manaDrain = 0;
-        _rb.gravityScale = 3;
         spellType = SpellDatabase.SpellType.SolidObject;
         attackType = SpellDatabase.AttackType.Heavy;
     }
@@ -44,12 +44,17 @@ public class Rock : Spell {
             {
                 Destroy(gameObject);
             }
-            if (Mathf.Abs(_rb.velocity.x) < 0.3f && Mathf.Abs(_rb.velocity.y) < 0.3f) //If the ice ball is stationary for 2 seconds
+            if (_rb.velocity.magnitude <= 1.5f) //If the rock is stationary for 2 seconds
             {
                 if (!_standingStill)
                 {
                     _standingStill = true;
                     _standingStillStartTime = Time.time;
+                }
+                if (Time.time - _standingStillStartTime >= rockLockTime)
+                {
+                    //damage = 0;
+                    //knockback = 0;
                 }
                 if (Time.time - _standingStillStartTime >= rockRemainTime)
                 {
@@ -65,9 +70,23 @@ public class Rock : Spell {
         }
     }
 
-    protected override void HandleCollision()
+    protected override void HandleCollision(Collision2D collision)
     {
-
+        if (collision.gameObject.tag == "Player")
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            Debug.Log(_rb.velocity.magnitude + " ROCK");
+            if (!_standingStill)
+            {
+                
+                if (Vector3.Dot(collision.relativeVelocity, _rb.velocity) < 0)
+                {
+                    player.HandleSpellHit(this, knockback, Mathf.Min(damage, Mathf.RoundToInt(_rb.velocity.magnitude * 10)), Mathf.Min(1, _rb.velocity.magnitude) * collision.relativeVelocity.normalized);
+                    _rb.velocity = Vector2.zero;
+                }
+            }
+        }
+        //base.HandleCollision(collision);
     }
 
     protected override void HandleExplosion()

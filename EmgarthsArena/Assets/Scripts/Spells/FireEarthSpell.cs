@@ -27,8 +27,9 @@ public class FireEarthSpell : Spell
 
     }
 
-    protected override void HandleCollision()
+    protected override void HandleCollision(Collision2D collision)
     {
+        base.HandleCollision(collision);
         //Handle explosion effects.
         HandleExplosion();
         //Spawn explosion thing which pushes things away.

@@ -15,9 +15,15 @@ public abstract class Spell : MovingObject
     protected SpellDatabase.SpellType spellType;
     protected SpellDatabase.AttackType attackType;
 
-    protected override void HandleCollision()
+    //The collision will be handled in the subclass, but each subclass will call this HandleCollision too.
+    protected override void HandleCollision(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Player")
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
 
+            player.HandleSpellHit(this, knockback, damage, -collision.relativeVelocity.normalized);
+        }
     }
 
     public int[] GetKnockBackAndDamage()
@@ -49,19 +55,13 @@ public abstract class Spell : MovingObject
         }
     }*/
 
+    //If this spell collides with any solid object.
     void OnCollisionEnter2D(Collision2D collision)
     {
-        
         if (!collision.otherCollider.isTrigger)
         {
-            if (collision.gameObject.tag == "Player")
-            {
-                Player player = collision.gameObject.GetComponent<Player>();
-
-                player.HandleSpellHit(this, knockback, damage, -collision.relativeVelocity.normalized);
-            }
-
-            HandleCollision();
+            //Handle the collision in the subClass.
+            HandleCollision(collision);
         }
     }
 

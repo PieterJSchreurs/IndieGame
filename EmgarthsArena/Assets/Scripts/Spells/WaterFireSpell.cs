@@ -26,8 +26,9 @@ public class WaterFireSpell : Spell {
             
     }
 
-    protected override void HandleCollision()
+    protected override void HandleCollision(Collision2D collision)
     {
+        base.HandleCollision(collision);
         //Handle explosion effects.
         HandleExplosion();
         //Destroy the object.

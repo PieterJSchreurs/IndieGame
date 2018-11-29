@@ -63,8 +63,9 @@ public class WaterEarthSpell : Spell {
         }
     }
 
-    protected override void HandleCollision()
+    protected override void HandleCollision(Collision2D collision)
     {
+        base.HandleCollision(collision);
         //Destroy the object.
         //Destroy(this.gameObject);
     }

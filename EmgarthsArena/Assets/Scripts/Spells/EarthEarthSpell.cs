@@ -99,9 +99,9 @@ public class EarthEarthSpell : Spell {
         }
     }
 
-    protected override void HandleCollision()
+    protected override void HandleCollision(Collision2D collision)
     {
-
+        base.HandleCollision(collision);
     }
 
     protected override void HandleExplosion()

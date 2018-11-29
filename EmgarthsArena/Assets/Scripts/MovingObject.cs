@@ -23,6 +23,6 @@ public abstract class MovingObject : MonoBehaviour
     }
 
     protected abstract void Move(bool isFixed);
-    protected abstract void HandleCollision();
+    protected abstract void HandleCollision(Collision2D collision);
 
 }

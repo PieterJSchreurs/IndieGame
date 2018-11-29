@@ -86,7 +86,8 @@ public class Player : MovingObject
         {
             Move(true);
         }
-        HandleCollision();//TODO: Move invulnerable and death check to a better place.
+        handleRespawn();
+        //HandleCollision();
     }
 
     void Update()
@@ -222,7 +223,19 @@ public class Player : MovingObject
         }
     }
 
-    protected override void HandleCollision()
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.otherCollider.isTrigger)
+        {
+            HandleCollision(collision);
+        }
+    }
+    protected override void HandleCollision(Collision2D collision)
+    {
+
+    }
+    private void handleRespawn()
     {
         if (_isDead)
         {
