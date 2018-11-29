@@ -375,6 +375,11 @@ public class Player : MovingObject
             float Degrees = Vector2.Angle(pNullPoint, pInput);
             launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees + 180);
         }
+
+        if (pSpell is EarthEarthSpell)
+        {
+            launchedspelltest.transform.parent = transform;
+        }
     }
 
     //This is for loading animations etc.

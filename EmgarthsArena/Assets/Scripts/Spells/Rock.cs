@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterEarthSpell : Spell {
+public class Rock : Spell {
 
-    private const int snowballRemainTime = 5;
+    private const int rockRemainTime = 5;
 
     private float _lastVelocityX = 0;
     private float _lastVelocityY = 0;
@@ -14,19 +14,20 @@ public class WaterEarthSpell : Spell {
     private void InitializeSpell()
     {
         base.Start();
-        _rb.velocity = -_rb.transform.up * Glob.WaterEarthSpeed;
+        //_rb.velocity = -_rb.transform.up * Glob.EarthEarthSpeed;
         _lastVelocityX = _rb.velocity.x;
         knockback = 50;
-        damage = 40;
-        castTime = 0.75f;
-        manaDrain = 25;
+        damage = 20;
+        castTime = 0f;
+        manaDrain = 0;
         _rb.gravityScale = 3;
-        spellType = SpellDatabase.SpellType.Projectile;
-        attackType = SpellDatabase.AttackType.Medium;
+        spellType = SpellDatabase.SpellType.SolidObject;
+        attackType = SpellDatabase.AttackType.Heavy;
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         base.Start();
         if (castTime == -1)
         {
@@ -50,11 +51,12 @@ public class WaterEarthSpell : Spell {
                     _standingStill = true;
                     _standingStillStartTime = Time.time;
                 }
-                if (Time.time - _standingStillStartTime >= snowballRemainTime)
+                if (Time.time - _standingStillStartTime >= rockRemainTime)
                 {
                     Destroy(gameObject);
                 }
-            } else
+            }
+            else
             {
                 _standingStill = false;
             }
@@ -65,8 +67,7 @@ public class WaterEarthSpell : Spell {
 
     protected override void HandleCollision()
     {
-        //Destroy the object.
-        //Destroy(this.gameObject);
+
     }
 
     protected override void HandleExplosion()
@@ -86,7 +87,8 @@ public class WaterEarthSpell : Spell {
 
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         Move(false);
-	}
+    }
 }
