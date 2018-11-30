@@ -37,7 +37,7 @@ public class WaterFireSpell : Spell {
 
     protected override void HandleExplosion()
     {
-        Debug.Log("Explode");
+
     }
 
     public override float GetCastTime()
@@ -45,7 +45,6 @@ public class WaterFireSpell : Spell {
         if (castTime == -1)
         {
             InitializeSpell();
-            Debug.Log("Initializing spell");
         }
         return castTime;
     }

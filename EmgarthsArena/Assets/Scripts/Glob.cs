@@ -27,8 +27,10 @@ public static class Glob
     public const float playerSpeed = 20f;
     public const float jumpHeight = 800f;
     public const float jumpHeightContinuous = 6700f;
-    public const float jumpDoubleHeight = 900f;
+    public const float jumpDoubleHeight = 700f;
+    public const float jumpDoubleHeightContinuous = 6000f;
     public const float jumpTimeContinuous = 0.8f;
+    public const float jumpDoubleTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
     public static GameObject GetKnockback()
     {
@@ -88,6 +90,9 @@ public static class Glob
     public const string EarthWaterPrefab = "Spells/EarthWater";
     public const string EarthEarthPrefab = "Spells/EarthEarth";
     public const int SpellCount = 9;
+
+    public const string RockPrefab = "Spells/EarthEarthRock";
+    public const string FireHazardPrefab = "Spells/FireHazard";
 
     public static Spell[] GetSpellPrefab()
     {
@@ -195,4 +200,6 @@ public static class Glob
     public const float EarthFireSpeed = 10f;
     public const float EarthWaterSpeed = 10f;
     public const float EarthEarthSpeed = 10f;
+
+    public const float FireHazardSpeed = 5;
 }

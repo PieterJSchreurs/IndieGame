@@ -21,7 +21,6 @@ public abstract class Spell : MovingObject
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
-
             player.HandleSpellHit(this, knockback, damage, -collision.relativeVelocity.normalized);
         }
     }
