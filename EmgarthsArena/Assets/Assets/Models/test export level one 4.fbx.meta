@@ -52,6 +52,7 @@ ModelImporter:
     100092: rock_set_three
     100094: rock_set_two
     100096: //RootNode
+    100098: background1
     400000: bg
     400002: circle_level_2_0004:pPlane10
     400004: circle_level_2_0004:pPlane11
@@ -101,6 +102,7 @@ ModelImporter:
     400092: rock_set_three
     400094: rock_set_two
     400096: //RootNode
+    400098: background1
     2100000: background
     2100002: fog_layer6
     2100004: rock_set_5
@@ -156,6 +158,7 @@ ModelImporter:
     2300088: rock_set_one
     2300090: rock_set_three
     2300092: rock_set_two
+    2300094: background1
     3300000: circle_level_2_0004:pPlane10
     3300002: circle_level_2_0004:pPlane11
     3300004: circle_level_2_0004:pPlane12
@@ -203,6 +206,7 @@ ModelImporter:
     3300088: rock_set_one
     3300090: rock_set_three
     3300092: rock_set_two
+    3300094: background1
     4300000: pPlane29
     4300002: pPlane28
     4300004: pPlane27
@@ -250,6 +254,7 @@ ModelImporter:
     4300088: ring_3
     4300090: ring_2
     4300092: ring_1
+    4300094: background1
   externalObjects: {}
   materials:
     importMaterials: 1
