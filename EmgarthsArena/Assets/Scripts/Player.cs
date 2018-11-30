@@ -406,6 +406,8 @@ public class Player : MovingObject
         if(pSpell is WaterWaterSpell)
         {
             launchedspelltest.transform.position = this.transform.position;
+            WaterWaterSpell waterWaterSpell = launchedspelltest as WaterWaterSpell;
+            waterWaterSpell.SetPlayerCaster(this);
         }
     }
 

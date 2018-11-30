@@ -31,9 +31,11 @@ public abstract class Spell : MovingObject
         //Waterwater spell got hit.
         if (this.gameObject.GetComponent<WaterWaterSpell>() != null)
         {
+            WaterWaterSpell waterWaterSpell = this as WaterWaterSpell;
             //Collided with player
-            if(col.gameObject.GetComponent<Player>() != null)
+            if(col.gameObject.GetComponent<Player>() != null && waterWaterSpell.GetPlayerCaster() != col.gameObject.GetComponent<Player>())
             {
+                Debug.Log(col.gameObject);
                 Player player = col.gameObject.GetComponent<Player>();
                 player.HandleSpellHit(this, knockback, damage, -(this.transform.position - col.gameObject.transform.position).normalized);
             }
@@ -55,7 +57,7 @@ public abstract class Spell : MovingObject
                 if (this.GetComponent<FireEarthSpell>() == null)
                 {
                     Player player = collision.gameObject.GetComponent<Player>();
-
+                    Debug.Log("Oncollisionenter");
                     player.HandleSpellHit(this, knockback, damage, -collision.relativeVelocity.normalized);
                 }
             }

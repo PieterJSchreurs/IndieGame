@@ -47,9 +47,14 @@ public class WaterWaterSpell : Spell {
 
     }
 
-    public void PlayerCaster(Player pPlayer)
+    public void SetPlayerCaster(Player pPlayer)
     {
         playerCaster = pPlayer;
+    }
+
+    public Player GetPlayerCaster()
+    {
+        return playerCaster;
     }
 
     public override float GetCastTime()
