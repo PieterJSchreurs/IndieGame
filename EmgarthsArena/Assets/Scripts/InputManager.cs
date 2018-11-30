@@ -5,21 +5,7 @@ using UnityEngine;
 public class InputManager {
 
     private const bool keyboardControls = false;
-
-    //private string axisMoveHorizontal = "KeyboardMoveHorizontal";
-    //private string axisMoveVertical = "KeyboardMoveVertical";
-
-    //private string axisLookHorizontal = "MouseX";
-    //private string axisLookVertical = "MouseY";
-
-    //private string buttonJump = "XButton";
-
-    //private string buttonSpellCast1 = "JoyStickLeftBumper";
-    //private string buttonSpellCast2 = "JoyStickRightBumper";
-
-    //private string buttonElementChange1 = "JoyStickLeftTrigger";
-    //private string buttonElementChange2 = "JoyStickRightTrigger";
-
+    
     Dictionary<Glob.Keytype, string> inputDictionary;
 
 
@@ -28,14 +14,7 @@ public class InputManager {
         inputDictionary = Glob.GetInputDictionary(pPlayerNumber);
         if (!keyboardControls)
         {
-            //Initialize all the button layouts here.
-            //buttonSpellCast1 = "JoyStickLeftBumper";
-            //buttonSpellCast2 = "JoyStickRightBumper";
-            //axisMoveHorizontal = "LeftJoyStickHorizontal";
-            //axisMoveVertical = "LeftJoyStickVertical";
-            //axisLookHorizontal = "RightJoyStickHorizontal";
-            //axisLookVertical = "RightJoyStickVertical";
-            //buttonJump = "XButton";
+
         }
     }
 
@@ -66,13 +45,13 @@ public class InputManager {
         return Input.GetButton(inputDictionary[Glob.Keytype.JumpButton]);
     }
 
-    public float GetButtonDownSpellCast1()
+    public bool GetButtonDownSpellCast1()
     {
-        return Input.GetAxis(inputDictionary[Glob.Keytype.FireButtonLeft]);
+        return Input.GetButtonDown(inputDictionary[Glob.Keytype.FireButtonLeft]);
     }
-    public float GetButtonDownSpellCast2()
+    public bool GetButtonDownSpellCast2()
     {
-        return Input.GetAxis(inputDictionary[Glob.Keytype.FireButtonRight]);
+        return Input.GetButtonDown(inputDictionary[Glob.Keytype.FireButtonRight]);
     }
 
     public bool GetButtonDownElementChange1()
@@ -92,8 +71,18 @@ public class InputManager {
         return Input.GetButtonUp(inputDictionary[Glob.Keytype.SwitchButtonRight]);
     }
 
-    public string Test123()
+    public bool GetButtonFireElement()
     {
-        return inputDictionary[Glob.Keytype.JumpButton];
+        return Input.GetButtonDown(inputDictionary[Glob.Keytype.FireElementButton]);
+    }
+
+    public bool GetButtonWaterElement()
+    {
+        return Input.GetButtonDown(inputDictionary[Glob.Keytype.WaterElementButton]);
+    }
+
+    public bool GetButtonEarthElement()
+    {
+        return Input.GetButtonDown(inputDictionary[Glob.Keytype.EarthElementButton]);
     }
 }

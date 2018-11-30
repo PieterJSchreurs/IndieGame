@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class EarthFireSpell : Spell {
 
+    private const int fireHazardCount = 5;
+
     private void InitializeSpell()
     {
-        knockback = 50;
+        knockback = 25;
         damage = 30;
-        castTime = 1;
-        manaDrain = 30;
+        castTime = 0.5f;
+        manaDrain = 20;
         spellType = SpellDatabase.SpellType.SolidObject;
         attackType = SpellDatabase.AttackType.Medium;
     }
@@ -25,18 +27,35 @@ public class EarthFireSpell : Spell {
 
     }
 
-    protected override void HandleCollision()
+    protected override void HandleCollision(Collision2D collision)
     {
+        base.HandleCollision(collision);
+        //Handle explosion effects.
+        HandleExplosion();
 
+        //Destroy the object.
+        Destroy(this.gameObject);
     }
 
     protected override void HandleExplosion()
     {
-
+        //Adding effect + rotating it the right way.
+        int rotationOffset = Random.Range(-45, 45);
+        for (int i = 0; i < fireHazardCount; i++)
+        {
+            GameObject fireHazard = Instantiate(Resources.Load<GameObject>(Glob.FireHazardPrefab), transform.position, new Quaternion());
+            fireHazard.transform.eulerAngles = new Vector3(0, 0, -180 + (360f * ((float)i/fireHazardCount)) + rotationOffset);
+        }
+        //GameObject explosion = Instantiate(Glob.GetExplosionPrefab(), this.gameObject.transform.position, this.gameObject.transform.rotation);
+        //explosion.transform.eulerAngles = new Vector3(0, 90, 90);
     }
 
     public override float GetCastTime()
     {
+        if (castTime == -1)
+        {
+            InitializeSpell();
+        }
         return castTime;
     }
 

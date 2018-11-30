@@ -26,9 +26,9 @@ public class EarthWaterSpell : Spell {
 
     }
 
-    protected override void HandleCollision()
+    protected override void HandleCollision(Collision2D collision)
     {
-
+        base.HandleCollision(collision);
     }
 
     protected override void HandleExplosion()
@@ -38,9 +38,12 @@ public class EarthWaterSpell : Spell {
 
     public override float GetCastTime()
     {
+        if (castTime == -1)
+        {
+            InitializeSpell();
+        }
         return castTime;
     }
-
 
     // Update is called once per frame
     void Update () {

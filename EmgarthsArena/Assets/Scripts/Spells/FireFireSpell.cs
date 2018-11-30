@@ -9,7 +9,7 @@ public class FireFireSpell : Spell {
     {
         knockback = 50;
         damage = 80;
-        castTime = 2;
+        castTime = 1;
         manaDrain = 70;
         spellType = SpellDatabase.SpellType.Projectile;
         attackType = SpellDatabase.AttackType.Heavy;
@@ -27,8 +27,9 @@ public class FireFireSpell : Spell {
 
     }
 
-    protected override void HandleCollision()
+    protected override void HandleCollision(Collision2D collision)
     {
+        base.HandleCollision(collision);
         //Handle explosion effects.
         HandleExplosion();
         //Destroy the object.

@@ -8,7 +8,7 @@ public class WaterFireSpell : Spell {
     {
         knockback = 50;
         damage = 10;
-        castTime = 1;
+        castTime = 0.5f;
         manaDrain = 5;
         spellType = SpellDatabase.SpellType.Projectile;
         attackType = SpellDatabase.AttackType.Light;
@@ -26,8 +26,9 @@ public class WaterFireSpell : Spell {
             
     }
 
-    protected override void HandleCollision()
+    protected override void HandleCollision(Collision2D collision)
     {
+        base.HandleCollision(collision);
         //Handle explosion effects.
         HandleExplosion();
         //Destroy the object.
@@ -36,7 +37,7 @@ public class WaterFireSpell : Spell {
 
     protected override void HandleExplosion()
     {
-        Debug.Log("Explode");
+
     }
 
     public override float GetCastTime()
@@ -44,7 +45,6 @@ public class WaterFireSpell : Spell {
         if (castTime == -1)
         {
             InitializeSpell();
-            Debug.Log("Initializing spell");
         }
         return castTime;
     }
