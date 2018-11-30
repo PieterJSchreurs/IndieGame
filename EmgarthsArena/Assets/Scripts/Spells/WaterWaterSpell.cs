@@ -62,7 +62,6 @@ public class WaterWaterSpell : Spell {
         if (castTime == -1)
         {
             InitializeSpell();
-            Debug.Log("Initializing spell");
         }
         return castTime;
     }

@@ -76,8 +76,6 @@ public class Player : MovingObject
         _myCirclePointer.gameObject.SetActive(false);
         _jumpParticle = GetComponent<ParticleSystem>();
         _castingParticle = transform.Find("Casting").GetComponent<ParticleSystem>();
-
-        Debug.Log(_jumpParticle);
     }
 
     // Update is called once per frame
@@ -277,24 +275,36 @@ public class Player : MovingObject
                 _castingParticle.Stop();
                 _rb.velocity = new Vector2(_rb.velocity.x, 0);
                 _rb.AddForce(new Vector2(0, Glob.jumpDoubleHeight), ForceMode2D.Impulse);
+                _jumpTime = Time.time;
                 _usedDoubleJump = true;
             }
         }
     }
     private void jumpContinuous()
     {
-        if (Time.time - _jumpTime <= Glob.jumpTimeContinuous)
+        if (_usedDoubleJump)
         {
-            _rb.AddForce(new Vector2(0, Glob.jumpHeightContinuous * (1 - ((Time.time - _jumpTime) / Glob.jumpTimeContinuous))));
+            if (Time.time - _jumpTime <= Glob.jumpDoubleTimeContinuous)
+            {
+                _rb.AddForce(new Vector2(0, Glob.jumpDoubleHeightContinuous * (1 - ((Time.time - _jumpTime) / Glob.jumpDoubleTimeContinuous))));
+            }
+        }
+        else
+        {
+            if (Time.time - _jumpTime <= Glob.jumpTimeContinuous)
+            {
+                _rb.AddForce(new Vector2(0, Glob.jumpHeightContinuous * (1 - ((Time.time - _jumpTime) / Glob.jumpTimeContinuous))));
+            }
         }
     }
 
     private bool isGrounded()
     {
+        int layerMask = 1 << 9;
         Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up * 0.1f, Color.yellow, 1);
         Debug.DrawRay(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up * 0.1f, Color.yellow, 1);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f);
-        RaycastHit2D hit2 = Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) - (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f, layerMask);
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position - (Vector3.up * _coll.bounds.extents.y) + (Vector3.right * _coll.bounds.extents.x), -Vector2.up, 0.1f, layerMask);
         if (hit.transform != null)
         {
             if (hit.transform.GetComponent<PlatformEffector2D>().useOneWay)
@@ -351,7 +361,8 @@ public class Player : MovingObject
         vec0.Normalize();
 
         Debug.DrawRay(this.transform.position, new Vector3(vec0.x * 2, vec0.y * 2, 0), Color.red, 5f);
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f);
+        int layerMask = 1 << 9;
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f, layerMask);
         if (!hit)
         {
             StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
@@ -421,12 +432,9 @@ public class Player : MovingObject
 
     private void handleLives()
     {
-        Debug.Log("Health: " + _healthRemaining + "/" + Glob.maxHealth + ", Lives: " + _livesRemaining + "/" + Glob.maxLives);
-        //SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining); //TODO: Make this work
         if (_healthRemaining <= 0)
         {
             _livesRemaining--;
-            //SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, 100, _livesRemaining);
             setIsDead(true);
             if (_livesRemaining <= 0)
             {
@@ -476,7 +484,6 @@ public class Player : MovingObject
         _healthRemaining = Glob.maxHealth;
         _rb.velocity = Vector3.zero;
         transform.position = SceneManager.GetInstance().GetCurrentArena().GetRandomRespawnPoint();
-        Debug.Log("Respawned! Health: " + _healthRemaining + "/" + Glob.maxHealth + ", Lives: " + _livesRemaining + "/" + Glob.maxLives);
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
     }
 

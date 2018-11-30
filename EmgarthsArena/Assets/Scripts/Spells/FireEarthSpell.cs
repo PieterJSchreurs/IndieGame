@@ -39,7 +39,6 @@ public class FireEarthSpell : Spell
 
     protected override void HandleExplosion()
     {
-        Debug.Log("Exploooooosion");
         GameObject knockBackGameObject = Glob.GetKnockback();
         knockBackGameObject = Instantiate(knockBackGameObject, this.gameObject.transform);
         knockBackGameObject.transform.parent = this.gameObject.transform.parent;
@@ -78,8 +77,6 @@ public class FireEarthSpell : Spell
         if (castTime == -1)
         {
             InitializeSpell();
-            castTime = 1;
-            Debug.Log("Initializing spell");
         }
         return castTime;
     }

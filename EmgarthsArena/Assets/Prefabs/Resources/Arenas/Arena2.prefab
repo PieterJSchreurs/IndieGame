@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 212276302383481920}
   - component: {fileID: 60511981866645100}
   - component: {fileID: 251802836123469184}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ColliderSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

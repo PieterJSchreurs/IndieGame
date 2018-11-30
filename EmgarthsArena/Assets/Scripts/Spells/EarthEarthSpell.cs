@@ -42,7 +42,7 @@ public class EarthEarthSpell : Spell {
         for (int i = 0; i < rocks.Length; i++)
         {
             rocks[i] = new rockVars();
-            rocks[i]._rock = Instantiate(Resources.Load<GameObject>("Spells/EarthEarthRock"), transform.position, new Quaternion());
+            rocks[i]._rock = Instantiate(Resources.Load<GameObject>(Glob.RockPrefab), transform.position, new Quaternion());
             rocks[i]._standingStill = false;
             rocks[i]._lastVelocityX = 0;
             rocks[i]._lastVelocityY = 0;
@@ -114,7 +114,6 @@ public class EarthEarthSpell : Spell {
         if (castTime == -1)
         {
             InitializeSpell();
-            Debug.Log("Initializing spell");
         }
         return castTime;
     }

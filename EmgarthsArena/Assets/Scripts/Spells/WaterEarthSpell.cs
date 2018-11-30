@@ -20,7 +20,7 @@ public class WaterEarthSpell : Spell {
         damage = 40;
         castTime = 0.75f;
         manaDrain = 25;
-        _rb.gravityScale = 3;
+        //_rb.gravityScale = 3;
         spellType = SpellDatabase.SpellType.Projectile;
         attackType = SpellDatabase.AttackType.Medium;
     }
@@ -31,7 +31,6 @@ public class WaterEarthSpell : Spell {
         if (castTime == -1)
         {
             InitializeSpell();
-            Debug.Log("Initializing spell");
         }
     }
 
@@ -65,7 +64,20 @@ public class WaterEarthSpell : Spell {
 
     protected override void HandleCollision(Collision2D collision)
     {
-        base.HandleCollision(collision);
+        if (collision.gameObject.tag == "Player")
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            if (!_standingStill)
+            {
+                if (Vector3.Dot(collision.relativeVelocity, _rb.velocity) <= 0)//TODO: If a player is running away from a snowball/rock, it wont deal damage.
+                {
+                    Vector3 velo = _rb.velocity;
+                    _rb.velocity = Vector2.zero;
+                    player.HandleSpellHit(this, knockback, Mathf.Min(damage, Mathf.RoundToInt(velo.magnitude * 10)), Mathf.Min(1, velo.magnitude) * velo.normalized);
+                }
+            }
+        }
+        //base.HandleCollision(collision);
         //Destroy the object.
         //Destroy(this.gameObject);
     }
@@ -80,7 +92,6 @@ public class WaterEarthSpell : Spell {
         if (castTime == -1)
         {
             InitializeSpell();
-            Debug.Log("Initializing spell");
         }
         return castTime;
     }
