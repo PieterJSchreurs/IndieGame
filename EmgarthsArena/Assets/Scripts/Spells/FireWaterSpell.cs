@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FireWaterSpell : Spell
 {
+
     private void InitializeSpell()
     {
         knockback = 50;
@@ -29,19 +30,21 @@ public class FireWaterSpell : Spell
 
     protected override void HandleCollision(Collision2D collision)
     {
-        base.HandleCollision(collision);
-        //Handle explosion effects.
-        HandleExplosion();
-        
-        //Destroy the object.
-        Destroy(this.gameObject);
+      
+            base.HandleCollision(collision);
+            //Handle explosion effects.
+            HandleExplosion();
+
+            //Destroy the object.
+            Destroy(this.gameObject);
+      
     }
 
     protected override void HandleExplosion()
     {
         //Adding effect + rotating it the right way.
-        GameObject explosion = Instantiate(Glob.GetExplosionPrefab(), this.gameObject.transform.position, this.gameObject.transform.rotation);
-        explosion.transform.eulerAngles = new Vector3(0, 90, 90);
+        GameObject explosion = Instantiate(Glob.GetFogPrefab(), this.gameObject.transform.position, this.gameObject.transform.rotation);
+        // explosion.transform.eulerAngles = new Vector3(0, 90, 90);
     }
 
     public override float GetCastTime()
@@ -53,7 +56,6 @@ public class FireWaterSpell : Spell
         }
         return castTime;
     }
-
 
 
     // Update is called once per frame

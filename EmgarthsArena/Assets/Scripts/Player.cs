@@ -402,6 +402,11 @@ public class Player : MovingObject
         {
             launchedspelltest.transform.parent = transform;
         }
+
+        if(pSpell is WaterWaterSpell)
+        {
+            launchedspelltest.transform.position = this.transform.position;
+        }
     }
 
     //This is for loading animations etc.

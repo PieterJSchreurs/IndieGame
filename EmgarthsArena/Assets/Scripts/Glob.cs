@@ -30,9 +30,15 @@ public static class Glob
     public const float jumpDoubleHeight = 900f;
     public const float jumpTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
+    public const float WaterwaterAliveTime = 2.0f;
     public static GameObject GetKnockback()
     {
         return Resources.Load<GameObject>("Spells/Knockback");
+    }
+
+    public static GameObject GetFogPrefab()
+    {
+        return Resources.Load<GameObject>("Fog");
     }
 
     public const string PlayerPrefab = "Player/Player";
@@ -187,10 +193,10 @@ public static class Glob
     }
 
     public const float FireFireSpeed = 150f;
-    public const float FireWaterSpeed = 15f;
+    public const float FireWaterSpeed = 10f;
     public const float FireEarthSpeed = 20f;
     public const float WaterFireSpeed = 6f;
-    public const float WaterWaterSpeed = 10f;
+    public const float WaterWaterSpeed = 0f;
     public const float WaterEarthSpeed = 10f;
     public const float EarthFireSpeed = 10f;
     public const float EarthWaterSpeed = 10f;

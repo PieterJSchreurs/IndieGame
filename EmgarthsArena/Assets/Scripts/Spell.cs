@@ -26,32 +26,28 @@ public abstract class Spell : MovingObject
         return values;
     }
 
-    /*void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (!col.isTrigger)
+        //Waterwater spell got hit.
+        if (this.gameObject.GetComponent<WaterWaterSpell>() != null)
         {
-            if (col.gameObject.tag == "Player")
+            //Collided with player
+            if(col.gameObject.GetComponent<Player>() != null)
             {
                 Player player = col.gameObject.GetComponent<Player>();
-
-                //Fire earth doesn't need a spellhit since it explodes on impact, the explosion is the thing that deals the hit.
-                if (this.GetComponent<FireEarthSpell>() != null)
-                {
-                    Debug.Log("Fire earth spell hit.");
-                }
-                else
-                {
-                    player.HandleSpellHit(this, knockback, damage, this.gameObject.GetComponent<Rigidbody2D>().velocity.normalized);
-                }
+                player.HandleSpellHit(this, knockback, damage, -(this.transform.position - col.gameObject.transform.position).normalized);
             }
-
-            HandleCollision();
+            //Collided with spell
+            else if(col.gameObject.GetComponent<Spell>() != null)
+            {
+                Destroy(col.gameObject);
+            }
         }
-    }*/
+    }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        
         if (!collision.otherCollider.isTrigger)
         {
             if (collision.gameObject.tag == "Player")
