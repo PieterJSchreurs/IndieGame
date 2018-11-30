@@ -17,7 +17,11 @@ public abstract class Spell : MovingObject
 
     protected override void HandleCollision(Collision2D collision)
     {
-
+        if (collision.gameObject.tag == "Player")
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            player.HandleSpellHit(this, knockback, damage, -collision.relativeVelocity.normalized);
+        }
     }
 
     public int[] GetKnockBackAndDamage()
