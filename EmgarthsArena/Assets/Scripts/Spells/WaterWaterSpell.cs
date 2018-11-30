@@ -9,7 +9,7 @@ public class WaterWaterSpell : Spell {
 
     private void InitializeSpell()
     {
-        knockback = 50;
+        knockback = 60;
         damage = 30;
         castTime = 0.2f;
         manaDrain = 15;

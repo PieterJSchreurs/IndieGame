@@ -228,18 +228,6 @@ public class Player : MovingObject
         }
     }
 
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.otherCollider.isTrigger)
-        {
-            HandleCollision(collision);
-        }
-    }
-    protected override void HandleCollision(Collision2D collision)
-    {
-
-    }
     private void handleRespawn()
     {
         if (_isDead)
@@ -498,5 +486,10 @@ public class Player : MovingObject
         Debug.Log("Taking damage " + dmg);
         _healthRemaining -= dmg;
         handleLives();
+    }
+
+    protected override void HandleCollision(Collision2D collision)
+    {
+        //
     }
 }
