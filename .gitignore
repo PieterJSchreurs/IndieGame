@@ -34,3 +34,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+EmgarthsArena/ProjectSettings/PresetManager.asset
+EmgarthsArena/Packages/manifest.json
