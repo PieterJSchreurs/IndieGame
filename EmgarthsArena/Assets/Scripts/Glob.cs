@@ -97,7 +97,7 @@ public static class Glob
     public const string EarthEarthPrefab = "Spells/EarthEarth";
     public const int SpellCount = 9;
 
-    public const string RockPrefab = "Spells/EarthEarthRock";
+    public const string RockPrefab = "Spells/Rock";
     public const string FireHazardPrefab = "Spells/FireHazard";
 
     public static Spell[] GetSpellPrefab()
@@ -200,10 +200,10 @@ public static class Glob
     public const float FireFireSpeed = 150f;
     public const float FireWaterSpeed = 10f;
     public const float FireEarthSpeed = 20f;
-    public const float WaterFireSpeed = 6f;
+    public const float WaterFireSpeed = 15f;
     public const float WaterWaterSpeed = 0f;
     public const float WaterEarthSpeed = 10f;
-    public const float EarthFireSpeed = 10f;
+    public const float EarthFireSpeed = 25f;
     public const float EarthWaterSpeed = 10f;
     public const float EarthEarthSpeed = 10f;
 

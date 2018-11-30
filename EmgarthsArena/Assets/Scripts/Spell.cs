@@ -49,25 +49,21 @@ public abstract class Spell : MovingObject
                 Destroy(col.gameObject);
             }
         }
+        if (this.gameObject.GetComponent<FireHazard>() != null)
+        {
+            if (col.gameObject.tag == "Player")
+            {
+                Player player = col.gameObject.GetComponent<Player>();
+                player.HandleSpellHit(this, knockback, damage, Vector2.zero);
+                Destroy(gameObject);
+            }
+        }
     }
 
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.otherCollider.isTrigger)
-        {
-            if (collision.gameObject.tag == "Player")
-            {
-                if (this.GetComponent<FireEarthSpell>() == null)
-                {
-                    Player player = collision.gameObject.GetComponent<Player>();
-                    Debug.Log("Oncollisionenter");
-                    player.HandleSpellHit(this, knockback, damage, -collision.relativeVelocity.normalized);
-                }
-            }
-
-            HandleCollision(collision);
-        }
+        HandleCollision(collision);
     }
 
     public abstract float GetCastTime();
