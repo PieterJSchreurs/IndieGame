@@ -15,7 +15,7 @@ public abstract class Spell : MovingObject
     protected SpellDatabase.SpellType spellType;
     protected SpellDatabase.AttackType attackType;
 
-    protected override void HandleCollision()
+    protected override void HandleCollision(Collision2D collision)
     {
 
     }
@@ -64,7 +64,7 @@ public abstract class Spell : MovingObject
                 }
             }
 
-            HandleCollision();
+            HandleCollision(collision);
         }
     }
 
