@@ -28,6 +28,7 @@ public class Player : MovingObject
     private ParticleSystem _castingParticle;
     private ParticleSystem _jumpParticle;
     private bool _isSwitchingElement = false;
+    private float _changedElementTime;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
@@ -139,6 +140,10 @@ public class Player : MovingObject
     {
         if (!isFixed)
         {
+            if(_isSwitchingElement == true && Time.time >= _changedElementTime+1.0f)
+            {
+                _isSwitchingElement = false;
+            }
             if (_myInputManager.GetButtonDownJump())
             {
                 jump();
@@ -212,7 +217,9 @@ public class Player : MovingObject
     {
         if (pElementSlot == 0)
         {
+            _changedElementTime = Time.time;
             _firstElement = pElement;
+            SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
             _isSwitchingElement = true;
         }
         else if (pElementSlot == 1)
@@ -365,10 +372,12 @@ public class Player : MovingObject
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
         yield return new WaitForSeconds(pSpell.GetCastTime());
-        if (pInput != new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && _myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0)
+        if (pInput != new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && (_myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0))
         {
             pInput = new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical());
+            pInput.Normalize();
         }
+        Debug.DrawRay(this.transform.position, new Vector3(pInput.x * 2, pInput.y * 2, 0), Color.blue, 5f);
         _castingParticle.Stop();
         _castingSpell = false;
         Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
@@ -466,13 +475,13 @@ public class Player : MovingObject
 
     public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
     {
-        Debug.Log(this.name + " is hit by :" + hit + " knockback:" + pKnockback + " damage:" + pDamage);
         _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
         TakeDamage(pDamage);
         _disableMovement = true;
     }
     public void TakeDamage(int dmg)
     {
+        Debug.Log("Taking damage " + dmg);
         _healthRemaining -= dmg;
         handleLives();
     }

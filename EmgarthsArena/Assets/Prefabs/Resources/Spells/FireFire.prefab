@@ -60,7 +60,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 37919b7d8dfe4214bad75a782c1a884f, type: 2}
+  - {fileID: 2100000, guid: 3d61d361fd3345349b4d1e4f15282925, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -193,7 +193,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1829209148
+  randomSeed: 1455802066
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -241,7 +241,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.95
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -345,7 +345,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.83
+      scalar: 8
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -637,7 +637,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 25
+    angle: 0
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -753,7 +753,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 80
+      scalar: 200
       minScalar: 10
       maxCurve:
         serializedVersion: 2
