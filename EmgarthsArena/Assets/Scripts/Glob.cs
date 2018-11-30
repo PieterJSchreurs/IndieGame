@@ -186,7 +186,7 @@ public static class Glob
         SwitchButtonRight
     }
 
-    public const float FireFireSpeed = 30f;
+    public const float FireFireSpeed = 150f;
     public const float FireWaterSpeed = 15f;
     public const float FireEarthSpeed = 20f;
     public const float WaterFireSpeed = 6f;

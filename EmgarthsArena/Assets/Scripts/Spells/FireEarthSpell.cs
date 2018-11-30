@@ -68,8 +68,8 @@ public class FireEarthSpell : Spell
                 }
             }
         }
-
-        Destroy(knockBackGameObject.gameObject, 2.0f);
+        //Destroy this instantly if necessarily, probably keep it alive for explosion animation.
+        Destroy(knockBackGameObject.gameObject, 0.5f);
     }
 
     public override float GetCastTime()
