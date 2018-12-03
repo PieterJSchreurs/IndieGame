@@ -24,6 +24,7 @@ public class SceneManager : MonoBehaviour {
     private static Arena currentArena;
     private static Player[] allPlayers;
     private int playersAlive;
+    private bool initializingMatch = false;
 
     void Awake()
     {
@@ -34,23 +35,24 @@ public class SceneManager : MonoBehaviour {
         {
             _instance = this;
         }
-        Application.LoadLevel(1);
-
+        SwitchScene(1);
     }
 
     // Use this for initialization
     void Start () {
-        InitializeMatch();
+        //InitializeMatch();
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
     public void SwitchScene(int id)
     {
-
+        Debug.Log("SWITCHING SCENE!");
+        currentScene = id;
+        Application.LoadLevel(id);
     }
 
     public Arena GetCurrentArena()
@@ -60,6 +62,12 @@ public class SceneManager : MonoBehaviour {
 
     public void InitializeMatch()
     {
+        if (currentScene != 2)
+        {
+            SwitchScene(2);
+            return;
+        }
+
         Arena newArena = Instantiate(Glob.GetArenaPrefab(1), Vector3.zero, new Quaternion(0, 0, 0, 0));
         currentArena = newArena;
         allPlayers = new Player[Glob.GetPlayerCount()];
@@ -117,5 +125,10 @@ public class SceneManager : MonoBehaviour {
             playerStats[i] = Instantiate(Resources.Load<GameObject>(Glob.ResolutionScreenStatsPrefab), resolutionScreen.transform);
             playerStats[i].transform.Find("PlayerName").GetComponent<Text>().text = "Player " + (i+1);
         }
+    }
+
+    public void EndGame()
+    {
+        Application.Quit();
     }
 }

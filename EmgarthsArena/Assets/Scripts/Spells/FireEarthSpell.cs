@@ -41,6 +41,7 @@ public class FireEarthSpell : Spell
     {
         GameObject knockBackGameObject = Glob.GetKnockback();
         knockBackGameObject = Instantiate(knockBackGameObject, this.gameObject.transform);
+        knockBackGameObject.transform.localPosition = new Vector3(0, 0, 0);
         knockBackGameObject.transform.parent = this.gameObject.transform.parent;
         knockBackGameObject.transform.localScale += new Vector3(3, 3, 3);
         CircleCollider2D circleCollider = knockBackGameObject.GetComponent<CircleCollider2D>();
@@ -69,7 +70,7 @@ public class FireEarthSpell : Spell
             }
         }
         //Destroy this instantly if necessarily, probably keep it alive for explosion animation.
-        Destroy(knockBackGameObject.gameObject, 0.5f);
+        Destroy(knockBackGameObject.gameObject, 1.25f);
     }
 
     public override float GetCastTime()

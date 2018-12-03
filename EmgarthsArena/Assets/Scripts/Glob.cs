@@ -10,7 +10,7 @@ public static class Glob
         if (playerCount == -1)
         {
             //Testing purposes adding an empty player.
-            playerCount = Input.GetJoystickNames().Length + 1;
+            playerCount = Input.GetJoystickNames().Length;
         }
         return playerCount;
     }
