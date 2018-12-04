@@ -219,6 +219,69 @@ public class Arena : MonoBehaviour {
         }
     }
 
+    public void GlowBackgroundPlayerBannerElement(int id, bool firstOrSecondElement, SpellDatabase.Element element, bool toggle)
+    {
+        if (toggle)
+        {
+            if (!firstOrSecondElement)
+            {
+                playerBanners[id].firstElementIcon.transform.parent.GetComponent<Image>().enabled = true;
+                switch (element)
+                {
+                    case SpellDatabase.Element.Fire:
+                        //playerBanners[id].firstElementIcon.sprite = Resources.Load<Sprite>(Glob.FireElementSelectedIcon);
+                        playerBanners[id].firstElementIcon.transform.parent.GetComponent<Image>().sprite = Resources.Load<Sprite>(Glob.FireBackgroundGlow);
+                        break;
+                    case SpellDatabase.Element.Water:
+                        //playerBanners[id].firstElementIcon.sprite = Resources.Load<Sprite>(Glob.WaterElementSelectedIcon);
+                        playerBanners[id].firstElementIcon.transform.parent.GetComponent<Image>().sprite = Resources.Load<Sprite>(Glob.WaterBackgroundGlow);
+                        break;
+                    case SpellDatabase.Element.Earth:
+                        //playerBanners[id].firstElementIcon.sprite = Resources.Load<Sprite>(Glob.EarthElementSelectedIcon);
+                        playerBanners[id].firstElementIcon.transform.parent.GetComponent<Image>().sprite = Resources.Load<Sprite>(Glob.EarthBackgroundGlow);
+                        break;
+                    case SpellDatabase.Element.Null:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                playerBanners[id].secondElementIcon.transform.parent.GetComponent<Image>().enabled = true;
+                switch (element)
+                {
+                    case SpellDatabase.Element.Fire:
+                        //playerBanners[id].secondElementIcon.sprite = Resources.Load<Sprite>(Glob.FireElementSelectedIcon);
+                        playerBanners[id].secondElementIcon.transform.parent.GetComponent<Image>().sprite = Resources.Load<Sprite>(Glob.FireBackgroundGlow);
+                        break;
+                    case SpellDatabase.Element.Water:
+                        //playerBanners[id].secondElementIcon.sprite = Resources.Load<Sprite>(Glob.WaterElementSelectedIcon);
+                        playerBanners[id].secondElementIcon.transform.parent.GetComponent<Image>().sprite = Resources.Load<Sprite>(Glob.WaterBackgroundGlow);
+                        break;
+                    case SpellDatabase.Element.Earth:
+                        //playerBanners[id].secondElementIcon.sprite = Resources.Load<Sprite>(Glob.EarthElementSelectedIcon);
+                        playerBanners[id].secondElementIcon.transform.parent.GetComponent<Image>().sprite = Resources.Load<Sprite>(Glob.EarthBackgroundGlow);
+                        break;
+                    case SpellDatabase.Element.Null:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        else
+        {
+            if (!firstOrSecondElement)
+            {
+                playerBanners[id].firstElementIcon.transform.parent.GetComponent<Image>().enabled = false;
+            } else
+            {
+                playerBanners[id].secondElementIcon.transform.parent.GetComponent<Image>().enabled = false;
+            }
+        }
+    }
+
     public void SetCameraTargets(Player[] players)
     {
         _cameraTargets = new Transform[players.Length];

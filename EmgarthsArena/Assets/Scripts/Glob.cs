@@ -70,6 +70,9 @@ public static class Glob
     public const string FireElementSelectedIcon = "UI/PlayerBanner/ElementIcon/FireSymbolSelected";
     public const string WaterElementSelectedIcon = "UI/PlayerBanner/ElementIcon/WaterSymbolSelected";
     public const string EarthElementSelectedIcon = "UI/PlayerBanner/ElementIcon/EarthSymbolSelected";
+    public const string FireBackgroundGlow = "UI/PlayerBanner/SelectedGlowFire";
+    public const string WaterBackgroundGlow = "UI/PlayerBanner/SelectedGlowWater";
+    public const string EarthBackgroundGlow = "UI/PlayerBanner/SelectedGlowEarth";
 
     private const int arenaCount = 2;
     public const string BaseArenaPrefab = "Arenas/Arena";

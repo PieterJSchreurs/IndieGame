@@ -28,7 +28,9 @@ public class Player : MovingObject
     private ParticleSystem _castingParticle;
     private ParticleSystem _jumpParticle;
     private bool _isSwitchingElement = false;
+    private bool _hasSwitchedElement = false;
     private float _changedElementTime;
+    private const float _changedElementDelay = 1;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
@@ -59,19 +61,7 @@ public class Player : MovingObject
         _myInputManager = new InputManager(ID);
         _myIndicator = transform.Find("UI Elements").Find("Indicator").GetComponent<SpriteRenderer>();
         _myIndicator.sprite = Resources.Load<Sprite>(Glob.PlayerIndicatorBase + (ID + 1).ToString());
-        _myMagicCircleLeft = transform.Find("UI Elements").Find("MagicCircleLeft");
-        elementIconsLeft = new SpriteRenderer[3];
-        elementIconsLeft[0] = _myMagicCircleLeft.Find("LeftSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
-        elementIconsLeft[1] = _myMagicCircleLeft.Find("LeftSelection").Find("Water").GetComponent<SpriteRenderer>();
-        elementIconsLeft[2] = _myMagicCircleLeft.Find("LeftSelection").Find("Earth").GetComponent<SpriteRenderer>();
 
-        _myMagicCircleLeft.gameObject.SetActive(false);
-        _myMagicCircleRight = transform.Find("UI Elements").Find("MagicCircleRight");
-        elementIconsRight = new SpriteRenderer[3];
-        elementIconsRight[0] = _myMagicCircleRight.Find("RightSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
-        elementIconsRight[1] = _myMagicCircleRight.Find("RightSelection").Find("Water").GetComponent<SpriteRenderer>();
-        elementIconsRight[2] = _myMagicCircleRight.Find("RightSelection").Find("Earth").GetComponent<SpriteRenderer>();
-        _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
         _myCirclePointer.gameObject.SetActive(false);
         _jumpParticle = GetComponent<ParticleSystem>();
@@ -93,6 +83,7 @@ public class Player : MovingObject
     {
         if (!_isDead)
         {
+            //TEMPORARY DEBUG STUFF!______________________________________________________________
             if (Input.GetKeyDown(KeyCode.R))
             {
                 launchSpell(_firstElement, _secondElement);
@@ -129,8 +120,12 @@ public class Player : MovingObject
             {
                 TakeDamage(20);
             }
+            //TEMPORARY DEBUG STUFF!______________________________________________________________
 
             Move(false);
+            HandleAimPointer();
+
+
         }
     }
 
@@ -138,9 +133,16 @@ public class Player : MovingObject
     {
         if (!isFixed)
         {
-            if(_isSwitchingElement == true && Time.time >= _changedElementTime+1.0f)
+            if(_isSwitchingElement && Time.time >= _changedElementTime + _changedElementDelay)
             {
+                SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, false, _firstElement, false);
                 _isSwitchingElement = false;
+            }
+            else if (_hasSwitchedElement && Time.time >= _changedElementTime + _changedElementDelay)//TODO: Make a glob value for the 1.0f
+            {
+                SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, false, _firstElement, false);
+                SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, true, _secondElement, false);
+                _hasSwitchedElement = false;
             }
             if (_myInputManager.GetButtonDownJump())
             {
@@ -211,6 +213,42 @@ public class Player : MovingObject
         }
     }
 
+    private void HandleAimPointer()
+    {
+        float xAxis = _myInputManager.GetAxisLookHorizontal();
+        float yAxis = _myInputManager.GetAxisLookVertical();
+
+        //If there's input
+        if (!(xAxis == 0 && yAxis == 0))
+        {
+            if (!_myCirclePointer.gameObject.activeSelf)
+            {
+                _myCirclePointer.gameObject.SetActive(true);
+            }
+
+            Vector2 vec2 = new Vector2(0, 1);
+            Vector2 vec0 = new Vector2(xAxis, yAxis);
+            vec0.Normalize();
+            //_myCirclePointer.transform.eulerAngles = vec0;
+
+            if (vec0.x > 0)
+            {
+                vec2 = new Vector2(0, -1);
+                float Degrees = Vector2.Angle(vec2, vec0);
+                _myCirclePointer.transform.eulerAngles = new Vector3(_myCirclePointer.transform.eulerAngles.x, _myCirclePointer.transform.eulerAngles.y, Degrees);
+            }
+            else
+            {
+                float Degrees = Vector2.Angle(vec2, vec0);
+                _myCirclePointer.transform.eulerAngles = new Vector3(_myCirclePointer.transform.eulerAngles.x, _myCirclePointer.transform.eulerAngles.y, Degrees + 180);
+            }
+        }
+        else if (_myCirclePointer.gameObject.activeSelf)
+        {
+            _myCirclePointer.gameObject.SetActive(false);
+        }
+    }
+
     private void ChangeElement(SpellDatabase.Element pElement, int pElementSlot)
     {
         if (pElementSlot == 0)
@@ -218,13 +256,18 @@ public class Player : MovingObject
             _changedElementTime = Time.time;
             _firstElement = pElement;
             SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+            SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, false, _firstElement, true);
+            SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, true, _secondElement, false);
             _isSwitchingElement = true;
         }
         else if (pElementSlot == 1)
         {
+            _changedElementTime = Time.time;
             _secondElement = pElement;
             SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+            SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, true, _secondElement, true);
             _isSwitchingElement = false;
+            _hasSwitchedElement = true;
         }
     }
 
