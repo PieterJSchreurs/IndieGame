@@ -10,7 +10,7 @@ public static class Glob
         if (playerCount == -1)
         {
             //Testing purposes adding an empty player.
-            playerCount = Input.GetJoystickNames().Length + 1;
+            playerCount = Input.GetJoystickNames().Length;
         }
         return playerCount;
     }
@@ -32,7 +32,10 @@ public static class Glob
     public const float jumpTimeContinuous = 0.8f;
     public const float jumpDoubleTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
-    public const float WaterwaterAliveTime = 2.0f;
+    public const float WaterwaterAliveTime = 0.7f;
+    public const float ManaIncreasePerSecond = 3f;
+    public const float MistStayingTime = 3f;
+
     public static GameObject GetKnockback()
     {
         return Resources.Load<GameObject>("Spells/Knockback");
@@ -198,7 +201,7 @@ public static class Glob
     }
 
     public const float FireFireSpeed = 150f;
-    public const float FireWaterSpeed = 10f;
+    public const float FireWaterSpeed = 0f;
     public const float FireEarthSpeed = 20f;
     public const float WaterFireSpeed = 6f;
     public const float WaterWaterSpeed = 0f;

@@ -51,7 +51,14 @@ public class FireFireSpell : Spell {
     }
 
 
-
+    public override float GetManaCost()
+    {
+        if (manaDrain == -1)
+        {
+            InitializeSpell();
+        }
+        return manaDrain;
+    }
 
     // Update is called once per frame
     void Update () {
