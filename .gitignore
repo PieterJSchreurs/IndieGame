@@ -36,3 +36,4 @@ sysinfo.txt
 *.unitypackage
 EmgarthsArena/ProjectSettings/PresetManager.asset
 EmgarthsArena/Packages/manifest.json
+EmgarthsArena/ProjectSettings/ProjectVersion.txt
