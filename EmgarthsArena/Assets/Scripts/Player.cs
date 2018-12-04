@@ -8,7 +8,7 @@ public class Player : MovingObject
 
     private InputManager _myInputManager;
     private int _healthRemaining;
-    private int _manaRemaining;
+    private float _manaRemaining;
     private int _livesRemaining;
     private bool _isDead = false;
     private float _deathTime = 0;
@@ -18,10 +18,6 @@ public class Player : MovingObject
     private SpellDatabase.Element _secondElement = SpellDatabase.Element.Water;
 
     private SpriteRenderer _myIndicator;
-    private Transform _myMagicCircleLeft;
-    private SpriteRenderer[] elementIconsLeft;
-    private Transform _myMagicCircleRight;
-    private SpriteRenderer[] elementIconsRight;
     private Transform _myCirclePointer;
     private bool _disableMovement = false;
     private bool _castingSpell = false;
@@ -31,11 +27,15 @@ public class Player : MovingObject
     private bool _hasSwitchedElement = false;
     private float _changedElementTime;
     private const float _changedElementDelay = 1;
+    private float nextActionTime = 0;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
     private float _jumpTime = 0;
     private int ID;
+
+    private float steamCloudDamage = 0;
+    public bool IsInSteamCloud = false; //Fix mana cost, fix pillar.
 
     public Player()
     {
@@ -133,7 +133,22 @@ public class Player : MovingObject
     {
         if (!isFixed)
         {
-            if(_isSwitchingElement && Time.time >= _changedElementTime + _changedElementDelay)
+            if (Time.time > nextActionTime)
+            {
+                nextActionTime += 1;
+                if (_manaRemaining < 100)
+                {
+                    _manaRemaining += Glob.ManaIncreasePerSecond;
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+                }
+                if (IsInSteamCloud)
+                {
+                    TakeDamage((int)steamCloudDamage);
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+                    Debug.Log("Damage in steam cloud");
+                }
+            }
+            if (_isSwitchingElement && Time.time >= _changedElementTime + _changedElementDelay)
             {
                 SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, false, _firstElement, false);
                 _isSwitchingElement = false;
@@ -386,46 +401,54 @@ public class Player : MovingObject
     private Spell launchSpell(SpellDatabase.Element firstEle, SpellDatabase.Element secondEle, bool reversed = false)
     {
         Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
-        if (reversed)
-        {
-            launchedspell = SpellDatabase.GetInstance().GetSpell(secondEle, firstEle);
-        }
 
-        float xAxis = _myInputManager.GetAxisLookHorizontal();
-        float yAxis = _myInputManager.GetAxisLookVertical();
-
-        //If there's no input, should do forward.
-        if (xAxis == 0 && yAxis == 0)
+        if (_manaRemaining >= launchedspell.GetManaCost())
         {
-            xAxis = 1;
-        }
-        Vector2 vec2 = new Vector2(0, 1);
-        Vector2 vec0 = new Vector2(xAxis, yAxis);
-        vec0.Normalize();
-
-        Debug.DrawRay(this.transform.position, new Vector3(vec0.x * 2, vec0.y * 2, 0), Color.red, 5f);
-        int layerMask = 1 << 9;
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f, layerMask);
-        if (!hit)
-        {
-            StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
-            HandleCastingBehaviour();
             if (reversed)
             {
-                SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, secondEle, true);
+                launchedspell = SpellDatabase.GetInstance().GetSpell(secondEle, firstEle);
             }
-            else
+
+            float xAxis = _myInputManager.GetAxisLookHorizontal();
+            float yAxis = _myInputManager.GetAxisLookVertical();
+
+            //If there's no input, should do forward.
+            if (xAxis == 0 && yAxis == 0)
             {
-                SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, firstEle, true);
+                xAxis = 1;
+            }
+            Vector2 vec2 = new Vector2(0, 1);
+            Vector2 vec0 = new Vector2(xAxis, yAxis);
+            vec0.Normalize();
+
+            Debug.DrawRay(this.transform.position, new Vector3(vec0.x * 2, vec0.y * 2, 0), Color.red, 5f);
+            int layerMask = 1 << 9;
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f, layerMask);
+            if (!hit)
+            {
+                StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
+                HandleCastingBehaviour();
+                if (reversed)
+                {
+                    SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, secondEle, true);
+                }
+                else
+                {
+                    SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, firstEle, true);
+                }
             }
         }
-
         return launchedspell;
     }
 
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
-        yield return new WaitForSeconds(pSpell.GetCastTime());
+        float castTime = pSpell.GetCastTime();
+        _manaRemaining -= (int)pSpell.GetManaCost();
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+
+        yield return new WaitForSeconds(castTime);
+
         if (pInput != new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && (_myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0))
         {
             pInput = new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical());
@@ -435,6 +458,10 @@ public class Player : MovingObject
         _castingParticle.Stop();
         _castingSpell = false;
         Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
+        if (pSpell is EarthWaterSpell)
+        {
+            position = this.transform.position + new Vector3(Math.Sign(pInput.x) * Glob.spellOffset, 0, 0);
+        }
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
 
         SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, false, _firstElement, false);
@@ -456,12 +483,22 @@ public class Player : MovingObject
         {
             launchedspelltest.transform.parent = transform;
         }
-
         if(pSpell is WaterWaterSpell)
         {
             launchedspelltest.transform.position = this.transform.position;
             WaterWaterSpell waterWaterSpell = launchedspelltest as WaterWaterSpell;
             waterWaterSpell.SetPlayerCaster(this);
+        }
+        if (pSpell is FireWaterSpell)
+        {
+            launchedspelltest.transform.position = this.transform.position;
+            FireWaterSpell fireWaterSpell = launchedspelltest as FireWaterSpell;
+            fireWaterSpell.SetPlayerCaster(this);
+        }
+        if (pSpell is EarthWaterSpell)
+        {
+            EarthWaterSpell earthWaterSpell = launchedspelltest as EarthWaterSpell;
+            earthWaterSpell.transform.eulerAngles = new Vector3(0, 0, 0);
         }
     }
 
@@ -510,8 +547,6 @@ public class Player : MovingObject
         _isDead = toggle;
         GetComponent<MeshRenderer>().enabled = !_isDead; //TODO: Very ugly way of doing this, improve it.
         transform.position = new Vector3(28, 2, 0); //TODO: Ugly way of disabling the player.
-        _myMagicCircleLeft.gameObject.SetActive(false);
-        _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer.gameObject.SetActive(false);
         if (_isDead)
         {
@@ -541,5 +576,11 @@ public class Player : MovingObject
         Debug.Log("Taking damage " + dmg);
         _healthRemaining -= dmg;
         handleLives();
+    }
+
+    public void SetSteamCloud(float pDamage, bool pBool)
+    {
+        IsInSteamCloud = pBool;
+        steamCloudDamage = pDamage;
     }
 }
