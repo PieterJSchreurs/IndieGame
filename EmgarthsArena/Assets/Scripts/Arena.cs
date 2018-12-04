@@ -79,7 +79,7 @@ public class Arena : MonoBehaviour {
         }
     }
 
-    public void UpdatePlayerBanner(int id, SpellDatabase.Element firstEle, SpellDatabase.Element secondEle, int health, int mana, int lives)
+    public void UpdatePlayerBanner(int id, SpellDatabase.Element firstEle, SpellDatabase.Element secondEle, int health, float mana, int lives)
     {
         if (playerBanners == null)
         {
@@ -87,7 +87,7 @@ public class Arena : MonoBehaviour {
         }
 
         playerBanners[id].healthBar.fillAmount = (float)health / Glob.maxHealth;
-        playerBanners[id].manaBar.fillAmount = mana / Glob.maxMana;
+        playerBanners[id].manaBar.fillAmount = (float)mana / Glob.maxMana;
         for (int i = 0; i < playerBanners[id].lifeCrystals.Length; i++)
         {
             if (playerBanners[id].lifeCrystals.Length - i <= lives)

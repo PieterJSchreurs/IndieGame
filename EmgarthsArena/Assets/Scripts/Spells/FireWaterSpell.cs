@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class FireWaterSpell : Spell
 {
+    private Player playerCaster;
 
     private void InitializeSpell()
     {
-        knockback = 50;
-        damage = 10;
+        knockback = 0;
+        damage = 3;
         castTime = 0.5f;
         manaDrain = 5;
         spellType = SpellDatabase.SpellType.Aoe;
@@ -28,23 +29,34 @@ public class FireWaterSpell : Spell
 
     }
 
+    public void SetPlayerCaster(Player pPlayer)
+    {
+        playerCaster = pPlayer;
+    }
+
+    public Player GetPlayerCaster()
+    {
+        return playerCaster;
+    }
+
     protected override void HandleCollision(Collision2D collision)
     {
-      
-            base.HandleCollision(collision);
-            //Handle explosion effects.
-            HandleExplosion();
 
-            //Destroy the object.
-            Destroy(this.gameObject);
-      
+        if (collision.gameObject.GetComponent<Player>() != playerCaster)
+        {
+            base.HandleCollision(collision);
+        }
+        else
+        {
+
+        }
     }
 
     protected override void HandleExplosion()
     {
+        //
         //Adding effect + rotating it the right way.
-        GameObject explosion = Instantiate(Glob.GetFogPrefab(), this.gameObject.transform.position, this.gameObject.transform.rotation);
-        // explosion.transform.eulerAngles = new Vector3(0, 90, 90);
+        //GameObject explosion = Instantiate(Glob.GetFogPrefab(), this.gameObject.transform.position, this.gameObject.transform.rotation);
     }
 
     public override float GetCastTime()
@@ -56,7 +68,14 @@ public class FireWaterSpell : Spell
         return castTime;
     }
 
-
+    public override float GetManaCost()
+    {
+        if (manaDrain == -1)
+        {
+            InitializeSpell();
+        }
+        return manaDrain;
+    }
     // Update is called once per frame
     void Update()
     {

@@ -9,7 +9,7 @@ public class WaterWaterSpell : Spell {
 
     private void InitializeSpell()
     {
-        knockback = 50;
+        knockback = 60;
         damage = 30;
         castTime = 0.2f;
         manaDrain = 15;
@@ -64,6 +64,15 @@ public class WaterWaterSpell : Spell {
             InitializeSpell();
         }
         return castTime;
+    }
+
+    public override float GetManaCost()
+    {
+        if (manaDrain == -1)
+        {
+            InitializeSpell();
+        }
+        return manaDrain;
     }
 
     // Update is called once per frame

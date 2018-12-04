@@ -8,7 +8,7 @@ public class Player : MovingObject
 
     private InputManager _myInputManager;
     private int _healthRemaining;
-    private int _manaRemaining;
+    private float _manaRemaining;
     private int _livesRemaining;
     private bool _isDead = false;
     private float _deathTime = 0;
@@ -29,11 +29,14 @@ public class Player : MovingObject
     private ParticleSystem _jumpParticle;
     private bool _isSwitchingElement = false;
     private float _changedElementTime;
+    private float nextActionTime = 0.0f;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
     private float _jumpTime = 0;
     private int ID;
+    private float steamCloudDamage = 0;
+    public bool IsInSteamCloud = false;
 
     public Player()
     {
@@ -138,6 +141,24 @@ public class Player : MovingObject
     {
         if (!isFixed)
         {
+            if(Time.time > nextActionTime)
+            {
+                nextActionTime += 1;
+                if (_manaRemaining < 100)
+                {
+                    _manaRemaining += Glob.ManaIncreasePerSecond;
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+                }
+                if(IsInSteamCloud)
+                {
+                    //TODO: Get the real damage value.
+                    TakeDamage((int)steamCloudDamage);
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+                    Debug.Log("Damage in steam cloud");
+                }
+               
+            }
+
             if(_isSwitchingElement == true && Time.time >= _changedElementTime+1.0f)
             {
                 _isSwitchingElement = false;
@@ -228,18 +249,6 @@ public class Player : MovingObject
         }
     }
 
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.otherCollider.isTrigger)
-        {
-            HandleCollision(collision);
-        }
-    }
-    protected override void HandleCollision(Collision2D collision)
-    {
-
-    }
     private void handleRespawn()
     {
         if (_isDead)
@@ -343,37 +352,42 @@ public class Player : MovingObject
     private Spell launchSpell(SpellDatabase.Element firstEle, SpellDatabase.Element secondEle, bool reversed = false)
     {
         Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
-        if (reversed)
-        {
-            launchedspell = SpellDatabase.GetInstance().GetSpell(secondEle, firstEle);
-        }
 
-        float xAxis = _myInputManager.GetAxisLookHorizontal();
-        float yAxis = _myInputManager.GetAxisLookVertical();
-
-        //If there's no input, should do forward.
-        if (xAxis == 0 && yAxis == 0)
+        //else error
+        if (_manaRemaining >= launchedspell.GetManaCost())
         {
-            xAxis = 1;
-        }
-        Vector2 vec2 = new Vector2(0, 1);
-        Vector2 vec0 = new Vector2(xAxis, yAxis);
-        vec0.Normalize();
-
-        Debug.DrawRay(this.transform.position, new Vector3(vec0.x * 2, vec0.y * 2, 0), Color.red, 5f);
-        int layerMask = 1 << 9;
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f, layerMask);
-        if (!hit)
-        {
-            StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
-            HandleCastingBehaviour();
             if (reversed)
             {
-                SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, secondEle, true);
+                launchedspell = SpellDatabase.GetInstance().GetSpell(secondEle, firstEle);
             }
-            else
+
+            float xAxis = _myInputManager.GetAxisLookHorizontal();
+            float yAxis = _myInputManager.GetAxisLookVertical();
+
+            //If there's no input, should do forward.
+            if (xAxis == 0 && yAxis == 0)
             {
-                SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, firstEle, true);
+                xAxis = 1;
+            }
+            Vector2 vec2 = new Vector2(0, 1);
+            Vector2 vec0 = new Vector2(xAxis, yAxis);
+            vec0.Normalize();
+
+            Debug.DrawRay(this.transform.position, new Vector3(vec0.x * 2, vec0.y * 2, 0), Color.red, 5f);
+            int layerMask = 1 << 9;
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), vec0, 2f, layerMask);
+            if (!hit)
+            {
+                StartCoroutine(SpawnSpell(launchedspell, vec0, vec2));
+                HandleCastingBehaviour();
+                if (reversed)
+                {
+                    SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, secondEle, true);
+                }
+                else
+                {
+                    SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, firstEle, true);
+                }
             }
         }
 
@@ -382,7 +396,11 @@ public class Player : MovingObject
 
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
-        yield return new WaitForSeconds(pSpell.GetCastTime());
+        float castTime = pSpell.GetCastTime();
+        _manaRemaining -= (int)pSpell.GetManaCost();
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+        Debug.Log("Casted spell of " + pSpell.GetManaCost() + " now have mana" + _manaRemaining);
+        yield return new WaitForSeconds(castTime);
         if (pInput != new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && (_myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0))
         {
             pInput = new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical());
@@ -419,6 +437,11 @@ public class Player : MovingObject
             launchedspelltest.transform.position = this.transform.position;
             WaterWaterSpell waterWaterSpell = launchedspelltest as WaterWaterSpell;
             waterWaterSpell.SetPlayerCaster(this);
+        } else if(pSpell is FireWaterSpell)
+        {
+            launchedspelltest.transform.position = this.transform.position;
+            FireWaterSpell fireWaterSpell = launchedspelltest as FireWaterSpell;
+            fireWaterSpell.SetPlayerCaster(this);
         }
     }
 
@@ -482,6 +505,7 @@ public class Player : MovingObject
         setIsDead(false);
         setInvulnerable(true);
         _healthRemaining = Glob.maxHealth;
+        _manaRemaining = Glob.maxMana;
         _rb.velocity = Vector3.zero;
         transform.position = SceneManager.GetInstance().GetCurrentArena().GetRandomRespawnPoint();
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
@@ -495,8 +519,19 @@ public class Player : MovingObject
     }
     public void TakeDamage(int dmg)
     {
-        Debug.Log("Taking damage " + dmg);
         _healthRemaining -= dmg;
         handleLives();
     }
+
+    protected override void HandleCollision(Collision2D collision)
+    {
+        //
+    }
+
+    public void SetSteamCloud(float pDamage, bool pBool)
+    {
+        IsInSteamCloud = pBool;
+        steamCloudDamage = pDamage;
+    }
+
 }
