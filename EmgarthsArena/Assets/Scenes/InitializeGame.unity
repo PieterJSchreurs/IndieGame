@@ -164,15 +164,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4779786513627972, guid: cd30641d296a1c04899aeafdb39c31bc, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 982.93
+      value: -0.744
       objectReference: {fileID: 0}
     - target: {fileID: 4779786513627972, guid: cd30641d296a1c04899aeafdb39c31bc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 701.29016
+      value: -0.302
       objectReference: {fileID: 0}
     - target: {fileID: 4779786513627972, guid: cd30641d296a1c04899aeafdb39c31bc, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -29.505808
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4779786513627972, guid: cd30641d296a1c04899aeafdb39c31bc, type: 2}
       propertyPath: m_LocalRotation.x
@@ -193,21 +193,6 @@ Prefab:
     - target: {fileID: 4779786513627972, guid: cd30641d296a1c04899aeafdb39c31bc, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198730801576593426, guid: cd30641d296a1c04899aeafdb39c31bc,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1339735481
-      objectReference: {fileID: 0}
-    - target: {fileID: 198730801576593426, guid: cd30641d296a1c04899aeafdb39c31bc,
-        type: 2}
-      propertyPath: InitialModule.startLifetime.minScalar
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 198730801576593426, guid: cd30641d296a1c04899aeafdb39c31bc,
-        type: 2}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd30641d296a1c04899aeafdb39c31bc, type: 2}
