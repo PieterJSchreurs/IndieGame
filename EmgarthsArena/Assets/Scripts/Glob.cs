@@ -33,7 +33,9 @@ public static class Glob
     public const float jumpDoubleTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
     public const float WaterwaterAliveTime = 0.7f;
-    public const float ManaIncreasePerSecond = 3f;
+    public const float FireWaterAliveTime = 5f;
+    public const float EarthWaterAliveTime = 5f;
+    public const float ManaIncreasePerSecond = 6f;
     public const float MistStayingTime = 3f;
 
     public static GameObject GetKnockback()
@@ -99,6 +101,7 @@ public static class Glob
     public const string EarthWaterPrefab = "Spells/EarthWater";
     public const string EarthEarthPrefab = "Spells/EarthEarth";
     public const int SpellCount = 9;
+    public const float maxPilarHeight = 3f;
 
     public const string RockPrefab = "Spells/Rock";
     public const string FireHazardPrefab = "Spells/FireHazard";
@@ -207,8 +210,9 @@ public static class Glob
     public const float WaterWaterSpeed = 0f;
     public const float WaterEarthSpeed = 10f;
     public const float EarthFireSpeed = 25f;
-    public const float EarthWaterSpeed = 10f;
+    public const float EarthWaterSpeed = 0f;
     public const float EarthEarthSpeed = 10f;
-
     public const float FireHazardSpeed = 5;
+
+   
 }

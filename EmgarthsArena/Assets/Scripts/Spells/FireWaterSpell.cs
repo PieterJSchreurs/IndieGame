@@ -14,6 +14,7 @@ public class FireWaterSpell : Spell
         manaDrain = 5;
         spellType = SpellDatabase.SpellType.Aoe;
         attackType = SpellDatabase.AttackType.Light;
+
     }
 
     // Use this for initialization
@@ -79,6 +80,6 @@ public class FireWaterSpell : Spell
     // Update is called once per frame
     void Update()
     {
-
+        Destroy(this.gameObject, Glob.FireWaterAliveTime);
     }
 }

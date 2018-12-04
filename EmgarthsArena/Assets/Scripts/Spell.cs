@@ -41,10 +41,11 @@ public abstract class Spell : MovingObject
             //Collided with spell
             else if (col.gameObject.GetComponent<Spell>() != null)
             {
+                Debug.Log("Waterwater collided with spell");
                 Destroy(col.gameObject);
             }
         }
-        else if (this.gameObject.GetComponent<FireWaterSpell>() != null)
+        if (this.gameObject.GetComponent<FireWaterSpell>() != null)
         {
             FireWaterSpell fireWaterSpell = this as FireWaterSpell;
             //Collided with player
@@ -61,6 +62,15 @@ public abstract class Spell : MovingObject
             else if (col.gameObject.GetComponent<Spell>() != null)
             {
                 Destroy(col.gameObject);
+            }
+        }
+        if (this.gameObject.GetComponent<FireHazard>() != null)
+        {
+            if (col.gameObject.tag == "Player")
+            {
+                Player player = col.gameObject.GetComponent<Player>();
+                player.HandleSpellHit(this, knockback, damage, Vector2.zero);
+                Destroy(gameObject);
             }
         }
     }

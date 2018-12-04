@@ -141,7 +141,7 @@ public class Player : MovingObject
     {
         if (!isFixed)
         {
-            if(Time.time > nextActionTime)
+            if (Time.time > nextActionTime)
             {
                 nextActionTime += 1;
                 if (_manaRemaining < 100)
@@ -149,17 +149,16 @@ public class Player : MovingObject
                     _manaRemaining += Glob.ManaIncreasePerSecond;
                     SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
                 }
-                if(IsInSteamCloud)
+                if (IsInSteamCloud)
                 {
-                    //TODO: Get the real damage value.
                     TakeDamage((int)steamCloudDamage);
                     SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
                     Debug.Log("Damage in steam cloud");
                 }
-               
+
             }
 
-            if(_isSwitchingElement == true && Time.time >= _changedElementTime+1.0f)
+            if (_isSwitchingElement == true && Time.time >= _changedElementTime + 1.0f)
             {
                 _isSwitchingElement = false;
             }
@@ -410,6 +409,10 @@ public class Player : MovingObject
         _castingParticle.Stop();
         _castingSpell = false;
         Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
+        if(pSpell is EarthWaterSpell)
+        {
+            position = this.transform.position + new Vector3(Math.Sign(pInput.x) * Glob.spellOffset, 0, 0);
+        }
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
 
         SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, false, _firstElement, false);
@@ -432,17 +435,24 @@ public class Player : MovingObject
             launchedspelltest.transform.parent = transform;
         }
 
-        if(pSpell is WaterWaterSpell)
+        if (pSpell is WaterWaterSpell)
         {
             launchedspelltest.transform.position = this.transform.position;
             WaterWaterSpell waterWaterSpell = launchedspelltest as WaterWaterSpell;
             waterWaterSpell.SetPlayerCaster(this);
-        } else if(pSpell is FireWaterSpell)
+        }
+        if (pSpell is FireWaterSpell)
         {
             launchedspelltest.transform.position = this.transform.position;
             FireWaterSpell fireWaterSpell = launchedspelltest as FireWaterSpell;
             fireWaterSpell.SetPlayerCaster(this);
         }
+        if(pSpell is EarthWaterSpell)
+        {
+            EarthWaterSpell earthWaterSpell = launchedspelltest as EarthWaterSpell;
+            earthWaterSpell.transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+
     }
 
     //This is for loading animations etc.
@@ -450,7 +460,6 @@ public class Player : MovingObject
     {
         _castingParticle.Play();
         _castingSpell = true;
-
     }
 
     private void handleLives()

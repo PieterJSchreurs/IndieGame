@@ -5,7 +5,6 @@ using UnityEngine;
 public class WaterWaterSpell : Spell {
 
     private Player playerCaster;
-    private float AliveTime;
 
     private void InitializeSpell()
     {
@@ -15,7 +14,6 @@ public class WaterWaterSpell : Spell {
         manaDrain = 15;
         spellType = SpellDatabase.SpellType.Projectile;
         attackType = SpellDatabase.AttackType.Medium;
-        AliveTime = Time.time;
     }
 
     // Use this for initialization
@@ -77,9 +75,6 @@ public class WaterWaterSpell : Spell {
 
     // Update is called once per frame
     void Update () {
-		if(Time.time >= AliveTime + Glob.WaterwaterAliveTime)
-        {
-            Destroy(this.gameObject);
-        }
+        Destroy(this.gameObject, Glob.WaterwaterAliveTime);
 	}
 }

@@ -28,7 +28,6 @@ public class FireHazard : Spell {
         if (castTime == -1)
         {
             InitializeSpell();
-            Debug.Log("Initializing spell");
         }
     }
 
@@ -56,7 +55,7 @@ public class FireHazard : Spell {
     }
 
     protected override void HandleCollision(Collision2D collision)
-    {
+    { 
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
@@ -84,7 +83,6 @@ public class FireHazard : Spell {
         if (castTime == -1)
         {
             InitializeSpell();
-            Debug.Log("Initializing spell");
         }
         return castTime;
     }
