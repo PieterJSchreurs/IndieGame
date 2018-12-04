@@ -9,6 +9,11 @@ public class MainMenuMethodReferenceHolder : MonoBehaviour {
 		
 	}
 	
+    public void ChangeVolume(float value)
+    {
+        AudioListener.volume = value;
+    }
+
     public void SwitchToGameScene()
     {
         SceneManager.GetInstance().SwitchScene(2);
