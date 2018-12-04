@@ -19,9 +19,18 @@ public class SelectionWheel : MonoBehaviour {
     private Image _myImage;
     private int currentImage = 0;
 
+    public Button[] wheelButtons;
+    private Vector3[] buttonPositions;
+
 	// Use this for initialization
 	void Start () {
         myAxis = EventSystem.current.GetComponent<StandaloneInputModule>().horizontalAxis;
+
+        buttonPositions = new Vector3[wheelButtons.Length];
+        for (int i = 0; i < wheelButtons.Length; i++)
+        {
+            buttonPositions[i] = wheelButtons[i].transform.position;
+        }
 
         _myImage = GetComponent<Image>();
         if (wheelImages != null)
@@ -63,6 +72,23 @@ public class SelectionWheel : MonoBehaviour {
                 currentImage = wheelImages.Length - 1;
             }
             _myImage.sprite = wheelImages[currentImage];
+
+            int secondCounter = 0;
+            for (int i = 0; i < wheelButtons.Length; i++)
+            {
+                if (currentImage + i < wheelButtons.Length)
+                {
+                    wheelButtons[currentImage + i].transform.position = buttonPositions[i];
+                    //2 + 0 = 2
+                }
+                else
+                {
+                    wheelButtons[secondCounter].transform.position = buttonPositions[i];
+                    secondCounter++;
+                    //0
+                }
+            }
+            wheelButtons[currentImage].Select();
             Debug.Log("Horizontal movement!");
         }
         else if (scrollingContinuous || waitingForContinuous)
