@@ -37,7 +37,7 @@ public class WaterFireSpell : Spell {
 
     protected override void HandleExplosion()
     {
-
+        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.1f, 0.25f);
     }
 
     public override float GetCastTime()

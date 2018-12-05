@@ -10,6 +10,11 @@ public class Arena : MonoBehaviour {
     private Collider2D _myColl;
     private Transform[] _cameraTargets;
 
+    private bool _shouldScreenShake = false;
+    private float _shakeDistance;
+    private float _shakeTime;
+    private float _shakeStartTime;
+
     private struct playerInfoBanner
     {
         public GameObject banner;
@@ -349,6 +354,25 @@ public class Arena : MonoBehaviour {
         Vector3 targetPos = new Vector3(XPos + Glob.camXOffset, YPos + Glob.camYOffset, 0);
         Vector3 targetDiff = targetPos - _myCamera.transform.position;
         _myCamera.transform.position = new Vector3(_myCamera.transform.position.x + (targetDiff.x * Glob.camSpeed), _myCamera.transform.position.y + (targetDiff.y * Glob.camSpeed), Glob.camZOffset - (largestDiff / 2));
+
+        //SCREENSHAKE!!!!!!!!!!!!
+        //If the screen should shake.
+        if (_shouldScreenShake)
+        {
+            //Store the start position (redundant, left by an older system, should be cleaned up.)
+            float startPosX = _myCamera.transform.position.x;
+            float startPosY = _myCamera.transform.position.y;
+
+            //Displace the screen by a random amount in a random direction.
+            _myCamera.transform.position = new Vector3(startPosX + ((((_shakeTime - (Time.time - _shakeStartTime)) / (_shakeTime / 100)) / 100) * _shakeDistance) * Random.Range(-1, 2), startPosY + ((((_shakeTime - (Time.time - _shakeStartTime)) / (_shakeTime / 100)) / 100) * _shakeDistance) * Random.Range(-1, 2), _myCamera.transform.position.z);
+
+            //Apply a delay between displacements.
+            if (Time.time - _shakeStartTime > _shakeTime)
+            {
+                _shouldScreenShake = false;
+                _myCamera.transform.position = new Vector3(startPosX, startPosY, _myCamera.transform.position.z);
+            }
+        }
     }
 
     private void handleBoundaries()
@@ -357,13 +381,26 @@ public class Arena : MonoBehaviour {
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<Player>() != null)
+        if (gameObject.activeSelf)
         {
-            Player player = other.gameObject.GetComponent<Player>();
-            player.TakeDamage(Glob.maxHealth);
-        } else
-        {
-            Destroy(other.gameObject);
+            if (other.gameObject.GetComponent<Player>() != null)
+            {
+                Player player = other.gameObject.GetComponent<Player>();
+                player.TakeDamage(Glob.maxHealth);
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
         }
+    }
+
+    public void SetScreenShake(float shakeDist, float time)
+    {
+        _shakeDistance = shakeDist;
+        _shakeTime = time;
+        _shakeStartTime = Time.time;
+
+        _shouldScreenShake = true;
     }
 }

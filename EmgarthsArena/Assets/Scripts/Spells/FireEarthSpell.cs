@@ -39,6 +39,8 @@ public class FireEarthSpell : Spell
 
     protected override void HandleExplosion()
     {
+        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
+
         GameObject knockBackGameObject = Glob.GetKnockback();
         knockBackGameObject = Instantiate(knockBackGameObject, this.gameObject.transform);
         knockBackGameObject.transform.localPosition = new Vector3(0, 0, 0);
