@@ -134,6 +134,7 @@ public static class Glob
     public static Dictionary<Keytype, string> keyboardControllers = new Dictionary<Keytype, string>();
     public static Dictionary<Keytype, string> inputControllersP1 = new Dictionary<Keytype, string>();
     public static Dictionary<Keytype, string> inputControllersP2 = new Dictionary<Keytype, string>();
+    public const int randomAttackSoundChance = 10;
 
     public static void FillInputDictionary()
     {
@@ -173,6 +174,31 @@ public static class Glob
         inputControllersP2.Add(Keytype.SwitchButtonLeft, "JoyStickLeftTrigger2");
         inputControllersP2.Add(Keytype.SwitchButtonRight, "JoyStickRightTrigger2");
     }
+
+    //Player sounds
+    public const string Player1JumpSound = "event:/Player1/Jump1";
+    public const string Player2JumpSound = "event:/Player2/Jump2";
+    public const string Player1HurtSound = "event:/Player1/Hurt1";
+    public const string Player2HurtSound = "event:/Player2/Hurt2";
+    public const string Player1AttackSound = "event/Player1/Attack1";
+    public const string Player2AttackSound = "event/Player2/Attack2";
+
+    //Spell sounds.
+    public const string AvalancheChargeSound = "event:/Spells/Avalanchecharge";
+    public const string AvalancheHitSound = "event:/Spells/Avalanchehit";
+    public const string EarthPillarsSound = "event:/Spells/Earthpillars";
+    public const string FireBeamSound = "event:/Spells/Firebeam";
+    public const string FirerockImpactSound = "event:/Spells/Firerockimpact";
+    public const string FirerockThrowSound = "event:/Spells/Firerockttrhow";
+    public const string MeteordropSound = "event:/Spells/Meteordrop";
+    public const string MeteorThrowSound = "event:/Spells/Meteorthrow";
+    public const string SnowballCastSound = "event:/Spells/SnowballCast";
+    public const string SnowballImpactSound = "event:/Spells/Snowballimpact";
+    public const string SnowballRollSound = "event:/Spells/Snowballroll";
+    public const string SteamcircleSound = "event:/Spells/Steamcircle";
+    public const string WaterballSound = "event:/Spells/Waterball";
+    public const string WaterblastSound = "event:/Spells/Waterblast";
+
 
     public static Dictionary<Keytype, string> GetInputDictionary(int pPlayerNumber)
     {

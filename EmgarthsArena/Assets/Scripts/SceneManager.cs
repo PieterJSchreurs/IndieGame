@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMOD.Studio;
+using FMODUnity;
 
 public class SceneManager : MonoBehaviour {
     private static SceneManager _instance;
+
+ 
     public static SceneManager GetInstance()
     {
         if (_instance == null)
@@ -40,16 +44,17 @@ public class SceneManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //InitializeMatch();
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-	}
-
+    // Update is called once per frame
+    void Update() {
+        
+    }
+   
     public void SwitchScene(int id)
     {
+        SoundManager.GetInstance().StopBackGroundMusic();
+        Destroy(this.gameObject.GetComponent<FMODUnity.StudioListener>());
         Debug.Log("SWITCHING SCENE!");
         currentScene = id;
         Application.LoadLevel(id);
@@ -67,7 +72,6 @@ public class SceneManager : MonoBehaviour {
             SwitchScene(2);
             return;
         }
-
         Arena newArena = Instantiate(Glob.GetArenaPrefab(1), Vector3.zero, new Quaternion(0, 0, 0, 0));
         currentArena = newArena;
         allPlayers = new Player[Glob.GetPlayerCount()];
@@ -101,6 +105,10 @@ public class SceneManager : MonoBehaviour {
         }
 
         currentArena.SetCameraTargets(allPlayers);
+        this.gameObject.AddComponent<FMODUnity.StudioListener>();
+        SoundManager.GetInstance().StartBackgroundMusic();
+        SoundManager.GetInstance().SetBackGroundMusicIntensity(0.45f);
+        //Setting to game.
 
         //Load an arena.
         //Use the Player constructor to place players at spawn points in the arena. (Don't forget to give them an InputManager.)

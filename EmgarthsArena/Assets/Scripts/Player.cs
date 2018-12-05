@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
 public class Player : MovingObject
 {
@@ -36,6 +38,10 @@ public class Player : MovingObject
 
     private float steamCloudDamage = 0;
     public bool IsInSteamCloud = false; //Fix mana cost, fix pillar.
+    EventInstance soundPlayerEvent;
+    EventInstance soundSpellsEvent;
+    EventInstance soundSpellsEventFire;
+
 
     public Player()
     {
@@ -325,6 +331,16 @@ public class Player : MovingObject
                 _jumpParticle.Play();
                 _castingParticle.Stop();
                 _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
+                if (ID == 0)
+                {
+                    //FMODUnity.RuntimeManager.PlayOneShot("event:/Backgroundsong/Backgroundtrack");
+                    SoundManager.GetInstance().PlaySound(Glob.Player1JumpSound);
+                }
+                if (ID == 1)
+                {
+                    SoundManager.GetInstance().PlaySound(Glob.Player2JumpSound);
+                }
+                
                 _jumpTime = Time.time;
             }
             else if (!_usedDoubleJump)
@@ -408,7 +424,7 @@ public class Player : MovingObject
             {
                 launchedspell = SpellDatabase.GetInstance().GetSpell(secondEle, firstEle);
             }
-
+            PlaySpellSound(launchedspell);
             float xAxis = _myInputManager.GetAxisLookHorizontal();
             float yAxis = _myInputManager.GetAxisLookVertical();
 
@@ -443,6 +459,7 @@ public class Player : MovingObject
 
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
+
         float castTime = pSpell.GetCastTime();
         _manaRemaining -= (int)pSpell.GetManaCost();
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
@@ -483,7 +500,7 @@ public class Player : MovingObject
         {
             launchedspelltest.transform.parent = transform;
         }
-        if(pSpell is WaterWaterSpell)
+        if (pSpell is WaterWaterSpell)
         {
             launchedspelltest.transform.position = this.transform.position;
             WaterWaterSpell waterWaterSpell = launchedspelltest as WaterWaterSpell;
@@ -502,6 +519,57 @@ public class Player : MovingObject
         }
     }
 
+    public void PlaySpellSound(Spell pSpell)
+    {
+        int random = UnityEngine.Random.Range(0, Glob.randomAttackSoundChance);
+        if(random == 1)
+        {
+            if(ID == 0)
+            {
+                SoundManager.GetInstance().PlaySound(Glob.Player1AttackSound);
+            } if(ID == 1)
+            {
+                SoundManager.GetInstance().PlaySound(Glob.Player2AttackSound);
+            }
+        }
+        if (pSpell is FireFireSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.FireBeamSound);
+        }
+        if (pSpell is FireWaterSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.SteamcircleSound);
+        }
+        if (pSpell is FireEarthSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.MeteorThrowSound);
+        }
+        if (pSpell is WaterFireSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.WaterballSound);
+        }
+        if (pSpell is WaterWaterSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.WaterblastSound);
+        }
+        if(pSpell is WaterEarthSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.SnowballCastSound);
+        }
+        if (pSpell is EarthFireSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.FirerockThrowSound);
+        }
+        if (pSpell is EarthWaterSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.EarthPillarsSound);
+        }
+        if (pSpell is EarthEarthSpell)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(Glob.AvalancheChargeSound);
+        }
+    }
+
     //This is for loading animations etc.
     private void HandleCastingBehaviour()
     {
@@ -516,6 +584,10 @@ public class Player : MovingObject
         {
             _livesRemaining--;
             setIsDead(true);
+            if (_livesRemaining == 1)
+            {
+                SoundManager.GetInstance().SetBackGroundMusicIntensity(0.65f);
+            }
             if (_livesRemaining <= 0)
             {
                 Debug.Log("Player is out of lives.");
@@ -567,6 +639,14 @@ public class Player : MovingObject
 
     public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
     {
+        if (ID == 0)
+        {
+            SoundManager.GetInstance().PlaySound(Glob.Player1HurtSound);
+        }
+        if (ID == 1)
+        {
+            SoundManager.GetInstance().PlaySound(Glob.Player2HurtSound);
+        }
         _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
         TakeDamage(pDamage);
         _disableMovement = true;
