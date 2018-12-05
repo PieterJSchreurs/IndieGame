@@ -312,7 +312,7 @@ public class Player : MovingObject
                 {
                     SoundManager.GetInstance().PlaySound(Glob.Player2JumpSound);
                 }
-                
+
                 _jumpTime = Time.time;
             }
             else if (!_usedDoubleJump)
@@ -323,7 +323,17 @@ public class Player : MovingObject
                 _rb.AddForce(new Vector2(0, Glob.jumpDoubleHeight), ForceMode2D.Impulse);
                 _jumpTime = Time.time;
                 _usedDoubleJump = true;
+                if (ID == 0)
+                {
+                    //FMODUnity.RuntimeManager.PlayOneShot("event:/Backgroundsong/Backgroundtrack");
+                    SoundManager.GetInstance().PlaySound(Glob.Player1JumpSound);
+                }
+                if (ID == 1)
+                {
+                    SoundManager.GetInstance().PlaySound(Glob.Player2JumpSound);
+                }
             }
+           
         }
     }
     private void jumpContinuous()
@@ -568,6 +578,7 @@ public class Player : MovingObject
                 {
                     Debug.Log("Player is out of lives.");
                     gameObject.SetActive(false);
+                    SoundManager.GetInstance().PlaySound(Glob.GameOverSound);
                     SceneManager.GetInstance().PlayerDown(); //TODO: End after one player remains, not when the first one falls.
 
                     //Dead
@@ -640,13 +651,13 @@ public class Player : MovingObject
 
     public void TakeDamage(int dmg)
     {
-        if (!_isDead)
+        if (!_isDead && dmg != 0)
         {
-            if (ID == 0)
+            if (ID == 0 && dmg != Glob.maxHealth)
             {
                 SoundManager.GetInstance().PlaySound(Glob.Player1HurtSound);
             }
-            if (ID == 1)
+            if (ID == 1 && dmg != Glob.maxHealth)
             {
                 SoundManager.GetInstance().PlaySound(Glob.Player2HurtSound);
             }
@@ -670,6 +681,11 @@ public class Player : MovingObject
     {
         IsInSteamCloud = pBool;
         steamCloudDamage = pDamage;
+    }
+
+    public int GetID()
+    {
+        return ID;
     }
 
     public PlayerStats GetStats()

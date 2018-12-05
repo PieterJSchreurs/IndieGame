@@ -39,6 +39,7 @@ public class EarthFireSpell : Spell {
 
     protected override void HandleExplosion()
     {
+        SoundManager.GetInstance().PlaySound(Glob.FirerockImpactSound);
         //Adding effect + rotating it the right way.
         int rotationOffset = Random.Range(-45, 45);
         for (int i = 0; i < fireHazardCount; i++)

@@ -135,6 +135,7 @@ public class SceneManager : MonoBehaviour {
         this.gameObject.AddComponent<FMODUnity.StudioListener>();
         SoundManager.GetInstance().StartBackgroundMusic();
         SoundManager.GetInstance().SetBackGroundMusicIntensity(0.45f);
+        SoundManager.GetInstance().PlaySound(Glob.WelcomeSound);
         //Setting to game.
 
         //Load an arena.
