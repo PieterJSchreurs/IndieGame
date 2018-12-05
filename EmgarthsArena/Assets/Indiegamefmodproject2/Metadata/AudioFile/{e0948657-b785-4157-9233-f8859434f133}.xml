@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{e0948657-b785-4157-9233-f8859434f133}">
+        <property name="assetPath">
+            <value>149034__susychristiansen__tappingmic (Freeze) [2018-12-04 132541].wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>4.8808843537414965</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{4ef65df5-e635-4f61-909d-0599b08e53fc}</destination>
+        </relationship>
+    </object>
+</objects>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{68abb15a-e605-4f58-a49d-5ed21ee97520}">
+        <property name="assetPath">
+            <value>spells/Spellsexport 84-avalanche5 - Trimmed.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>5.5</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{4ef65df5-e635-4f61-909d-0599b08e53fc}</destination>
+        </relationship>
+    </object>
+</objects>

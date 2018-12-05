@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{a683877a-af44-4c56-b3d9-5930308136c6}">
+        <property name="assetPath">
+            <value>IRIS2 (Freeze) [2018-12-04 140158].wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>3.6036281179138321</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{4ef65df5-e635-4f61-909d-0599b08e53fc}</destination>
+        </relationship>
+    </object>
+</objects>

@@ -2,18 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
 public class Player : MovingObject
 {
-
-    public struct PlayerStats
-    {
-        public int lives;
-        public int kills;
-        public int damageDealt;
-        public int damageTaken;
-    }
-    private PlayerStats myStats = new PlayerStats();
 
     private InputManager _myInputManager;
     private int _healthRemaining;
@@ -45,6 +38,10 @@ public class Player : MovingObject
 
     private float steamCloudDamage = 0;
     public bool IsInSteamCloud = false; //Fix mana cost, fix pillar.
+    EventInstance soundPlayerEvent;
+    EventInstance soundSpellsEvent;
+    EventInstance soundSpellsEventFire;
+
 
     public Player()
     {
@@ -58,11 +55,6 @@ public class Player : MovingObject
         _healthRemaining = Glob.maxHealth;
         _manaRemaining = Glob.maxMana;
         _livesRemaining = Glob.maxLives;
-
-        myStats.lives = _livesRemaining;
-        myStats.kills = 0;
-        myStats.damageDealt = 0;
-        myStats.damageTaken = 0;
 
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
 
@@ -97,8 +89,49 @@ public class Player : MovingObject
     {
         if (!_isDead)
         {
+            //TEMPORARY DEBUG STUFF!______________________________________________________________
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                launchSpell(_firstElement, _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                launchSpell(_firstElement, _secondElement, true);
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (_firstElement + 1 >= SpellDatabase.Element.Null)
+                {
+                    _firstElement = 0;
+                }
+                else
+                {
+                    _firstElement = _firstElement + 1;
+                }
+                Debug.Log(_firstElement + " - " + _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (_secondElement + 1 >= SpellDatabase.Element.Null)
+                {
+                    _secondElement = 0;
+                }
+                else
+                {
+                    _secondElement = _secondElement + 1;
+                }
+                Debug.Log(_firstElement + " - " + _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                TakeDamage(20);
+            }
+            //TEMPORARY DEBUG STUFF!______________________________________________________________
+
             Move(false);
             HandleAimPointer();
+
+
         }
     }
 
@@ -187,7 +220,7 @@ public class Player : MovingObject
             }
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
-                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Mathf.Min(Mathf.Abs(_rb.velocity.x / 2) + 0.5f, 1), _rb.velocity.y);
+                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
                 //Move horizontally.
             }
             if (_myInputManager.GetAxisMoveVertical() != 0)
@@ -298,6 +331,16 @@ public class Player : MovingObject
                 _jumpParticle.Play();
                 _castingParticle.Stop();
                 _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
+                if (ID == 0)
+                {
+                    //FMODUnity.RuntimeManager.PlayOneShot("event:/Backgroundsong/Backgroundtrack");
+                    SoundManager.GetInstance().PlaySound(Glob.Player1JumpSound);
+                }
+                if (ID == 1)
+                {
+                    SoundManager.GetInstance().PlaySound(Glob.Player2JumpSound);
+                }
+                
                 _jumpTime = Time.time;
             }
             else if (!_usedDoubleJump)
@@ -381,7 +424,7 @@ public class Player : MovingObject
             {
                 launchedspell = SpellDatabase.GetInstance().GetSpell(secondEle, firstEle);
             }
-
+            PlaySpellSound(launchedspell);
             float xAxis = _myInputManager.GetAxisLookHorizontal();
             float yAxis = _myInputManager.GetAxisLookVertical();
 
@@ -416,6 +459,7 @@ public class Player : MovingObject
 
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
+
         float castTime = pSpell.GetCastTime();
         _manaRemaining -= (int)pSpell.GetManaCost();
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
@@ -436,7 +480,6 @@ public class Player : MovingObject
             position = this.transform.position + new Vector3(Math.Sign(pInput.x) * Glob.spellOffset, 0, 0);
         }
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
-        launchedspelltest.SetPlayer(this);
 
         SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, false, _firstElement, false);
         SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, true, _secondElement, false);
@@ -457,7 +500,7 @@ public class Player : MovingObject
         {
             launchedspelltest.transform.parent = transform;
         }
-        if(pSpell is WaterWaterSpell)
+        if (pSpell is WaterWaterSpell)
         {
             launchedspelltest.transform.position = this.transform.position;
             WaterWaterSpell waterWaterSpell = launchedspelltest as WaterWaterSpell;
@@ -476,6 +519,57 @@ public class Player : MovingObject
         }
     }
 
+    public void PlaySpellSound(Spell pSpell)
+    {
+        int random = UnityEngine.Random.Range(0, Glob.randomAttackSoundChance);
+        if(random == 1)
+        {
+            if(ID == 0)
+            {
+                SoundManager.GetInstance().PlaySound(Glob.Player1AttackSound);
+            } if(ID == 1)
+            {
+                SoundManager.GetInstance().PlaySound(Glob.Player2AttackSound);
+            }
+        }
+        if (pSpell is FireFireSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.FireBeamSound);
+        }
+        if (pSpell is FireWaterSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.SteamcircleSound);
+        }
+        if (pSpell is FireEarthSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.MeteorThrowSound);
+        }
+        if (pSpell is WaterFireSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.WaterballSound);
+        }
+        if (pSpell is WaterWaterSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.WaterblastSound);
+        }
+        if(pSpell is WaterEarthSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.SnowballCastSound);
+        }
+        if (pSpell is EarthFireSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.FirerockThrowSound);
+        }
+        if (pSpell is EarthWaterSpell)
+        {
+            RuntimeManager.PlayOneShot(Glob.EarthPillarsSound);
+        }
+        if (pSpell is EarthEarthSpell)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(Glob.AvalancheChargeSound);
+        }
+    }
+
     //This is for loading animations etc.
     private void HandleCastingBehaviour()
     {
@@ -486,24 +580,25 @@ public class Player : MovingObject
 
     private void handleLives()
     {
-        if (_livesRemaining > 0) {
-            if (_healthRemaining <= 0)
+        if (_healthRemaining <= 0)
+        {
+            _livesRemaining--;
+            setIsDead(true);
+            if (_livesRemaining == 1)
             {
-                _livesRemaining--;
-                myStats.lives = _livesRemaining;
-                setIsDead(true);
-                if (_livesRemaining <= 0)
-                {
-                    Debug.Log("Player is out of lives.");
-                    gameObject.SetActive(false);
-                    SceneManager.GetInstance().PlayerDown(); //TODO: End after one player remains, not when the first one falls.
-
-                    //Dead
-                }
-                //respawn();
+                SoundManager.GetInstance().SetBackGroundMusicIntensity(0.65f);
             }
-            SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+            if (_livesRemaining <= 0)
+            {
+                Debug.Log("Player is out of lives.");
+                gameObject.SetActive(false);
+                SceneManager.GetInstance().PlayerDown(); //TODO: End after one player remains, not when the first one falls.
+
+                //Dead
+            }
+            //respawn();
         }
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
     }
 
     private void setInvulnerable(bool toggle)
@@ -522,10 +617,8 @@ public class Player : MovingObject
     private void setIsDead(bool toggle)
     {
         _isDead = toggle;
-        GetComponent<MeshRenderer>().enabled = !_isDead;
-        _rb.velocity = Vector2.zero;
-        _rb.isKinematic = _isDead;
-        _coll.enabled = !_isDead;
+        GetComponent<MeshRenderer>().enabled = !_isDead; //TODO: Very ugly way of doing this, improve it.
+        transform.position = new Vector3(28, 2, 0); //TODO: Ugly way of disabling the player.
         _myCirclePointer.gameObject.SetActive(false);
         if (_isDead)
         {
@@ -539,7 +632,6 @@ public class Player : MovingObject
         setIsDead(false);
         setInvulnerable(true);
         _healthRemaining = Glob.maxHealth;
-        _manaRemaining = Glob.maxMana;
         _rb.velocity = Vector3.zero;
         transform.position = SceneManager.GetInstance().GetCurrentArena().GetRandomRespawnPoint();
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
@@ -547,49 +639,28 @@ public class Player : MovingObject
 
     public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
     {
-        if (!_isDead && !_invulnerable) {
-            int startingHealth = _healthRemaining;
-            int startingLives = _livesRemaining;
-            _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
-            TakeDamage(pDamage);
-            if (hit.GetPlayer() != this)
-            {
-                hit.GetPlayer().AddDamageDealt(startingHealth - _healthRemaining);
-                if (_livesRemaining < startingLives)
-                {
-                    hit.GetPlayer().AddKill();
-                }
-            }
-            _disableMovement = true;
+        if (ID == 0)
+        {
+            SoundManager.GetInstance().PlaySound(Glob.Player1HurtSound);
         }
+        if (ID == 1)
+        {
+            SoundManager.GetInstance().PlaySound(Glob.Player2HurtSound);
+        }
+        _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
+        TakeDamage(pDamage);
+        _disableMovement = true;
     }
     public void TakeDamage(int dmg)
     {
-        if (!_isDead)
-        {
-            Debug.Log("Taking damage " + dmg);
-            myStats.damageTaken += Mathf.Min(_healthRemaining, dmg);
-            _healthRemaining -= dmg;
-            handleLives();
-        }
-    }
-    public void AddDamageDealt(int dmg)
-    {
-        myStats.damageDealt += dmg;
-    }
-    public void AddKill()
-    {
-        myStats.kills++;
+        Debug.Log("Taking damage " + dmg);
+        _healthRemaining -= dmg;
+        handleLives();
     }
 
     public void SetSteamCloud(float pDamage, bool pBool)
     {
         IsInSteamCloud = pBool;
         steamCloudDamage = pDamage;
-    }
-
-    public PlayerStats GetStats()
-    {
-        return myStats;
     }
 }

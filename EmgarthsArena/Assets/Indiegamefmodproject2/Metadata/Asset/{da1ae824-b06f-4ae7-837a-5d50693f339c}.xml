@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="EncodableAsset" id="{da1ae824-b06f-4ae7-837a-5d50693f339c}">
+        <property name="assetPath">
+            <value>spells/</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{4ef65df5-e635-4f61-909d-0599b08e53fc}</destination>
+        </relationship>
+    </object>
+</objects>
