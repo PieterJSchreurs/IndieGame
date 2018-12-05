@@ -20,6 +20,7 @@ public class SliderScript : Selectable {
     // Use this for initialization
     void Start () {
         myAxis = EventSystem.current.GetComponent<StandaloneInputModule>().horizontalAxis;
+        MySlider.value = AudioListener.volume; //TODO: Should only be for the volume slider.
     }
 
     //Use this to check what Events are happening
