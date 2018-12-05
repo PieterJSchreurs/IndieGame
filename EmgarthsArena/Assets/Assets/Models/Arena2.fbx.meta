@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 49502a96eefbe804fb9c1d28b42e8cb9
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: bg
     100002: circle_level_2_0004:pPlane10
@@ -46,6 +46,13 @@ ModelImporter:
     100080: rock_set_three
     100082: rock_set_two
     100084: //RootNode
+    100086: background1
+    100088: fog_layer
+    100090: fog_layer1
+    100092: fog_layer2
+    100094: fog_layer3
+    100096: fog_layer4
+    100098: fog_layer5
     400000: bg
     400002: circle_level_2_0004:pPlane10
     400004: circle_level_2_0004:pPlane11
@@ -89,9 +96,23 @@ ModelImporter:
     400080: rock_set_three
     400082: rock_set_two
     400084: //RootNode
+    400086: background1
+    400088: fog_layer
+    400090: fog_layer1
+    400092: fog_layer2
+    400094: fog_layer3
+    400096: fog_layer4
+    400098: fog_layer5
     2100000: rings
     2100002: lambert6
     2100004: lambert1
+    2100006: fog_layer6
+    2100008: rock_set_5
+    2100010: rock_set_4
+    2100012: rock_set_3
+    2100014: rock_set_2
+    2100016: rock_set_1
+    2100018: background
     2300000: circle_level_2_0004:pPlane10
     2300002: circle_level_2_0004:pPlane11
     2300004: circle_level_2_0004:pPlane12
@@ -133,6 +154,13 @@ ModelImporter:
     2300076: rock_set_one
     2300078: rock_set_three
     2300080: rock_set_two
+    2300082: background1
+    2300084: fog_layer
+    2300086: fog_layer1
+    2300088: fog_layer2
+    2300090: fog_layer3
+    2300092: fog_layer4
+    2300094: fog_layer5
     3300000: circle_level_2_0004:pPlane10
     3300002: circle_level_2_0004:pPlane11
     3300004: circle_level_2_0004:pPlane12
@@ -174,6 +202,13 @@ ModelImporter:
     3300076: rock_set_one
     3300078: rock_set_three
     3300080: rock_set_two
+    3300082: background1
+    3300084: fog_layer
+    3300086: fog_layer1
+    3300088: fog_layer2
+    3300090: fog_layer3
+    3300092: fog_layer4
+    3300094: fog_layer5
     4300000: ring_1
     4300002: ring_2
     4300004: ring_3
@@ -215,6 +250,13 @@ ModelImporter:
     4300076: circle_level_2_0004:pPlane4
     4300078: circle_level_2_0004:pPlane3
     4300080: pPlane30
+    4300082: fog_layer5
+    4300084: fog_layer4
+    4300086: fog_layer3
+    4300088: fog_layer2
+    4300090: fog_layer1
+    4300092: fog_layer
+    4300094: background1
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -234,6 +276,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -265,6 +308,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -284,7 +329,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
