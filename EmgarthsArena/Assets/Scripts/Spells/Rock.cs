@@ -82,8 +82,13 @@ public class Rock : Spell {
                     Vector3 velo = _rb.velocity;
                     _rb.velocity = Vector2.zero;
                     player.HandleSpellHit(this, knockback, Mathf.Min(damage, Mathf.RoundToInt(velo.magnitude * 10)), Mathf.Min(1, velo.magnitude) * velo.normalized);
+                    SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
                 }
             }
+        }
+        else if (collision.gameObject.tag == "Ground")
+        {
+            SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.2f, 0.3f);
         }
     }
 

@@ -44,8 +44,10 @@ public class EarthFireSpell : Spell {
         for (int i = 0; i < fireHazardCount; i++)
         {
             GameObject fireHazard = Instantiate(Resources.Load<GameObject>(Glob.FireHazardPrefab), transform.position, new Quaternion());
+            fireHazard.GetComponent<Spell>().SetPlayer(myPlayer);
             fireHazard.transform.eulerAngles = new Vector3(0, 0, -180 + (360f * ((float)i/fireHazardCount)) + rotationOffset);
         }
+        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
         //GameObject explosion = Instantiate(Glob.GetExplosionPrefab(), this.gameObject.transform.position, this.gameObject.transform.rotation);
         //explosion.transform.eulerAngles = new Vector3(0, 90, 90);
     }

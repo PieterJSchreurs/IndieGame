@@ -18,6 +18,7 @@ public class WaterWaterSpell : Spell {
 
     // Use this for initialization
     void Start () {
+        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
         base.Start();
         _rb.velocity = -_rb.transform.up * Glob.WaterWaterSpeed;
         InitializeSpell();

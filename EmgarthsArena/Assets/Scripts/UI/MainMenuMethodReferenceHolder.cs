@@ -14,9 +14,9 @@ public class MainMenuMethodReferenceHolder : MonoBehaviour {
         AudioListener.volume = value;
     }
 
-    public void SwitchToGameScene()
+    public void StartGameOnLevel(int level)
     {
-        SceneManager.GetInstance().SwitchScene(2);
+        SceneManager.GetInstance().StartGameOnLevel(level);
         //SceneManager.GetInstance().InitializeMatch();
     }
 

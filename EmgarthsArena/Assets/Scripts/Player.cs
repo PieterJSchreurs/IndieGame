@@ -6,6 +6,15 @@ using UnityEngine;
 public class Player : MovingObject
 {
 
+    public struct PlayerStats
+    {
+        public int lives;
+        public int kills;
+        public int damageDealt;
+        public int damageTaken;
+    }
+    private PlayerStats myStats = new PlayerStats();
+
     private InputManager _myInputManager;
     private int _healthRemaining;
     private float _manaRemaining;
@@ -50,6 +59,11 @@ public class Player : MovingObject
         _manaRemaining = Glob.maxMana;
         _livesRemaining = Glob.maxLives;
 
+        myStats.lives = _livesRemaining;
+        myStats.kills = 0;
+        myStats.damageDealt = 0;
+        myStats.damageTaken = 0;
+
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
 
         return this;
@@ -83,49 +97,8 @@ public class Player : MovingObject
     {
         if (!_isDead)
         {
-            //TEMPORARY DEBUG STUFF!______________________________________________________________
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                launchSpell(_firstElement, _secondElement);
-            }
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                launchSpell(_firstElement, _secondElement, true);
-            }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                if (_firstElement + 1 >= SpellDatabase.Element.Null)
-                {
-                    _firstElement = 0;
-                }
-                else
-                {
-                    _firstElement = _firstElement + 1;
-                }
-                Debug.Log(_firstElement + " - " + _secondElement);
-            }
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                if (_secondElement + 1 >= SpellDatabase.Element.Null)
-                {
-                    _secondElement = 0;
-                }
-                else
-                {
-                    _secondElement = _secondElement + 1;
-                }
-                Debug.Log(_firstElement + " - " + _secondElement);
-            }
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                TakeDamage(20);
-            }
-            //TEMPORARY DEBUG STUFF!______________________________________________________________
-
             Move(false);
             HandleAimPointer();
-
-
         }
     }
 
@@ -214,7 +187,7 @@ public class Player : MovingObject
             }
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
-                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
+                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Mathf.Min(Mathf.Abs(_rb.velocity.x / 2) + 0.5f, 1), _rb.velocity.y);
                 //Move horizontally.
             }
             if (_myInputManager.GetAxisMoveVertical() != 0)
@@ -463,6 +436,7 @@ public class Player : MovingObject
             position = this.transform.position + new Vector3(Math.Sign(pInput.x) * Glob.spellOffset, 0, 0);
         }
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
+        launchedspelltest.SetPlayer(this);
 
         SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, false, _firstElement, false);
         SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, true, _secondElement, false);
@@ -512,21 +486,24 @@ public class Player : MovingObject
 
     private void handleLives()
     {
-        if (_healthRemaining <= 0)
-        {
-            _livesRemaining--;
-            setIsDead(true);
-            if (_livesRemaining <= 0)
+        if (_livesRemaining > 0) {
+            if (_healthRemaining <= 0)
             {
-                Debug.Log("Player is out of lives.");
-                gameObject.SetActive(false);
-                SceneManager.GetInstance().PlayerDown(); //TODO: End after one player remains, not when the first one falls.
+                _livesRemaining--;
+                myStats.lives = _livesRemaining;
+                setIsDead(true);
+                if (_livesRemaining <= 0)
+                {
+                    Debug.Log("Player is out of lives.");
+                    gameObject.SetActive(false);
+                    SceneManager.GetInstance().PlayerDown(); //TODO: End after one player remains, not when the first one falls.
 
-                //Dead
+                    //Dead
+                }
+                //respawn();
             }
-            //respawn();
+            SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
         }
-        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
     }
 
     private void setInvulnerable(bool toggle)
@@ -545,8 +522,10 @@ public class Player : MovingObject
     private void setIsDead(bool toggle)
     {
         _isDead = toggle;
-        GetComponent<MeshRenderer>().enabled = !_isDead; //TODO: Very ugly way of doing this, improve it.
-        transform.position = new Vector3(28, 2, 0); //TODO: Ugly way of disabling the player.
+        GetComponent<MeshRenderer>().enabled = !_isDead;
+        _rb.velocity = Vector2.zero;
+        _rb.isKinematic = _isDead;
+        _coll.enabled = !_isDead;
         _myCirclePointer.gameObject.SetActive(false);
         if (_isDead)
         {
@@ -560,6 +539,7 @@ public class Player : MovingObject
         setIsDead(false);
         setInvulnerable(true);
         _healthRemaining = Glob.maxHealth;
+        _manaRemaining = Glob.maxMana;
         _rb.velocity = Vector3.zero;
         transform.position = SceneManager.GetInstance().GetCurrentArena().GetRandomRespawnPoint();
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
@@ -567,20 +547,49 @@ public class Player : MovingObject
 
     public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
     {
-        _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
-        TakeDamage(pDamage);
-        _disableMovement = true;
+        if (!_isDead && !_invulnerable) {
+            int startingHealth = _healthRemaining;
+            int startingLives = _livesRemaining;
+            _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
+            TakeDamage(pDamage);
+            if (hit.GetPlayer() != this)
+            {
+                hit.GetPlayer().AddDamageDealt(startingHealth - _healthRemaining);
+                if (_livesRemaining < startingLives)
+                {
+                    hit.GetPlayer().AddKill();
+                }
+            }
+            _disableMovement = true;
+        }
     }
     public void TakeDamage(int dmg)
     {
-        Debug.Log("Taking damage " + dmg);
-        _healthRemaining -= dmg;
-        handleLives();
+        if (!_isDead)
+        {
+            Debug.Log("Taking damage " + dmg);
+            myStats.damageTaken += Mathf.Min(_healthRemaining, dmg);
+            _healthRemaining -= dmg;
+            handleLives();
+        }
+    }
+    public void AddDamageDealt(int dmg)
+    {
+        myStats.damageDealt += dmg;
+    }
+    public void AddKill()
+    {
+        myStats.kills++;
     }
 
     public void SetSteamCloud(float pDamage, bool pBool)
     {
         IsInSteamCloud = pBool;
         steamCloudDamage = pDamage;
+    }
+
+    public PlayerStats GetStats()
+    {
+        return myStats;
     }
 }

@@ -54,7 +54,18 @@ public static class Glob
         return Resources.Load<GameObject>(PlayerPrefab);
     }
     public const string PlayerBannerPrefab = "UI/PlayerBanner/CharacterBanner";
-    public const string ResolutionScreenStatsPrefab = "UI/ResolutionScreen/PlayerStats";
+
+    public const int PlayerWinLoseCount = 2;
+    public const string PlayerWinBase = "UI/ResolutionScreen/PlayerWin";
+    public const string PlayerLoseBase = "UI/ResolutionScreen/PlayerLose";
+    public const string PlayerWinPrefab1 = "UI/ResolutionScreen/PlayerWin1";
+    public const string PlayerLosePrefab1 = "UI/ResolutionScreen/PlayerLose1";
+    public const string PlayerWinPrefab2 = "UI/ResolutionScreen/PlayerWin2";
+    public const string PlayerLosePrefab2 = "UI/ResolutionScreen/PlayerLose2";
+
+    public const string PlayerWinTitleBase = "UI/ResolutionScreen/PlayerWinTitle";
+    public const string PlayerWinTitle1 = "UI/ResolutionScreen/PlayerWinTitle1";
+    public const string PlayerWinTitle2 = "UI/ResolutionScreen/PlayerWinTitle2";
 
     public const string FullLifeCrystalBase = "UI/PlayerBanner/CrystalLive";
     public const string FullLifeCrystal1 = "UI/PlayerBanner/CrystalLive1";

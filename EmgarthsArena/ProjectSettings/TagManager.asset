@@ -6,6 +6,8 @@ TagManager:
   tags:
   - CharacterInfo
   - ResolutionScreen
+  - UIParent
+  - Ground
   layers:
   - Default
   - TransparentFX

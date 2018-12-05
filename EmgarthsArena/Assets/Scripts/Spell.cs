@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class Spell : MovingObject
 {
+    protected Player myPlayer;
     protected int damage;
     protected int knockback;
     protected float castTime = -1;
@@ -18,6 +19,15 @@ public abstract class Spell : MovingObject
     protected override void HandleCollision(Collision2D collision)
     {
 
+    }
+
+    public void SetPlayer(Player plyr)
+    {
+        myPlayer = plyr;
+    }
+    public Player GetPlayer()
+    {
+        return myPlayer;
     }
 
     public int[] GetKnockBackAndDamage()

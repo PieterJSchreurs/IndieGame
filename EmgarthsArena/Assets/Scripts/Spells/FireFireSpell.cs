@@ -18,6 +18,7 @@ public class FireFireSpell : Spell {
 	// Use this for initialization
 	void Start () {
         base.Start();
+        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.5f, 1f);
         _rb.velocity = -_rb.transform.up * Glob.FireFireSpeed;
         InitializeSpell();
     }
