@@ -652,10 +652,6 @@ public class Player : MovingObject
             int startingLives = _livesRemaining;
             _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
             TakeDamage(pDamage);
-            if(hit is EarthEarthSpell)
-            {
-                SoundManager.GetInstance().PlaySound(Glob.AvalancheHitSound);
-            }
           
             if (hit.GetPlayer() != this)
             {
