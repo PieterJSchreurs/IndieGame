@@ -32,9 +32,9 @@ public static class Glob
     public const float jumpTimeContinuous = 0.8f;
     public const float jumpDoubleTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
-    public const float WaterwaterAliveTime = 0.7f;
+    public const float WaterwaterAliveTime = 1;
     public const float FireWaterAliveTime = 5f;
-    public const float EarthWaterAliveTime = 5f;
+    public const float EarthWaterAliveTime = 3f;
     public const float ManaIncreasePerSecond = 6f;
     public const float MistStayingTime = 3f;
 

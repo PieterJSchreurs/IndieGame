@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: Assets\Indiegamefmodproject3\Indiegamefmodproject3.fspro
-  SourceProjectPathUnformatted: Assets\Indiegamefmodproject3\Indiegamefmodproject3.fspro
-  SourceBankPathUnformatted: Assets\Indiegamefmodproject3\Build
+  sourceProjectPath: Assets\Indiegamefmodproject5\Indiegamefmodproject5\Indiegamefmodproject5.fspro
+  SourceProjectPathUnformatted: Assets\Indiegamefmodproject5\Indiegamefmodproject5\Indiegamefmodproject5.fspro
+  SourceBankPathUnformatted: Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build
   AutomaticEventLoading: 1
   AutomaticSampleLoading: 0
   ImportType: 0
