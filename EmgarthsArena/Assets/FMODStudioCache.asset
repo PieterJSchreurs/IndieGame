@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114307697045135164}
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   EditorEvents:
   - {fileID: 114735229179964096}
   - {fileID: 114892996258370976}
@@ -44,7 +44,6 @@ MonoBehaviour:
   - {fileID: 114023640734365098}
   - {fileID: 114367949500172838}
   - {fileID: 114662736694117798}
-  - {fileID: 114224071675051938}
   - {fileID: 114248188254293544}
   - {fileID: 114702700930689070}
   - {fileID: 114391446244017610}
@@ -57,7 +56,6 @@ MonoBehaviour:
   - {fileID: 114470270342649220}
   - {fileID: 114320283825451706}
   - {fileID: 114509101432762500}
-  - {fileID: 114298548096921986}
   - {fileID: 114194246083603890}
   - {fileID: 114797145330428322}
   - {fileID: 114523435931414646}
@@ -70,13 +68,14 @@ MonoBehaviour:
   - {fileID: 114719043931806952}
   - {fileID: 114529829769967156}
   - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   StringsBanks:
   - {fileID: 114021000014835090}
   - {fileID: 114885446032329322}
   - {fileID: 114684124711262996}
   - {fileID: 114273379600670888}
   - {fileID: 114307697045135164}
-  stringsBankWriteTime: 636797079596766745
+  stringsBankWriteTime: 636797296772936290
   cacheVersion: 3
 --- !u!114 &114000546124644158
 MonoBehaviour:
@@ -316,7 +315,7 @@ MonoBehaviour:
   Path: event:/Announcer/Welcome
   guid: f0ed954e19fbf047830bbaf350d58963
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -592,6 +591,25 @@ MonoBehaviour:
   - Name: Desktop
     Value: 2864
   Exists: 1
+--- !u!114 &114049730818887406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\Piet\Documents\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636797296772886421
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 19753088
+  Exists: 1
 --- !u!114 &114052569529617348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,7 +756,7 @@ MonoBehaviour:
   Path: event:/Announcer/Youdidsomethingright
   guid: ec225141620cbe4cb9e06ef8648dbc02
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -804,7 +822,7 @@ MonoBehaviour:
   Path: event:/Announcer/Fuckaround
   guid: ed86c22e97617841b5e3b086383ac6e3
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1043,7 +1061,7 @@ MonoBehaviour:
   Path: event:/Announcer/Youwin
   guid: 4beecad73ceb484c9e450626bbc64828
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1164,7 +1182,7 @@ MonoBehaviour:
   Path: event:/Player2/Attack2
   guid: 894005e9fdd183489c72ce1999756293
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1208,7 +1226,7 @@ MonoBehaviour:
   Path: event:/Spells/Firerockimpact
   guid: 6dc4f51683085f459fcbfdab0d08e371
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -1230,7 +1248,7 @@ MonoBehaviour:
   Path: event:/Player1/Hurt1
   guid: e49052699169fb409fb0637e347afa2b
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1252,7 +1270,7 @@ MonoBehaviour:
   Path: event:/Player2/Hurt2
   guid: 54db7a4df46157428cde0d7c043c367d
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1605,7 +1623,7 @@ MonoBehaviour:
   Path: event:/Playerhit/hit
   guid: 99bd70a2a88d024183bf852b82962c99
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -1649,7 +1667,7 @@ MonoBehaviour:
   Path: event:/UI/Hovering
   guid: 79aaf63a05ec8f41b7113589aeccc663
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1693,7 +1711,7 @@ MonoBehaviour:
   Path: event:/UI/Selecting
   guid: b06dec617c74f54d9683f7ac58aebb2f
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1848,7 +1866,7 @@ MonoBehaviour:
   Path: event:/Spells/Firebeam
   guid: d4aa6b395852864ea43188c806f2525d
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -2359,7 +2377,7 @@ MonoBehaviour:
   Path: event:/Spells/Meteorexplosion
   guid: 3665a3f761d00248977d4e99911c3d2a
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -3039,11 +3057,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop\Master Bank.strings.bank
-  lastModified: 636797079596766745
+  lastModified: 636797296772936290
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 2910
+    Value: 2796
   Exists: 1
 --- !u!114 &114308041736862338
 MonoBehaviour:
@@ -3059,7 +3077,7 @@ MonoBehaviour:
   Path: event:/Backgroundsong/tutorial
   guid: c0c70fea35734048b6dba05ea15c7211
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -3279,7 +3297,7 @@ MonoBehaviour:
   Path: event:/Spells/Meteorthrow
   guid: b3ed7a43024b9a46a30ff0e3580f9cbe
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -3652,7 +3670,7 @@ MonoBehaviour:
   Path: event:/Player1/Jump1
   guid: f9133cd5bd298541bda0bbf6da64c4e2
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -3755,7 +3773,7 @@ MonoBehaviour:
   Path: event:/Announcer/Gameover
   guid: bb76ecd460337b4fbeafcfc789524d72
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3906,7 +3924,7 @@ MonoBehaviour:
   Path: event:/Spells/Avalanchehit
   guid: 51b10657e7d1c44292b52c18ba7ed9d4
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -3928,7 +3946,7 @@ MonoBehaviour:
   Path: event:/Spells/Steamcircle
   guid: 967c0f314bd482479351029652652ad9
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -4294,7 +4312,7 @@ MonoBehaviour:
   Path: event:/Player1/Attack1
   guid: cda3e669e44b354b80cdd29aef748886
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -4331,7 +4349,7 @@ MonoBehaviour:
   Path: event:/Backgroundsong/main menu
   guid: 9f24087b51427d4f9d6c7e1c9f2cf70f
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -4515,7 +4533,7 @@ MonoBehaviour:
   Path: event:/Announcer/Wow
   guid: b95c55c9491978479500248a52981e2c
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -4595,7 +4613,7 @@ MonoBehaviour:
   Path: event:/Spells/Earthpillars
   guid: ace0e2c0afb9b843beff194aaf77f8d6
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -4716,7 +4734,7 @@ MonoBehaviour:
   Path: event:/Spells/Waterballhit
   guid: 827206fb31d51f4a8eae454a73e005e2
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -4801,7 +4819,7 @@ MonoBehaviour:
   Path: event:/Announcer/Trymoving
   guid: 7ed0015fa039704d9873f6d2c7231ef7
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -4823,7 +4841,7 @@ MonoBehaviour:
   Path: event:/Player2/Falling2
   guid: ca3e97c5f9616345bbb143a1ee3ff943
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -5015,7 +5033,7 @@ MonoBehaviour:
   Path: event:/Spells/Avalanchecharge
   guid: c3ce8def958f1f4c8d555d5b95e0cb41
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -5037,7 +5055,7 @@ MonoBehaviour:
   Path: event:/Announcer/321Fight
   guid: 5e17d6c91e8e0b4aad3aeadb97341d14
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -5122,7 +5140,7 @@ MonoBehaviour:
   Path: event:/Backgroundsong/transition
   guid: 83013816b706ad43a3fa0b08270a9507
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -5188,7 +5206,7 @@ MonoBehaviour:
   Path: event:/Spells/Firerockttrhow
   guid: fb12bfa8bc598842b20de96c77197697
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -5531,7 +5549,7 @@ MonoBehaviour:
   Path: event:/Announcer/Introdialogue
   guid: 2b090666eea2a247bdf6d2da8016a7d2
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -5553,7 +5571,7 @@ MonoBehaviour:
   Path: event:/Spells/Snowballroll
   guid: 98e1f5172f95084f806b6e551e44499a
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -5590,7 +5608,7 @@ MonoBehaviour:
   Path: event:/Backgroundsong/high
   guid: 20f32ed76017414685f50aa18a229b46
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -5848,7 +5866,7 @@ MonoBehaviour:
   Path: event:/Player2/Jump2
   guid: 1b1a5ce3f679b04ea75dd4673ec0de5c
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -5870,7 +5888,7 @@ MonoBehaviour:
   Path: event:/Announcer/Youreprepared
   guid: 6535eb6f6440784fba4493ef1f70ec9b
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -6039,7 +6057,7 @@ MonoBehaviour:
   Path: event:/Tutorialsounds
   guid: 01fd0ef30900f644ba2f856ff2abd8e8
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -6683,7 +6701,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 20137120
-  Exists: 1
+  Exists: 0
 --- !u!114 &114662454298147050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6713,7 +6731,7 @@ MonoBehaviour:
   Path: event:/Spells/Waterblast
   guid: 2f06d69c902bc14e913de32f800767e8
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -6996,7 +7014,7 @@ MonoBehaviour:
   Path: event:/Spells/Waterball
   guid: 3696899e5538f340b28c927e8e009400
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -7224,7 +7242,7 @@ MonoBehaviour:
   Path: event:/Player1/Falling1
   guid: 11e09e32c663e34fb7ab1a8483d10573
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -7789,7 +7807,7 @@ MonoBehaviour:
   Path: event:/Spells/Snowballimpact
   guid: 8d7704eba75bfb4ea28726fb1cd155a8
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -7811,7 +7829,7 @@ MonoBehaviour:
   Path: event:/UI/Emptymana
   guid: 77bbb8426f185e4dae805000e0774e67
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -7833,7 +7851,7 @@ MonoBehaviour:
   Path: event:/Spells/Snowballcast
   guid: e7f548b0e36da24dad734cd588878e60
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -8201,12 +8219,12 @@ MonoBehaviour:
   Path: event:/Backgroundsong/Backgroundtrack
   guid: e901b0a54b1007478b3a1a4e73dd9d62
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114192835567679658}
+  - {fileID: 114968688412634312}
   MinDistance: 0
   MaxDistance: 0
   Length: 6250
@@ -8632,7 +8650,7 @@ MonoBehaviour:
   Path: event:/Backgroundsong/lowandmid
   guid: 134702b9041aad4587d85f5ba5845313
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -8908,7 +8926,7 @@ MonoBehaviour:
   Path: event:/Spells/Meteordrop
   guid: 940f6959a37a2345afed301dd6230f92
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -9351,7 +9369,7 @@ MonoBehaviour:
   Path: event:/Player1/Celebrate1
   guid: c129eecef61d7547ac80676eb596c92f
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -9399,6 +9417,21 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 781
+--- !u!114 &114968688412634312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114969796269574898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9542,7 +9575,7 @@ MonoBehaviour:
   Path: event:/Player2/Celebrate2
   guid: e89ae0292e79db4f87d824819a404b28
   Banks:
-  - {fileID: 114661343362491122}
+  - {fileID: 114049730818887406}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
