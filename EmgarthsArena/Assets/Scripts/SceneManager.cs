@@ -150,7 +150,7 @@ public class SceneManager : MonoBehaviour {
         {
             Debug.Log("no players");
             allPlayers = new Player[1];
-            GameObject newPlayer = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
+            GameObject newPlayer = Instantiate(Glob.GetPlayerPrefabs()[0], currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
             allPlayers[0] = newPlayer.AddComponent<Player>().GetPlayer(-1);
         }
         else
@@ -159,14 +159,14 @@ public class SceneManager : MonoBehaviour {
             {
                 Debug.Log("no players2");
                 allPlayers = new Player[1];
-                GameObject newPlayer = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
+                GameObject newPlayer = Instantiate(Glob.GetPlayerPrefabs()[0], currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
                 allPlayers[0] = newPlayer.AddComponent<Player>().GetPlayer(-1);
             }
             else
             {
                 for (int i = 0; i < allPlayers.Length; i++)
                 {
-                    GameObject newPlayer = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRespawnPoint(i), new Quaternion(0, 0, 0, 0));
+                    GameObject newPlayer = Instantiate(Glob.GetPlayerPrefabs()[i], currentArena.GetRespawnPoint(i), new Quaternion(0, 0, 0, 0));
                     newPlayer.name = "Player" + i;
                     allPlayers[i] = newPlayer.AddComponent<Player>().GetPlayer(i);
                     //Give the players their correct ID, and their correct InputManager.

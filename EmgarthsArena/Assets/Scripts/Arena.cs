@@ -341,20 +341,20 @@ public class Arena : MonoBehaviour {
             {
                 continue;
             }
-            else if (!_cameraTargets[i].GetComponent<MeshRenderer>().enabled) //If the target is invisible (isDead), slowly move his last known position to the position of the other player. (Lerps the camera once a player dies.)
+            else if (!_cameraTargets[i].GetComponentInChildren<MeshRenderer>().enabled) //If the target is invisible (isDead), slowly move his last known position to the position of the other player. (Lerps the camera once a player dies.)
             {
                 float XPos2 = _myColl.bounds.max.x + ((_myColl.bounds.min.x - _myColl.bounds.max.x) / 2);
                 float YPos2 = _myColl.bounds.max.y + ((_myColl.bounds.min.y - _myColl.bounds.max.y) / 2);
                 if (i == 0)
                 {
-                    if (_cameraTargets[1].GetComponent<MeshRenderer>().enabled) { //If the other player is also dead, move to the center of the arena instead.
+                    if (_cameraTargets[1].GetComponentInChildren<MeshRenderer>().enabled) { //If the other player is also dead, move to the center of the arena instead.
                         XPos2 = _targetPositions[1].x;
                         YPos2 = _targetPositions[1].y;
                     }
                 }
                 else if (i == 1)
                 {
-                    if (_cameraTargets[0].GetComponent<MeshRenderer>().enabled)
+                    if (_cameraTargets[0].GetComponentInChildren<MeshRenderer>().enabled)
                     {
                         XPos2 = _targetPositions[0].x;
                         YPos2 = _targetPositions[0].y;

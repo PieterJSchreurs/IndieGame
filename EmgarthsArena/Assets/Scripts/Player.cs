@@ -606,18 +606,18 @@ public class Player : MovingObject
         if (_invulnerable)
         {
             _invulnerableStartTime = Time.time;
-            GetComponent<MeshRenderer>().material.color = Color.blue; //TODO: Improve invulnerability feedback.
+            GetComponentInChildren<MeshRenderer>().material.color = Color.blue; //TODO: Improve invulnerability feedback.
         }
         else
         {
-            GetComponent<MeshRenderer>().material.color = Color.red;
+            GetComponentInChildren<MeshRenderer>().material.color = Color.red;
         }
     }
 
     private void setIsDead(bool toggle)
     {
         _isDead = toggle;
-        GetComponent<MeshRenderer>().enabled = !_isDead;
+        GetComponentInChildren<MeshRenderer>().enabled = !_isDead;
         _rb.velocity = Vector2.zero;
         _rb.isKinematic = _isDead;
         _coll.enabled = !_isDead;

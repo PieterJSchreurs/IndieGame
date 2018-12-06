@@ -53,9 +53,15 @@ public static class Glob
     }
 
     public const string PlayerPrefab = "Player/Player";
-    public static GameObject GetPlayerPrefab()
+    public const string Player1Prefab = "Player/PlayerOrange";
+    public const string Player2Prefab = "Player/PlayerBlue";
+
+    public static GameObject[] GetPlayerPrefabs()
     {
-        return Resources.Load<GameObject>(PlayerPrefab);
+        GameObject[] players = new GameObject[2];
+        players[0] = Resources.Load<GameObject>(Player1Prefab);
+        players[1] = Resources.Load<GameObject>(Player2Prefab);
+        return players;
     }
     public const string PlayerBannerPrefab = "UI/PlayerBanner/CharacterBanner";
 
