@@ -453,7 +453,10 @@ public class Arena : MonoBehaviour {
                 {
                     SceneManager.GetInstance().RemoveMovingObject(other.gameObject.GetComponent<MovingObject>());
                 }
-                Destroy(other.gameObject);
+                if (other.gameObject.GetComponent<FireFireSpell>() == null)
+                {
+                    Destroy(other.gameObject);
+                }
             }
         }
     }
@@ -470,7 +473,7 @@ public class Arena : MonoBehaviour {
     public IEnumerator DoCountdown()
     {
         _countdownImage.gameObject.SetActive(true);
-        SceneManager.GetInstance().TogglePauseAllPlayers(true);
+        SceneManager.GetInstance().TogglePauseGame(true, true);
         _countdownImage.sprite = Resources.Load<Sprite>(Glob.NumberPrefab3);
 
         yield return new WaitForSeconds(1);
@@ -481,7 +484,7 @@ public class Arena : MonoBehaviour {
 
         yield return new WaitForSeconds(1);
         _countdownImage.sprite = Resources.Load<Sprite>(Glob.FightPrefab);
-        SceneManager.GetInstance().TogglePauseAllPlayers(false);
+        SceneManager.GetInstance().TogglePauseGame(false, true);
 
         yield return new WaitForSeconds(1);
         _countdownImage.gameObject.SetActive(false);

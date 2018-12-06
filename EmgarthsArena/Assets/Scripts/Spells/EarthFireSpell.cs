@@ -41,6 +41,13 @@ public class EarthFireSpell : Spell {
     protected override void HandleExplosion()
     {
         SoundManager.GetInstance().PlaySound(Glob.FirerockImpactSound);
+        GameObject knockBackGameObject = Glob.GetKnockback2();
+        knockBackGameObject = Instantiate(knockBackGameObject, this.gameObject.transform);
+        knockBackGameObject.transform.localPosition = new Vector3(0, 0, 0);
+        knockBackGameObject.transform.parent = this.gameObject.transform.parent;
+        knockBackGameObject.transform.localScale += new Vector3(3, 3, 3);
+        Destroy(knockBackGameObject.gameObject, 1.25f);
+
         //Adding effect + rotating it the right way.
         int rotationOffset = Random.Range(-45, 45);
         for (int i = 0; i < fireHazardCount; i++)
@@ -49,7 +56,7 @@ public class EarthFireSpell : Spell {
             fireHazard.GetComponent<Spell>().SetPlayer(myPlayer);
             fireHazard.transform.eulerAngles = new Vector3(0, 0, -180 + (360f * ((float)i/fireHazardCount)) + rotationOffset);
         }
-        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
+        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.2f, 0.5f);
         //GameObject explosion = Instantiate(Glob.GetExplosionPrefab(), this.gameObject.transform.position, this.gameObject.transform.rotation);
         //explosion.transform.eulerAngles = new Vector3(0, 90, 90);
     }

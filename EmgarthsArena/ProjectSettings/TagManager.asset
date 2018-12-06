@@ -9,6 +9,7 @@ TagManager:
   - UIParent
   - Ground
   - Countdown
+  - PauseMenu
   layers:
   - Default
   - TransparentFX

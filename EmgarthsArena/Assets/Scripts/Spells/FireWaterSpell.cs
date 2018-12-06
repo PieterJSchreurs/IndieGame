@@ -12,7 +12,7 @@ public class FireWaterSpell : Spell
         knockback = 0;
         damage = 3;
         castTime = 0.5f;
-        manaDrain = 5;
+        manaDrain = 15;
         spellType = SpellDatabase.SpellType.Aoe;
         attackType = SpellDatabase.AttackType.Light;
 
