@@ -115,7 +115,7 @@ public static class Glob
     public const string EarthWaterPrefab = "Spells/EarthWater";
     public const string EarthEarthPrefab = "Spells/EarthEarth";
     public const int SpellCount = 9;
-    public const float maxPilarHeight = 3f;
+    public const float maxPilarHeight = 1f;
 
     public const string RockPrefab = "Spells/Rock";
     public const string FireHazardPrefab = "Spells/FireHazard";
@@ -195,6 +195,9 @@ public static class Glob
     public const string Player2AttackSound = "event:/Player2/Attack2";
     public const string Player1FallSound = "event:/Player1/Falling1";
     public const string Player2FallSound = "event:/Player2/Falling2";
+    public const string PlayerHitSound = "event:/Playerhit/Hit";
+    public const string Player1WinSound = "event:/Player1/Celebrate1";
+    public const string Player2WinSound = "event:/Player2/Celebrate2";
 
     //Spell sounds.
     public const string AvalancheChargeSound = "event:/Spells/Avalanchecharge";
@@ -211,6 +214,7 @@ public static class Glob
     public const string SnowballRollSound = "event:/Spells/Snowballroll";
     public const string SteamcircleSound = "event:/Spells/Steamcircle";
     public const string WaterballSound = "event:/Spells/Waterball";
+    public const string WaterballHitSound = "event:/Spells/Waterballhit";
     public const string WaterblastSound = "event:/Spells/Waterblast";
 
     public const string FightSound = "event:/Announcer/321Fight";
@@ -219,6 +223,11 @@ public static class Glob
     public const string IntroDialogueSound = "event/Introdialogue";
     public const string WelcomeSound = "event:/Announcer/Welcome";
     public const string YouWinSound = "event:/Announcer/Youwin";
+
+    //UI & general
+    public const string UIHoveringSound = "event:/UI/Hovering";
+    public const string UISelectingSound = "event:/UI/Selecting";
+    public const string EmptyManaSound = "event:/UI/Emptymana";
 
 
     public static Dictionary<Keytype, string> GetInputDictionary(int pPlayerNumber)
@@ -263,6 +272,4 @@ public static class Glob
     public const float EarthWaterSpeed = 0f;
     public const float EarthEarthSpeed = 10f;
     public const float FireHazardSpeed = 5;
-
-
 }

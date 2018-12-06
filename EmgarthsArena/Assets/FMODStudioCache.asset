@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 114684124711262996}
-  - {fileID: 114719043931806952}
+  - {fileID: 114273379600670888}
+  - {fileID: 114529829769967156}
   EditorEvents:
   - {fileID: 114735229179964096}
   - {fileID: 114892996258370976}
@@ -61,15 +61,19 @@ MonoBehaviour:
   - {fileID: 114194246083603890}
   - {fileID: 114797145330428322}
   - {fileID: 114523435931414646}
+  - {fileID: 114792028866608784}
+  - {fileID: 114477651784750100}
   MasterBanks:
   - {fileID: 114258704534997488}
   - {fileID: 114315602918026500}
   - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   StringsBanks:
   - {fileID: 114021000014835090}
   - {fileID: 114885446032329322}
   - {fileID: 114684124711262996}
-  stringsBankWriteTime: 636796045559762339
+  - {fileID: 114273379600670888}
+  stringsBankWriteTime: 636796909155758135
   cacheVersion: 3
 --- !u!114 &114000546124644158
 MonoBehaviour:
@@ -115,6 +119,21 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4500
+--- !u!114 &114003436917275056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114003760045988218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +174,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 781
+--- !u!114 &114008208026182064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114010247675722590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,14 +313,14 @@ MonoBehaviour:
   Path: event:/Announcer/Welcome
   guid: f0ed954e19fbf047830bbaf350d58963
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 13798
+  Length: 13072
 --- !u!114 &114024520722463590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,6 +387,50 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2500
+--- !u!114 &114031948485207396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114113606153005866}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
+--- !u!114 &114035742554848324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114321478075053166}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114043417702135638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,6 +681,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 6875
+--- !u!114 &114071285023600098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114442703522605720}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114081702656308060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -613,7 +717,7 @@ MonoBehaviour:
   Path: event:/Announcer/Youdidsomethingright
   guid: ec225141620cbe4cb9e06ef8648dbc02
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -679,7 +783,7 @@ MonoBehaviour:
   Path: event:/Announcer/Fuckaround
   guid: ed86c22e97617841b5e3b086383ac6e3
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -687,6 +791,69 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 4250
+--- !u!114 &114089799592258598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
+--- !u!114 &114092587404011922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114513576646305472}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
+--- !u!114 &114093626271890076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114629884418829946}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114094166462295440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,6 +964,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
+--- !u!114 &114106258962021470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114533879318178052}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114108557184653760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,7 +1022,7 @@ MonoBehaviour:
   Path: event:/Announcer/Youwin
   guid: 4beecad73ceb484c9e450626bbc64828
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -841,6 +1030,24 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 4000
+--- !u!114 &114110065858669762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114110587867526020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,6 +1070,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 593
+--- !u!114 &114113606153005866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114114343748216458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -917,7 +1143,7 @@ MonoBehaviour:
   Path: event:/Player2/Attack2
   guid: 894005e9fdd183489c72ce1999756293
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -961,14 +1187,14 @@ MonoBehaviour:
   Path: event:/Spells/Firerockimpact
   guid: 6dc4f51683085f459fcbfdab0d08e371
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 5220
+  Length: 2625
 --- !u!114 &114120367514177560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,7 +1209,7 @@ MonoBehaviour:
   Path: event:/Player1/Hurt1
   guid: e49052699169fb409fb0637e347afa2b
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1005,7 +1231,7 @@ MonoBehaviour:
   Path: event:/Player2/Hurt2
   guid: 54db7a4df46157428cde0d7c043c367d
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1013,6 +1239,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
+--- !u!114 &114125358095000730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114126618599632634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1120,6 +1364,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 593
+--- !u!114 &114147026067675970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114148615718976818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1142,6 +1405,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1125
+--- !u!114 &114153505767289286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114779580551099466}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114154745382179716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1299,10 +1584,10 @@ MonoBehaviour:
   Path: event:/Playerhit/hit
   guid: 99bd70a2a88d024183bf852b82962c99
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
@@ -1343,7 +1628,7 @@ MonoBehaviour:
   Path: event:/UI/Hovering
   guid: 79aaf63a05ec8f41b7113589aeccc663
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1387,7 +1672,7 @@ MonoBehaviour:
   Path: event:/UI/Selecting
   guid: b06dec617c74f54d9683f7ac58aebb2f
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1418,6 +1703,21 @@ MonoBehaviour:
   MaxDistance: 20
   Length: 4000
 --- !u!114 &114185123876698278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114185308603313252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1512,14 +1812,14 @@ MonoBehaviour:
   Path: event:/Spells/Firebeam
   guid: d4aa6b395852864ea43188c806f2525d
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 6875
+  Length: 4814
 --- !u!114 &114194350677864622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1542,6 +1842,21 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 500
+--- !u!114 &114195758006896318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114200598956530036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1777,7 +2092,7 @@ MonoBehaviour:
   Path: event:/Arenasounds/Trapdooropen
   guid: 2f9556ff032a5b4d8d790c1d199fa284
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -1785,6 +2100,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1500
+--- !u!114 &114226682977548780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114819993781665458}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114228413032074768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1968,14 +2305,32 @@ MonoBehaviour:
   Path: event:/Spells/Meteorexplosion
   guid: 3665a3f761d00248977d4e99911c3d2a
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 2375
+  Length: 1875
+--- !u!114 &114248424372810052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114248553436966278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2119,6 +2474,28 @@ MonoBehaviour:
   - Name: Desktop
     Value: 12474
   Exists: 0
+--- !u!114 &114260499995966344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114504391253087552}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114260563362707666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2163,6 +2540,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1125
+--- !u!114 &114267002787103070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796173000409089
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2780
+  Exists: 1
 --- !u!114 &114269488399899144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2207,6 +2602,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4500
+--- !u!114 &114273379600670888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114275616500508350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2229,6 +2642,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2031
+--- !u!114 &114276122105936864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114525567446634318}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114278237177796212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2354,6 +2789,28 @@ MonoBehaviour:
   - Name: Desktop
     Value: 20019968
   Exists: 1
+--- !u!114 &114294057014080778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114504391253087552}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114295188810574346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2434,7 +2891,7 @@ MonoBehaviour:
   Path: event:/Arenasounds/Trapdoorclose
   guid: d2306b7a75d0564b91046f885ad9f1d5
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -2496,7 +2953,7 @@ MonoBehaviour:
   Path: event:/Backgroundsong/tutorial
   guid: c0c70fea35734048b6dba05ea15c7211
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -2504,6 +2961,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 141000
+--- !u!114 &114308068114197564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114310167648530294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2588,6 +3060,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 593
+--- !u!114 &114314239446781074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114008208026182064}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114314925753556024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2647,6 +3141,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
+--- !u!114 &114319596174711858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114320283825451706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2661,14 +3173,63 @@ MonoBehaviour:
   Path: event:/Spells/Meteorthrow
   guid: b3ed7a43024b9a46a30ff0e3580f9cbe
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 781
+  Length: 1670
+--- !u!114 &114320582128209772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114321478075053166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
+--- !u!114 &114322050802122158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114324323779660334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2713,6 +3274,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 6875
+--- !u!114 &114327015063363558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114843500213998262}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114327947590066428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2835,6 +3418,24 @@ MonoBehaviour:
   - Name: Desktop
     Value: 12474
   Exists: 1
+--- !u!114 &114350587810615292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114358638141676858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2894,6 +3495,21 @@ MonoBehaviour:
   - Name: Desktop
     Value: 672
   Exists: 1
+--- !u!114 &114366124696105890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114367293714427002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2930,7 +3546,7 @@ MonoBehaviour:
   Path: event:/Player1/Jump1
   guid: f9133cd5bd298541bda0bbf6da64c4e2
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -3011,7 +3627,7 @@ MonoBehaviour:
   Path: event:/Announcer/Gameover
   guid: bb76ecd460337b4fbeafcfc789524d72
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3143,14 +3759,14 @@ MonoBehaviour:
   Path: event:/Spells/Avalanchehit
   guid: 51b10657e7d1c44292b52c18ba7ed9d4
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1125
+  Length: 764
 --- !u!114 &114391782227025118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3165,14 +3781,14 @@ MonoBehaviour:
   Path: event:/Spells/Steamcircle
   guid: 967c0f314bd482479351029652652ad9
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 4000
+  Length: 2750
 --- !u!114 &114392685848269382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3217,6 +3833,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 593
+--- !u!114 &114396371535595038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114321478075053166}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114396969386066390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3235,6 +3873,28 @@ MonoBehaviour:
   - Name: Desktop
     Value: 2780
   Exists: 1
+--- !u!114 &114402636338513390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114442703522605720}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114404032991168330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3385,6 +4045,50 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
+--- !u!114 &114430372148261832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114513576646305472}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
+--- !u!114 &114431247538633394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114147026067675970}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114431632512034724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3407,6 +4111,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 6875
+--- !u!114 &114432200549624506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114779580551099466}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114433579532055438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3421,7 +4147,7 @@ MonoBehaviour:
   Path: event:/Player1/Attack1
   guid: cda3e669e44b354b80cdd29aef748886
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -3443,7 +4169,7 @@ MonoBehaviour:
   Path: event:/Backgroundsong/main menu
   guid: 9f24087b51427d4f9d6c7e1c9f2cf70f
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -3451,6 +4177,25 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 24062
+--- !u!114 &114442703522605720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114444612503275416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3473,6 +4218,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 770
+--- !u!114 &114447385229684856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114449876052511144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3575,7 +4338,7 @@ MonoBehaviour:
   Path: event:/Announcer/Wow
   guid: b95c55c9491978479500248a52981e2c
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3619,6 +4382,28 @@ MonoBehaviour:
   - Name: Desktop
     Value: 672
   Exists: 1
+--- !u!114 &114459585321925638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114008208026182064}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114470270342649220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3633,14 +4418,33 @@ MonoBehaviour:
   Path: event:/Spells/Earthpillars
   guid: ace0e2c0afb9b843beff194aaf77f8d6
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 3173
+  Length: 1562
+--- !u!114 &114471293575379106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796173000299154
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20019936
+  Exists: 1
 --- !u!114 &114473438069336572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3685,6 +4489,64 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 625
+--- !u!114 &114475264439274020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
+--- !u!114 &114476705920949216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
+--- !u!114 &114477651784750100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114529829769967156}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114478072911561508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3762,7 +4624,7 @@ MonoBehaviour:
   Path: event:/Announcer/Trymoving
   guid: 7ed0015fa039704d9873f6d2c7231ef7
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3784,7 +4646,7 @@ MonoBehaviour:
   Path: event:/Player2/Falling2
   guid: ca3e97c5f9616345bbb143a1ee3ff943
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -3899,6 +4761,47 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2500
+--- !u!114 &114504391253087552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
+--- !u!114 &114505410138469430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114583130739300406}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114508228812184314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3935,14 +4838,14 @@ MonoBehaviour:
   Path: event:/Spells/Avalanchecharge
   guid: c3ce8def958f1f4c8d555d5b95e0cb41
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 4690
+  Length: 2093
 --- !u!114 &114510362425892570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3957,7 +4860,7 @@ MonoBehaviour:
   Path: event:/Announcer/321Fight
   guid: 5e17d6c91e8e0b4aad3aeadb97341d14
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -4009,6 +4912,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3173
+--- !u!114 &114513576646305472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114515857990521534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4023,7 +4945,7 @@ MonoBehaviour:
   Path: event:/Backgroundsong/transition
   guid: 83013816b706ad43a3fa0b08270a9507
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -4089,14 +5011,33 @@ MonoBehaviour:
   Path: event:/Spells/Firerockttrhow
   guid: fb12bfa8bc598842b20de96c77197697
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 4500
+  Length: 4043
+--- !u!114 &114525567446634318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114527187600932742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4141,6 +5082,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1125
+--- !u!114 &114529829769967156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114530422277157450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4185,6 +5145,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2375
+--- !u!114 &114533879318178052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114534963452210140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4295,6 +5274,57 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1500
+--- !u!114 &114545044866609606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
+--- !u!114 &114547306002132670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
+--- !u!114 &114550179191942396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114551169162297356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4309,7 +5339,7 @@ MonoBehaviour:
   Path: event:/Announcer/Introdialogue
   guid: 2b090666eea2a247bdf6d2da8016a7d2
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -4331,14 +5361,14 @@ MonoBehaviour:
   Path: event:/Spells/Snowballroll
   guid: 98e1f5172f95084f806b6e551e44499a
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 625
+  Length: 492
 --- !u!114 &114558828007726298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4368,7 +5398,7 @@ MonoBehaviour:
   Path: event:/Backgroundsong/high
   guid: 20f32ed76017414685f50aa18a229b46
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -4376,6 +5406,50 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 15272
+--- !u!114 &114559132632477302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114089799592258598}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
+--- !u!114 &114562518508616684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114843500213998262}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114566547239928304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4420,6 +5494,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 781
+--- !u!114 &114566973710332886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114583130739300406}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114567504909520136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4505,6 +5601,25 @@ MonoBehaviour:
   - Name: Desktop
     Value: 12474
   Exists: 1
+--- !u!114 &114583130739300406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114584416048963702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4519,7 +5634,7 @@ MonoBehaviour:
   Path: event:/Player2/Jump2
   guid: 1b1a5ce3f679b04ea75dd4673ec0de5c
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -4541,7 +5656,7 @@ MonoBehaviour:
   Path: event:/Announcer/Youreprepared
   guid: 6535eb6f6440784fba4493ef1f70ec9b
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -4737,6 +5852,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 593
+--- !u!114 &114613074665224856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114629884418829946}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114614709606980784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4799,6 +5936,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 6875
+--- !u!114 &114624424610522530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114734086612779310}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114625010622487578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4865,6 +6024,40 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4690
+--- !u!114 &114629455630339864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114629884418829946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114631153511625776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4993,6 +6186,21 @@ MonoBehaviour:
   - Name: Desktop
     Value: 2780
   Exists: 1
+--- !u!114 &114643081918203082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114644921277134540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5077,6 +6285,43 @@ MonoBehaviour:
   - Name: Desktop
     Value: 2780
   Exists: 1
+--- !u!114 &114652416139420296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114147026067675970}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
+--- !u!114 &114653848883332982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114654646084469614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5165,6 +6410,21 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3173
+--- !u!114 &114662454298147050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114662736694117798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5179,14 +6439,14 @@ MonoBehaviour:
   Path: event:/Spells/Waterblast
   guid: 2f06d69c902bc14e913de32f800767e8
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 4000
+  Length: 2000
 --- !u!114 &114668184557774430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5289,7 +6549,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 2780
-  Exists: 1
+  Exists: 0
 --- !u!114 &114686066771019994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5334,6 +6594,54 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2745
+--- !u!114 &114689557534686178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
+--- !u!114 &114689743316215962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114691649477823466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114692299605160080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5414,14 +6722,14 @@ MonoBehaviour:
   Path: event:/Spells/Waterball
   guid: 3696899e5538f340b28c927e8e009400
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 2500
+  Length: 2218
 --- !u!114 &114704361135203148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5488,6 +6796,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 593
+--- !u!114 &114713444244855090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114719043931806952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5506,7 +6832,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 20019968
-  Exists: 1
+  Exists: 0
 --- !u!114 &114723518766251974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5573,6 +6899,43 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4690
+--- !u!114 &114734086612779310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
+--- !u!114 &114735193100437392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114735229179964096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5587,14 +6950,14 @@ MonoBehaviour:
   Path: event:/Player1/Falling1
   guid: 11e09e32c663e34fb7ab1a8483d10573
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 4895
+  Length: 3125
 --- !u!114 &114738436079753308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5790,6 +7153,21 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 770
+--- !u!114 &114765199298781064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114765203935882108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5878,6 +7256,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
+--- !u!114 &114772931543423024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114776221953081414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5919,6 +7315,28 @@ MonoBehaviour:
   - Name: Desktop
     Value: 20019968
   Exists: 1
+--- !u!114 &114777899268805642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114533879318178052}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114778509641978850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5963,6 +7381,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4690
+--- !u!114 &114779580551099466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114783464107941224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6059,7 +7496,7 @@ MonoBehaviour:
   Path: event:/Spells/Snowballimpact
   guid: 8d7704eba75bfb4ea28726fb1cd155a8
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -6067,6 +7504,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 770
+--- !u!114 &114792028866608784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114529829769967156}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114797145330428322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6081,14 +7540,14 @@ MonoBehaviour:
   Path: event:/Spells/Snowballcast
   guid: e7f548b0e36da24dad734cd588878e60
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 2745
+  Length: 1808
 --- !u!114 &114797216341141908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6167,6 +7626,47 @@ MonoBehaviour:
   - Name: Desktop
     Value: 12474
   Exists: 1
+--- !u!114 &114819993781665458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
+--- !u!114 &114820006132589698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114525567446634318}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114820832340695330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6189,6 +7689,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 500
+--- !u!114 &114822512968737724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114819993781665458}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114822946410876768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6211,6 +7733,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 770
+--- !u!114 &114828766088991874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
 --- !u!114 &114833081975225046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6273,6 +7813,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4500
+--- !u!114 &114843500213998262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject3\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636796909155678348
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20132640
+  Exists: 1
 --- !u!114 &114844501738419142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6349,12 +7908,12 @@ MonoBehaviour:
   Path: event:/Backgroundsong/Backgroundtrack
   guid: e901b0a54b1007478b3a1a4e73dd9d62
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114200598956530036}
+  - {fileID: 114662454298147050}
   MinDistance: 0
   MaxDistance: 0
   Length: 6250
@@ -6505,6 +8064,36 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3173
+--- !u!114 &114866344423259000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114866712057407340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114868414937897360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6728,7 +8317,7 @@ MonoBehaviour:
   Path: event:/Backgroundsong/lowandmid
   guid: 134702b9041aad4587d85f5ba5845313
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -7004,7 +8593,7 @@ MonoBehaviour:
   Path: event:/Spells/Meteordrop
   guid: 940f6959a37a2345afed301dd6230f92
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -7071,6 +8660,21 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 6875
+--- !u!114 &114921757813416376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114922231652147206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7211,6 +8815,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4500
+--- !u!114 &114933691721809918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114113606153005866}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114933775402865364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7410,7 +9036,7 @@ MonoBehaviour:
   Path: event:/Player1/Celebrate1
   guid: c129eecef61d7547ac80676eb596c92f
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -7459,6 +9085,28 @@ MonoBehaviour:
   - Name: Desktop
     Value: 20019968
   Exists: 1
+--- !u!114 &114971417894493620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Spells/Waterballhit
+  guid: 827206fb31d51f4a8eae454a73e005e2
+  Banks:
+  - {fileID: 114734086612779310}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1250
 --- !u!114 &114975107015774682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7561,7 +9209,7 @@ MonoBehaviour:
   Path: event:/Player2/Celebrate2
   guid: e89ae0292e79db4f87d824819a404b28
   Banks:
-  - {fileID: 114719043931806952}
+  - {fileID: 114529829769967156}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -7635,6 +9283,46 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2375
+--- !u!114 &114983132913067534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject3\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636796909155758135
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2864
+  Exists: 1
+--- !u!114 &114983951744786408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/UI/Emptymana
+  guid: 77bbb8426f185e4dae805000e0774e67
+  Banks:
+  - {fileID: 114089799592258598}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 593
 --- !u!114 &114984340953018124
 MonoBehaviour:
   m_ObjectHideFlags: 0

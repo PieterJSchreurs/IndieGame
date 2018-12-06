@@ -1,5 +1,6 @@
 ﻿using FMOD.Studio;
 using FMODUnity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,9 @@ public class SoundManager : MonoBehaviour
 
     EventInstance musicEvent;
     ParameterInstance musicIntensity;
-    EventInstance soundEffect;
+    EventInstance UISoundEffect;
+    EventInstance UISubmitSoundEffect;
+    private PLAYBACK_STATE playBackState;
     float gameIntensity;
     bool initialized = false;
 
@@ -30,6 +33,9 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         StartBackgroundMusic();
+        PlaySound(Glob.WelcomeSound);
+        UISoundEffect = RuntimeManager.CreateInstance(Glob.UIHoveringSound);
+        UISubmitSoundEffect = RuntimeManager.CreateInstance(Glob.UISelectingSound);
     }
 
     public static SoundManager GetInstance()
@@ -67,12 +73,31 @@ public class SoundManager : MonoBehaviour
         musicEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         // Tell FMOD Studio that this event instance can be destroyed:
         musicEvent.release();
+
     }
 
     public void SetBackGroundMusicIntensity(float pIntensity)
     {
         gameIntensity = pIntensity;
         musicIntensity.setValue(gameIntensity);
+    }
+
+    public void PlayUISound()
+    {
+        UISoundEffect.getPlaybackState(out playBackState);
+        if(playBackState != PLAYBACK_STATE.PLAYING)
+        {
+            UISoundEffect.start();
+        }
+    }
+
+    public void PlayUISubmitSound()
+    {
+        UISubmitSoundEffect.getPlaybackState(out playBackState);
+        if (playBackState != PLAYBACK_STATE.PLAYING)
+        {
+            UISubmitSoundEffect.start();
+        }
     }
 
     public void PlaySound(string pSound)

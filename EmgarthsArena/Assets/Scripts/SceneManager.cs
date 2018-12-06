@@ -135,7 +135,7 @@ public class SceneManager : MonoBehaviour {
         this.gameObject.AddComponent<FMODUnity.StudioListener>();
         SoundManager.GetInstance().StartBackgroundMusic();
         SoundManager.GetInstance().SetBackGroundMusicIntensity(0.45f);
-        SoundManager.GetInstance().PlaySound(Glob.WelcomeSound);
+        SoundManager.GetInstance().PlaySound(Glob.FightSound);
         //Setting to game.
 
         //Load an arena.
@@ -185,6 +185,11 @@ public class SceneManager : MonoBehaviour {
             //All other players get a 'Loser' banner
 
         }
+    }
+
+    public void ReBindFmodListener()
+    {
+
     }
 
     public void EndGame()

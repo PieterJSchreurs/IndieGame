@@ -20,6 +20,7 @@ public class SliderScript : Selectable {
     // Use this for initialization
     void Start () {
         myAxis = EventSystem.current.GetComponent<StandaloneInputModule>().horizontalAxis;
+
     }
 
     //Use this to check what Events are happening

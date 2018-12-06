@@ -387,14 +387,7 @@ public class Arena : MonoBehaviour {
             {
                 Player player = other.gameObject.GetComponent<Player>();
                 player.TakeDamage(Glob.maxHealth);
-                if(player.GetID()== 0)
-                {
-                    SoundManager.GetInstance().PlaySound(Glob.Player1FallSound);
-                } else
-                {
-                    SoundManager.GetInstance().PlaySound(Glob.Player2FallSound);
-                }
-                
+              
             }
             else
             {

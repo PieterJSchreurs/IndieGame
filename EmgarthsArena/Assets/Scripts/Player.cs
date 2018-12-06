@@ -435,13 +435,15 @@ public class Player : MovingObject
                     SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, reversed, firstEle, true);
                 }
             }
+        } else
+        {
+            SoundManager.GetInstance().PlaySound(Glob.EmptyManaSound);
         }
         return launchedspell;
     }
 
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
-
         float castTime = pSpell.GetCastTime();
         _manaRemaining -= (int)pSpell.GetManaCost();
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
@@ -579,6 +581,14 @@ public class Player : MovingObject
                     Debug.Log("Player is out of lives.");
                     gameObject.SetActive(false);
                     SoundManager.GetInstance().PlaySound(Glob.GameOverSound);
+                    if(ID == 0)
+                    {
+                        SoundManager.GetInstance().PlaySound(Glob.Player2WinSound);
+                    } 
+                    if(ID == 1)
+                    {
+                        SoundManager.GetInstance().PlaySound(Glob.Player1WinSound); 
+                    }
                     SceneManager.GetInstance().PlayerDown(); //TODO: End after one player remains, not when the first one falls.
 
                     //Dead
@@ -637,6 +647,11 @@ public class Player : MovingObject
             int startingLives = _livesRemaining;
             _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
             TakeDamage(pDamage);
+            if(hit is EarthEarthSpell)
+            {
+                SoundManager.GetInstance().PlaySound(Glob.AvalancheHitSound);
+            }
+          
             if (hit.GetPlayer() != this)
             {
                 hit.GetPlayer().AddDamageDealt(startingHealth - _healthRemaining);
@@ -651,15 +666,28 @@ public class Player : MovingObject
 
     public void TakeDamage(int dmg)
     {
+        if(dmg == Glob.maxHealth)
+        {
+            if(ID == 0)
+            {
+                SoundManager.GetInstance().PlaySound(Glob.Player1FallSound);
+            }
+            if(ID == 1)
+            {
+                SoundManager.GetInstance().PlaySound(Glob.Player2FallSound);
+            }
+        }
         if (!_isDead && dmg != 0)
         {
             if (ID == 0 && dmg != Glob.maxHealth)
             {
                 SoundManager.GetInstance().PlaySound(Glob.Player1HurtSound);
+                SoundManager.GetInstance().PlaySound(Glob.PlayerHitSound);
             }
             if (ID == 1 && dmg != Glob.maxHealth)
             {
                 SoundManager.GetInstance().PlaySound(Glob.Player2HurtSound);
+                SoundManager.GetInstance().PlaySound(Glob.PlayerHitSound);
             }
             Debug.Log("Taking damage " + dmg);
             myStats.damageTaken += Mathf.Min(_healthRemaining, dmg);
