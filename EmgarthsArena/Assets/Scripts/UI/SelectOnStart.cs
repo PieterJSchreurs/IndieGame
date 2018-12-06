@@ -6,14 +6,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Selectable))]
 public class SelectOnStart : MonoBehaviour {
 
-    void OnEnable()
-    {
-        GetComponent<Selectable>().Select();
-    }
-
 	// Use this for initialization
 	void Start () {
-
+        GetComponent<Selectable>().Select();
 	}
 	
 	// Update is called once per frame

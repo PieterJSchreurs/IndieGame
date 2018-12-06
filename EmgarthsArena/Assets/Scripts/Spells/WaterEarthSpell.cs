@@ -40,7 +40,6 @@ public class WaterEarthSpell : Spell {
         {
             if (Mathf.Abs(_lastVelocityX) - Mathf.Abs(_rb.velocity.x) > 10f) //If the ice ball is brought to a sudden stop horizontally.
             {
-                SceneManager.GetInstance().RemoveMovingObject(this);
                 Destroy(gameObject);
             }
             if (Mathf.Abs(_rb.velocity.x) < 0.3f && Mathf.Abs(_rb.velocity.y) < 0.3f) //If the ice ball is stationary for 2 seconds
@@ -52,7 +51,6 @@ public class WaterEarthSpell : Spell {
                 }
                 if (Time.time - _standingStillStartTime >= snowballRemainTime)
                 {
-                    SceneManager.GetInstance().RemoveMovingObject(this);
                     Destroy(gameObject);
                 }
             } else
@@ -75,15 +73,9 @@ public class WaterEarthSpell : Spell {
                 {
                     Vector3 velo = _rb.velocity;
                     _rb.velocity = Vector2.zero;
-                    player.HandleSpellHit(this, knockback, Mathf.Min(damage, Mathf.RoundToInt(velo.magnitude * 10)), Mathf.Min(1, velo.magnitude) * new Vector2(Mathf.Sign(velo.normalized.x), 0));
-                    SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
+                    player.HandleSpellHit(this, knockback, Mathf.Min(damage, Mathf.RoundToInt(velo.magnitude * 10)), Mathf.Min(1, velo.magnitude) * velo.normalized);
                 }
             }
-        }
-        else if (collision.gameObject.tag == "Ground")
-        {
-            SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.2f, 0.3f);
-            SoundManager.GetInstance().PlaySound(Glob.SnowballRollSound);
         }
         //base.HandleCollision(collision);
         //Destroy the object.
@@ -114,9 +106,6 @@ public class WaterEarthSpell : Spell {
 
     // Update is called once per frame
     void Update () {
-        if (!_isPaused)
-        {
-            Move(false);
-        }
+        Move(false);
 	}
 }

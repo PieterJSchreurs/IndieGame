@@ -9,15 +9,9 @@ public class MainMenuMethodReferenceHolder : MonoBehaviour {
 		
 	}
 	
-    public void ChangeVolume(float value)
+    public void SwitchToGameScene()
     {
-        AudioListener.volume = value; //TODO: FMOD Volume!
-        
-    }
-
-    public void StartGameOnLevel(int level)
-    {
-        SceneManager.GetInstance().StartGameOnLevel(level);
+        SceneManager.GetInstance().SwitchScene(2);
         //SceneManager.GetInstance().InitializeMatch();
     }
 

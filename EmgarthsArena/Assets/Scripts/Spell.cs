@@ -5,7 +5,6 @@ using UnityEngine;
 
 public abstract class Spell : MovingObject
 {
-    protected Player myPlayer;
     protected int damage;
     protected int knockback;
     protected float castTime = -1;
@@ -18,21 +17,7 @@ public abstract class Spell : MovingObject
 
     protected override void HandleCollision(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            Debug.Log("OnCollisionEnter with player");
-            Player player = collision.gameObject.GetComponent<Player>();
-            player.HandleSpellHit(this, knockback, damage, -collision.relativeVelocity.normalized);
-        }
-    }
 
-    public void SetPlayer(Player plyr)
-    {
-        myPlayer = plyr;
-    }
-    public Player GetPlayer()
-    {
-        return myPlayer;
     }
 
     public int[] GetKnockBackAndDamage()
@@ -56,12 +41,10 @@ public abstract class Spell : MovingObject
             //Collided with spell
             else if (col.gameObject.GetComponent<Spell>() != null)
             {
-                Debug.Log("Waterwater collided with spell");
-                SceneManager.GetInstance().RemoveMovingObject(col.gameObject.GetComponent<MovingObject>());
                 Destroy(col.gameObject);
             }
         }
-        if (this.gameObject.GetComponent<FireWaterSpell>() != null)
+        else if (this.gameObject.GetComponent<FireWaterSpell>() != null)
         {
             FireWaterSpell fireWaterSpell = this as FireWaterSpell;
             //Collided with player
@@ -71,25 +54,13 @@ public abstract class Spell : MovingObject
                 if(player != fireWaterSpell.GetPlayerCaster())
                 {
                     player.SetSteamCloud(this.damage, true);
-                    fireWaterSpell.AddPlayerInSteam(player);
                     Debug.Log("Setting steamcloud");
                 }
             }
             //Collided with spell
             else if (col.gameObject.GetComponent<Spell>() != null)
             {
-                SceneManager.GetInstance().RemoveMovingObject(col.gameObject.GetComponent<MovingObject>());
                 Destroy(col.gameObject);
-            }
-        }
-        if (this.gameObject.GetComponent<FireHazard>() != null)
-        {
-            if (col.gameObject.tag == "Player")
-            {
-                Player player = col.gameObject.GetComponent<Player>();
-                player.HandleSpellHit(this, knockback, damage, Vector2.zero);
-                SceneManager.GetInstance().RemoveMovingObject(this);
-                Destroy(gameObject);
             }
         }
     }
@@ -99,15 +70,15 @@ public abstract class Spell : MovingObject
     {
         if (!collision.otherCollider.isTrigger)
         {
-            //if (collision.gameObject.tag == "Player")
-            //{
-            //    Debug.Log("OnCollisionEnter with player");
-            //    if (this.GetComponent<FireEarthSpell>() == null)
-            //    {
-            //        Player player = collision.gameObject.GetComponent<Player>();
-            //        player.HandleSpellHit(this, knockback, damage, -collision.relativeVelocity.normalized);
-            //    }
-            //}
+            if (collision.gameObject.tag == "Player")
+            {
+                Debug.Log("OnCollisionEnter with player");
+                if (this.GetComponent<FireEarthSpell>() == null)
+                {
+                    Player player = collision.gameObject.GetComponent<Player>();
+                    player.HandleSpellHit(this, knockback, damage, -collision.relativeVelocity.normalized);
+                }
+            }
 
             HandleCollision(collision);
         }
@@ -121,11 +92,6 @@ public abstract class Spell : MovingObject
             Player player = col.gameObject.GetComponent<Player>();
             player.SetSteamCloud(damage, false);
         }
-    }
-
-    void OnDestroy()
-    {
-        SceneManager.GetInstance().RemoveMovingObject(this);
     }
 
     public abstract float GetCastTime();

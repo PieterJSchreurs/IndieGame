@@ -2,19 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FMODUnity;
-using FMOD.Studio;
 
 public class Player : MovingObject
 {
-    public struct PlayerStats
-    {
-        public int lives;
-        public int kills;
-        public int damageDealt;
-        public int damageTaken;
-    }
-    private PlayerStats myStats = new PlayerStats();
 
     private InputManager _myInputManager;
     private int _healthRemaining;
@@ -28,28 +18,25 @@ public class Player : MovingObject
     private SpellDatabase.Element _secondElement = SpellDatabase.Element.Water;
 
     private SpriteRenderer _myIndicator;
+    private Transform _myMagicCircleLeft;
+    private SpriteRenderer[] elementIconsLeft;
+    private Transform _myMagicCircleRight;
+    private SpriteRenderer[] elementIconsRight;
     private Transform _myCirclePointer;
     private bool _disableMovement = false;
     private bool _castingSpell = false;
     private ParticleSystem _castingParticle;
     private ParticleSystem _jumpParticle;
     private bool _isSwitchingElement = false;
-    private bool _hasSwitchedElement = false;
     private float _changedElementTime;
-    private const float _changedElementDelay = 1;
-    private float nextActionTime = 0;
+    private float nextActionTime = 0.0f;
 
     private bool _grounded = false;
     private bool _usedDoubleJump = false;
     private float _jumpTime = 0;
     private int ID;
-
     private float steamCloudDamage = 0;
-    public bool IsInSteamCloud = false; //Fix mana cost, fix pillar.
-    EventInstance soundPlayerEvent;
-    EventInstance soundSpellsEvent;
-    EventInstance soundSpellsEventFire;
-
+    public bool IsInSteamCloud = false;
 
     public Player()
     {
@@ -64,11 +51,6 @@ public class Player : MovingObject
         _manaRemaining = Glob.maxMana;
         _livesRemaining = Glob.maxLives;
 
-        myStats.lives = _livesRemaining;
-        myStats.kills = 0;
-        myStats.damageDealt = 0;
-        myStats.damageTaken = 0;
-
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
 
         return this;
@@ -80,7 +62,19 @@ public class Player : MovingObject
         _myInputManager = new InputManager(ID);
         _myIndicator = transform.Find("UI Elements").Find("Indicator").GetComponent<SpriteRenderer>();
         _myIndicator.sprite = Resources.Load<Sprite>(Glob.PlayerIndicatorBase + (ID + 1).ToString());
+        _myMagicCircleLeft = transform.Find("UI Elements").Find("MagicCircleLeft");
+        elementIconsLeft = new SpriteRenderer[3];
+        elementIconsLeft[0] = _myMagicCircleLeft.Find("LeftSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
+        elementIconsLeft[1] = _myMagicCircleLeft.Find("LeftSelection").Find("Water").GetComponent<SpriteRenderer>();
+        elementIconsLeft[2] = _myMagicCircleLeft.Find("LeftSelection").Find("Earth").GetComponent<SpriteRenderer>();
 
+        _myMagicCircleLeft.gameObject.SetActive(false);
+        _myMagicCircleRight = transform.Find("UI Elements").Find("MagicCircleRight");
+        elementIconsRight = new SpriteRenderer[3];
+        elementIconsRight[0] = _myMagicCircleRight.Find("RightSelection").Find("Fire").GetComponent<SpriteRenderer>(); //TODO: Better getter, in case we get more elements.
+        elementIconsRight[1] = _myMagicCircleRight.Find("RightSelection").Find("Water").GetComponent<SpriteRenderer>();
+        elementIconsRight[2] = _myMagicCircleRight.Find("RightSelection").Find("Earth").GetComponent<SpriteRenderer>();
+        _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
         _myCirclePointer.gameObject.SetActive(false);
         _jumpParticle = GetComponent<ParticleSystem>();
@@ -90,7 +84,7 @@ public class Player : MovingObject
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!_isDead && !_isPaused)
+        if (!_isDead)
         {
             Move(true);
         }
@@ -100,14 +94,46 @@ public class Player : MovingObject
 
     void Update()
     {
-        if (_myInputManager.GetButtonPause())
+        if (!_isDead)
         {
-            SceneManager.GetInstance().TogglePauseGame(!_isPaused);
-        }
-        if (!_isDead && !_isPaused)
-        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                launchSpell(_firstElement, _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                launchSpell(_firstElement, _secondElement, true);
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (_firstElement + 1 >= SpellDatabase.Element.Null)
+                {
+                    _firstElement = 0;
+                }
+                else
+                {
+                    _firstElement = _firstElement + 1;
+                }
+                Debug.Log(_firstElement + " - " + _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (_secondElement + 1 >= SpellDatabase.Element.Null)
+                {
+                    _secondElement = 0;
+                }
+                else
+                {
+                    _secondElement = _secondElement + 1;
+                }
+                Debug.Log(_firstElement + " - " + _secondElement);
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                TakeDamage(20);
+            }
+
             Move(false);
-            HandleAimPointer();
         }
     }
 
@@ -115,33 +141,29 @@ public class Player : MovingObject
     {
         if (!isFixed)
         {
-            if (Time.time - nextActionTime >= 1)
+            if(Time.time > nextActionTime)
             {
-                nextActionTime = Time.time;
+                nextActionTime += 1;
                 if (_manaRemaining < 100)
                 {
                     _manaRemaining += Glob.ManaIncreasePerSecond;
                     SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
                 }
-                if (IsInSteamCloud)
+                if(IsInSteamCloud)
                 {
+                    //TODO: Get the real damage value.
                     TakeDamage((int)steamCloudDamage);
                     SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
                     Debug.Log("Damage in steam cloud");
                 }
+               
             }
-            if (_isSwitchingElement && Time.time >= _changedElementTime + _changedElementDelay)
+
+            if(_isSwitchingElement == true && Time.time >= _changedElementTime+1.0f)
             {
-                SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, false, _firstElement, false);
                 _isSwitchingElement = false;
             }
-            else if (_hasSwitchedElement && Time.time >= _changedElementTime + _changedElementDelay)
-            {
-                SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, false, _firstElement, false);
-                SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, true, _secondElement, false);
-                _hasSwitchedElement = false;
-            }
-            if (_myInputManager.GetButtonDownJump() || _myInputManager.GetButtonDownJumpAlternative())
+            if (_myInputManager.GetButtonDownJump())
             {
                 jump();
             }
@@ -196,53 +218,17 @@ public class Player : MovingObject
             }
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
-                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Mathf.Min(Mathf.Abs(_rb.velocity.x / 2) + 0.5f, 1), _rb.velocity.y);
+                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed, _rb.velocity.y);
                 //Move horizontally.
             }
             if (_myInputManager.GetAxisMoveVertical() != 0)
             {
                 //Move vertically. (idk when that would be, ladders or something? Just a placeholder.)
             }
-            if ((_myInputManager.GetButtonJump() && _rb.velocity.y > 0) || (_myInputManager.GetButtonJumpAlternative() && _rb.velocity.y > 0))
+            if (_myInputManager.GetButtonJump() && _rb.velocity.y > 0)
             {
                 jumpContinuous();
             }
-        }
-    }
-
-    private void HandleAimPointer()
-    {
-        float xAxis = _myInputManager.GetAxisLookHorizontal();
-        float yAxis = _myInputManager.GetAxisLookVertical();
-
-        //If there's input
-        if (!(xAxis == 0 && yAxis == 0))
-        {
-            if (!_myCirclePointer.gameObject.activeSelf)
-            {
-                _myCirclePointer.gameObject.SetActive(true);
-            }
-
-            Vector2 vec2 = new Vector2(0, 1);
-            Vector2 vec0 = new Vector2(xAxis, yAxis);
-            vec0.Normalize();
-            //_myCirclePointer.transform.eulerAngles = vec0;
-
-            if (vec0.x > 0)
-            {
-                vec2 = new Vector2(0, -1);
-                float Degrees = Vector2.Angle(vec2, vec0);
-                _myCirclePointer.transform.eulerAngles = new Vector3(_myCirclePointer.transform.eulerAngles.x, _myCirclePointer.transform.eulerAngles.y, Degrees);
-            }
-            else
-            {
-                float Degrees = Vector2.Angle(vec2, vec0);
-                _myCirclePointer.transform.eulerAngles = new Vector3(_myCirclePointer.transform.eulerAngles.x, _myCirclePointer.transform.eulerAngles.y, Degrees + 180);
-            }
-        }
-        else if (_myCirclePointer.gameObject.activeSelf)
-        {
-            _myCirclePointer.gameObject.SetActive(false);
         }
     }
 
@@ -253,33 +239,16 @@ public class Player : MovingObject
             _changedElementTime = Time.time;
             _firstElement = pElement;
             SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
-            SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, false, _firstElement, true);
-            SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, true, _secondElement, false);
             _isSwitchingElement = true;
         }
         else if (pElementSlot == 1)
         {
-            _changedElementTime = Time.time;
             _secondElement = pElement;
             SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
-            SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, true, _secondElement, true);
             _isSwitchingElement = false;
-            _hasSwitchedElement = true;
         }
     }
 
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.otherCollider.isTrigger)
-        {
-            HandleCollision(collision);
-        }
-    }
-    protected override void HandleCollision(Collision2D collision)
-    {
-
-    }
     private void handleRespawn()
     {
         if (_isDead)
@@ -307,16 +276,6 @@ public class Player : MovingObject
                 _jumpParticle.Play();
                 _castingParticle.Stop();
                 _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
-                if (ID == 0)
-                {
-                    //FMODUnity.RuntimeManager.PlayOneShot("event:/Backgroundsong/Backgroundtrack");
-                    SoundManager.GetInstance().PlaySound(Glob.Player1JumpSound);
-                }
-                if (ID == 1)
-                {
-                    SoundManager.GetInstance().PlaySound(Glob.Player2JumpSound);
-                }
-
                 _jumpTime = Time.time;
             }
             else if (!_usedDoubleJump)
@@ -394,13 +353,14 @@ public class Player : MovingObject
     {
         Spell launchedspell = SpellDatabase.GetInstance().GetSpell(firstEle, secondEle);
 
+        //else error
         if (_manaRemaining >= launchedspell.GetManaCost())
         {
             if (reversed)
             {
                 launchedspell = SpellDatabase.GetInstance().GetSpell(secondEle, firstEle);
             }
-            PlaySpellSound(launchedspell);
+
             float xAxis = _myInputManager.GetAxisLookHorizontal();
             float yAxis = _myInputManager.GetAxisLookVertical();
 
@@ -430,34 +390,17 @@ public class Player : MovingObject
                 }
             }
         }
+
         return launchedspell;
     }
 
     IEnumerator SpawnSpell(Spell pSpell, Vector2 pInput, Vector2 pNullPoint)
     {
-
         float castTime = pSpell.GetCastTime();
         _manaRemaining -= (int)pSpell.GetManaCost();
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
-
+        Debug.Log("Casted spell of " + pSpell.GetManaCost() + " now have mana" + _manaRemaining);
         yield return new WaitForSeconds(castTime);
-
-        Debug.Log(_isPaused);
-
-        if (_isPaused)
-        {
-            _manaRemaining += (int)pSpell.GetManaCost();
-            _castingParticle.Stop();
-            _castingSpell = false;
-            if (_manaRemaining > Glob.maxMana)
-            {
-                _manaRemaining = Glob.maxMana;
-            }
-            yield break;
-        }
-
-        Debug.Log("ITS STILL GOING!");
-
         if (pInput != new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && (_myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0))
         {
             pInput = new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical());
@@ -467,13 +410,7 @@ public class Player : MovingObject
         _castingParticle.Stop();
         _castingSpell = false;
         Vector3 position = this.transform.position + new Vector3(pInput.x * Glob.spellOffset, pInput.y * Glob.spellOffset, 0);
-        if (pSpell is EarthWaterSpell)
-        {
-            position = this.transform.position + new Vector3(Math.Sign(pInput.x) * Glob.spellOffset, 0, 0);
-        }
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
-        //SceneManager.GetInstance().AddMovingObject(launchedspelltest);
-        launchedspelltest.SetPlayer(this);
 
         SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, false, _firstElement, false);
         SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, true, _secondElement, false);
@@ -494,74 +431,17 @@ public class Player : MovingObject
         {
             launchedspelltest.transform.parent = transform;
         }
-        if (pSpell is WaterWaterSpell)
+
+        if(pSpell is WaterWaterSpell)
         {
             launchedspelltest.transform.position = this.transform.position;
             WaterWaterSpell waterWaterSpell = launchedspelltest as WaterWaterSpell;
             waterWaterSpell.SetPlayerCaster(this);
-        }
-        if (pSpell is FireWaterSpell)
+        } else if(pSpell is FireWaterSpell)
         {
             launchedspelltest.transform.position = this.transform.position;
             FireWaterSpell fireWaterSpell = launchedspelltest as FireWaterSpell;
             fireWaterSpell.SetPlayerCaster(this);
-        }
-        if (pSpell is EarthWaterSpell)
-        {
-            EarthWaterSpell earthWaterSpell = launchedspelltest as EarthWaterSpell;
-            earthWaterSpell.transform.eulerAngles = new Vector3(0, 0, 0);
-        }
-    }
-
-    public void PlaySpellSound(Spell pSpell)
-    {
-        int random = UnityEngine.Random.Range(0, Glob.randomAttackSoundChance);
-        if (random == 1)
-        {
-            if (ID == 0)
-            {
-                SoundManager.GetInstance().PlaySound(Glob.Player1AttackSound);
-            }
-            if (ID == 1)
-            {
-                SoundManager.GetInstance().PlaySound(Glob.Player2AttackSound);
-            }
-        }
-        if (pSpell is FireFireSpell)
-        {
-            RuntimeManager.PlayOneShot(Glob.FireBeamSound);
-        }
-        if (pSpell is FireWaterSpell)
-        {
-            RuntimeManager.PlayOneShot(Glob.SteamcircleSound);
-        }
-        if (pSpell is FireEarthSpell)
-        {
-            RuntimeManager.PlayOneShot(Glob.MeteorThrowSound);
-        }
-        if (pSpell is WaterFireSpell)
-        {
-            RuntimeManager.PlayOneShot(Glob.WaterballSound);
-        }
-        if (pSpell is WaterWaterSpell)
-        {
-            RuntimeManager.PlayOneShot(Glob.WaterblastSound);
-        }
-        if (pSpell is WaterEarthSpell)
-        {
-            RuntimeManager.PlayOneShot(Glob.SnowballCastSound);
-        }
-        if (pSpell is EarthFireSpell)
-        {
-            RuntimeManager.PlayOneShot(Glob.FirerockThrowSound);
-        }
-        if (pSpell is EarthWaterSpell)
-        {
-            RuntimeManager.PlayOneShot(Glob.EarthPillarsSound);
-        }
-        if (pSpell is EarthEarthSpell)
-        {
-            FMODUnity.RuntimeManager.PlayOneShot(Glob.AvalancheChargeSound);
         }
     }
 
@@ -575,29 +455,21 @@ public class Player : MovingObject
 
     private void handleLives()
     {
-        if (_livesRemaining > 0)
+        if (_healthRemaining <= 0)
         {
-            if (_healthRemaining <= 0)
+            _livesRemaining--;
+            setIsDead(true);
+            if (_livesRemaining <= 0)
             {
-                _livesRemaining--;
-                myStats.lives = _livesRemaining;
-                setIsDead(true);
-                if (_livesRemaining == 1)
-                {
-                    SoundManager.GetInstance().SetBackGroundMusicIntensity(0.65f);
-                }
-                if (_livesRemaining <= 0)
-                {
-                    Debug.Log("Player is out of lives.");
-                    gameObject.SetActive(false);
-                    SceneManager.GetInstance().PlayerDown(); //TODO: End after one player remains, not when the first one falls.
+                Debug.Log("Player is out of lives.");
+                gameObject.SetActive(false);
+                SceneManager.GetInstance().PlayerDown(); //TODO: End after one player remains, not when the first one falls.
 
-                    //Dead
-                }
-                //respawn();
+                //Dead
             }
-            SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+            //respawn();
         }
+        SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
     }
 
     private void setInvulnerable(bool toggle)
@@ -613,16 +485,14 @@ public class Player : MovingObject
             GetComponent<MeshRenderer>().material.color = Color.red;
         }
     }
-
     private void setIsDead(bool toggle)
     {
         _isDead = toggle;
-        GetComponent<MeshRenderer>().enabled = !_isDead;
-        _rb.velocity = Vector2.zero;
-        _rb.isKinematic = _isDead;
-        _coll.enabled = !_isDead;
+        GetComponent<MeshRenderer>().enabled = !_isDead; //TODO: Very ugly way of doing this, improve it.
+        transform.position = new Vector3(28, 2, 0); //TODO: Ugly way of disabling the player.
+        _myMagicCircleLeft.gameObject.SetActive(false);
+        _myMagicCircleRight.gameObject.SetActive(false);
         _myCirclePointer.gameObject.SetActive(false);
-        _myIndicator.gameObject.SetActive(!_isDead);
         if (_isDead)
         {
             _deathTime = Time.time;
@@ -643,50 +513,19 @@ public class Player : MovingObject
 
     public void HandleSpellHit(Spell hit, int pKnockback, int pDamage, Vector2 pHitAngle)
     {
-        if (!_isDead && !_invulnerable)
-        {
-            int startingHealth = _healthRemaining;
-            int startingLives = _livesRemaining;
-            _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
-            TakeDamage(pDamage);
-            if (hit.GetPlayer() != this)
-            {
-                hit.GetPlayer().AddDamageDealt(startingHealth - _healthRemaining);
-                if (_livesRemaining < startingLives)
-                {
-                    hit.GetPlayer().AddKill();
-                }
-            }
-            _disableMovement = true;
-        }
+        _rb.velocity = new Vector2(pHitAngle.x * pKnockback, pHitAngle.y * pKnockback);
+        TakeDamage(pDamage);
+        _disableMovement = true;
     }
-
     public void TakeDamage(int dmg)
     {
-        if (!_isDead)
-        {
-            if (ID == 0)
-            {
-                SoundManager.GetInstance().PlaySound(Glob.Player1HurtSound);
-            }
-            if (ID == 1)
-            {
-                SoundManager.GetInstance().PlaySound(Glob.Player2HurtSound);
-            }
-            Debug.Log("Taking damage " + dmg);
-            myStats.damageTaken += Mathf.Min(_healthRemaining, dmg);
-            _healthRemaining -= dmg;
-            handleLives();
-        }
+        _healthRemaining -= dmg;
+        handleLives();
     }
 
-    public void AddDamageDealt(int dmg)
+    protected override void HandleCollision(Collision2D collision)
     {
-        myStats.damageDealt += dmg;
-    }
-    public void AddKill()
-    {
-        myStats.kills++;
+        //
     }
 
     public void SetSteamCloud(float pDamage, bool pBool)
@@ -695,8 +534,4 @@ public class Player : MovingObject
         steamCloudDamage = pDamage;
     }
 
-    public PlayerStats GetStats()
-    {
-        return myStats;
-    }
 }

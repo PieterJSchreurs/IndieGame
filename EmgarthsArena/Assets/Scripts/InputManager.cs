@@ -85,20 +85,4 @@ public class InputManager {
     {
         return Input.GetButtonDown(inputDictionary[Glob.Keytype.EarthElementButton]);
     }
-
-    public bool GetButtonJumpAlternative()
-    {
-        return Input.GetButton(inputDictionary[Glob.Keytype.JumpButtonJoystick]);
-    }
-
-    public bool GetButtonDownJumpAlternative()
-    {
-        return Input.GetButtonDown(inputDictionary[Glob.Keytype.JumpButtonJoystick]);
-    }
-
-
-    public bool GetButtonPause()
-    {
-        return Input.GetButtonDown(inputDictionary[Glob.Keytype.PauseButton]);
-    }
 }

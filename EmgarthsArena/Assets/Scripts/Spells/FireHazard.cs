@@ -28,6 +28,7 @@ public class FireHazard : Spell {
         if (castTime == -1)
         {
             InitializeSpell();
+            Debug.Log("Initializing spell");
         }
     }
 
@@ -44,7 +45,6 @@ public class FireHazard : Spell {
                 }
                 if (Time.time - _standingStillStartTime >= fireRemainTime)
                 {
-                    SceneManager.GetInstance().RemoveMovingObject(this);
                     Destroy(gameObject);
                 }
             }
@@ -56,12 +56,11 @@ public class FireHazard : Spell {
     }
 
     protected override void HandleCollision(Collision2D collision)
-    { 
+    {
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
             player.HandleSpellHit(this, knockback, damage, _rb.velocity.normalized);
-            SceneManager.GetInstance().RemoveMovingObject(this);
             Destroy(gameObject);
         }
         else if (collision.gameObject.GetComponent<Spell>() == null)
@@ -85,6 +84,7 @@ public class FireHazard : Spell {
         if (castTime == -1)
         {
             InitializeSpell();
+            Debug.Log("Initializing spell");
         }
         return castTime;
     }
@@ -101,13 +101,6 @@ public class FireHazard : Spell {
     // Update is called once per frame
     void Update()
     {
-        if (!_isPaused)
-        {
-            if (_coll.isTrigger && !_rb.isKinematic) //Ugly fix for when the fireHazard is taken out of pause mode (and thus has been set to not kinematic)
-            {
-                _rb.isKinematic = true;
-            }
-            Move(false);
-        }
+        Move(false);
     }
 }

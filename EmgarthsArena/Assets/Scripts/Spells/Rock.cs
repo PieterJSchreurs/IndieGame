@@ -42,7 +42,6 @@ public class Rock : Spell {
         {
             if (Mathf.Abs(_lastVelocityX) - Mathf.Abs(_rb.velocity.x) > 10f) //If the ice ball is brought to a sudden stop horizontally.
             {
-                SceneManager.GetInstance().RemoveMovingObject(this);
                 Destroy(gameObject);
             }
             if (_rb.velocity.magnitude <= 1.5f) //If the rock is stationary for 2 seconds
@@ -59,7 +58,6 @@ public class Rock : Spell {
                 }
                 if (Time.time - _standingStillStartTime >= rockRemainTime)
                 {
-                    SceneManager.GetInstance().RemoveMovingObject(this);
                     Destroy(gameObject);
                 }
             }
@@ -83,15 +81,9 @@ public class Rock : Spell {
                 {
                     Vector3 velo = _rb.velocity;
                     _rb.velocity = Vector2.zero;
-                    player.HandleSpellHit(this, knockback, Mathf.Min(damage, Mathf.RoundToInt(velo.magnitude * 10)), Mathf.Min(1, velo.magnitude) * new Vector2(Mathf.Sign(velo.normalized.x), 0));
-                    SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
+                    player.HandleSpellHit(this, knockback, Mathf.Min(damage, Mathf.RoundToInt(velo.magnitude * 10)), Mathf.Min(1, velo.magnitude) * velo.normalized);
                 }
             }
-        }
-        else if (collision.gameObject.tag == "Ground")
-        {
-            SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.2f, 0.3f);
-            SoundManager.GetInstance().PlaySound(Glob.AvalancheHitSound);
         }
     }
 
@@ -121,9 +113,6 @@ public class Rock : Spell {
     // Update is called once per frame
     void Update()
     {
-        if (!_isPaused)
-        {
-            Move(false);
-        }
+        Move(false);
     }
 }
