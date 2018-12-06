@@ -15,6 +15,8 @@ public class SoundManager : MonoBehaviour
     ParameterInstance musicIntensity;
     EventInstance UISoundEffect;
     EventInstance UISubmitSoundEffect;
+    EventInstance SnowBallEffect;
+    EventInstance RockRollEffect;
     private PLAYBACK_STATE playBackState;
     float gameIntensity;
     bool initialized = false;
@@ -36,6 +38,12 @@ public class SoundManager : MonoBehaviour
         PlaySound(Glob.WelcomeSound);
         UISoundEffect = RuntimeManager.CreateInstance(Glob.UIHoveringSound);
         UISubmitSoundEffect = RuntimeManager.CreateInstance(Glob.UISelectingSound);
+    }
+
+    public void InitializeSpellSounds()
+    {
+        SnowBallEffect = RuntimeManager.CreateInstance(Glob.SnowballRollSound);
+        RockRollEffect = RuntimeManager.CreateInstance(Glob.AvalancheHitSound);
     }
 
     public static SoundManager GetInstance()
@@ -97,6 +105,25 @@ public class SoundManager : MonoBehaviour
         if (playBackState != PLAYBACK_STATE.PLAYING)
         {
             UISubmitSoundEffect.start();
+        }
+    }
+
+    public void PlaySnowballSound()
+    {
+        SnowBallEffect.getPlaybackState(out playBackState);
+        if(playBackState != PLAYBACK_STATE.PLAYING)
+        {
+            Debug.Log("SnowballEFfect play");
+            SnowBallEffect.start();
+        }
+    }
+
+    public void PlayAvalancheHitSound()
+    {
+        RockRollEffect.getPlaybackState(out playBackState);
+        if (playBackState != PLAYBACK_STATE.PLAYING)
+        {
+            RockRollEffect.start();
         }
     }
 

@@ -42,7 +42,6 @@ public class FireWaterSpell : Spell
 
     protected override void HandleCollision(Collision2D collision)
     {
-        SoundManager.GetInstance().PlaySound(Glob.WaterballHitSound);
         if (collision.gameObject.GetComponent<Player>() != playerCaster)
         {
             base.HandleCollision(collision);

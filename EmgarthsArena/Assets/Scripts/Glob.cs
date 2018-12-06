@@ -171,6 +171,8 @@ public static class Glob
         inputControllersP1.Add(Keytype.FireButtonRight, "JoyStickRightBumper");
         inputControllersP1.Add(Keytype.SwitchButtonLeft, "JoyStickLeftTrigger");
         inputControllersP1.Add(Keytype.SwitchButtonRight, "JoyStickRightTrigger");
+        inputControllersP1.Add(Keytype.JumpButtonJoystick, "LeftJoystickPress");
+        inputControllersP1.Add(Keytype.PauseButton, "PauseButton");
 
         inputControllersP2.Add(Keytype.JumpButton, "AButton2");
         inputControllersP2.Add(Keytype.FireElementButton, "BButton2");
@@ -184,6 +186,8 @@ public static class Glob
         inputControllersP2.Add(Keytype.FireButtonRight, "JoyStickRightBumper2");
         inputControllersP2.Add(Keytype.SwitchButtonLeft, "JoyStickLeftTrigger2");
         inputControllersP2.Add(Keytype.SwitchButtonRight, "JoyStickRightTrigger2");
+        inputControllersP2.Add(Keytype.JumpButtonJoystick, "LeftJoystickPress2");
+        inputControllersP2.Add(Keytype.PauseButton, "PauseButton2");
     }
 
     //Player sounds
@@ -259,7 +263,9 @@ public static class Glob
         FireButtonLeft,
         FireButtonRight,
         SwitchButtonLeft,
-        SwitchButtonRight
+        SwitchButtonRight,
+        JumpButtonJoystick,
+        PauseButton
     }
 
     public const float FireFireSpeed = 150f;

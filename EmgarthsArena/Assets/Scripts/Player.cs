@@ -111,21 +111,7 @@ public class Player : MovingObject
     {
         if (!isFixed)
         {
-            if (Time.time > nextActionTime)
-            {
-                nextActionTime += 1;
-                if (_manaRemaining < 100)
-                {
-                    _manaRemaining += Glob.ManaIncreasePerSecond;
-                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
-                }
-                if (IsInSteamCloud)
-                {
-                    TakeDamage((int)steamCloudDamage);
-                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
-                    Debug.Log("Damage in steam cloud");
-                }
-            }
+            
             if (_isSwitchingElement && Time.time >= _changedElementTime + _changedElementDelay)
             {
                 SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, false, _firstElement, false);
@@ -137,7 +123,7 @@ public class Player : MovingObject
                 SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, true, _secondElement, false);
                 _hasSwitchedElement = false;
             }
-            if (_myInputManager.GetButtonDownJump())
+            if (_myInputManager.GetButtonDownJump() || _myInputManager.GetButtonDownJumpAlternative())
             {
                 jump();
             }
@@ -185,6 +171,21 @@ public class Player : MovingObject
         }
         else
         {
+            if (Time.time > nextActionTime)
+            {
+                nextActionTime += 1;
+                if (_manaRemaining < Glob.maxMana)
+                {
+                    _manaRemaining += Glob.ManaIncreasePerSecond;
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+                }
+                if (IsInSteamCloud)
+                {
+                    TakeDamage((int)steamCloudDamage);
+                    SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
+                    Debug.Log("Damage in steam cloud");
+                }
+            }
             _grounded = isGrounded();
             if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false)
             {
@@ -199,7 +200,7 @@ public class Player : MovingObject
             {
                 //Move vertically. (idk when that would be, ladders or something? Just a placeholder.)
             }
-            if (_myInputManager.GetButtonJump() && _rb.velocity.y > 0)
+            if ((_myInputManager.GetButtonJump() && _rb.velocity.y > 0) || (_myInputManager.GetButtonJumpAlternative() && _rb.velocity.y > 0)) 
             {
                 jumpContinuous();
             }
@@ -305,7 +306,6 @@ public class Player : MovingObject
                 _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
                 if (ID == 0)
                 {
-                    //FMODUnity.RuntimeManager.PlayOneShot("event:/Backgroundsong/Backgroundtrack");
                     SoundManager.GetInstance().PlaySound(Glob.Player1JumpSound);
                 }
                 if (ID == 1)
@@ -325,7 +325,6 @@ public class Player : MovingObject
                 _usedDoubleJump = true;
                 if (ID == 0)
                 {
-                    //FMODUnity.RuntimeManager.PlayOneShot("event:/Backgroundsong/Backgroundtrack");
                     SoundManager.GetInstance().PlaySound(Glob.Player1JumpSound);
                 }
                 if (ID == 1)
@@ -463,44 +462,50 @@ public class Player : MovingObject
         {
             position = this.transform.position + new Vector3(Math.Sign(pInput.x) * Glob.spellOffset, 0, 0);
         }
-        Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
-        launchedspelltest.SetPlayer(this);
+        //Checking wether the spell can actually fire.
+        int layerMask = 1 << 9;
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(this.transform.position.x, this.transform.position.y), pInput, 2f, layerMask);
+        if (!(hit && pSpell is EarthEarthSpell))
+        {
+            Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
+            launchedspelltest.SetPlayer(this);
 
-        SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, false, _firstElement, false);
-        SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, true, _secondElement, false);
+            SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, false, _firstElement, false);
+            SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, true, _secondElement, false);
 
-        if (pInput.x > 0)
-        {
-            pNullPoint = new Vector2(0, -1);
-            float Degrees = Vector2.Angle(pNullPoint, pInput);
-            launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees);
-        }
-        else
-        {
-            float Degrees = Vector2.Angle(pNullPoint, pInput);
-            launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees + 180);
-        }
+            if (pInput.x > 0)
+            {
+                pNullPoint = new Vector2(0, -1);
+                float Degrees = Vector2.Angle(pNullPoint, pInput);
+                launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees);
+            }
+            else
+            {
+                float Degrees = Vector2.Angle(pNullPoint, pInput);
+                launchedspelltest.transform.eulerAngles = new Vector3(launchedspelltest.transform.eulerAngles.x, launchedspelltest.transform.eulerAngles.y, Degrees + 180);
+            }
 
-        if (pSpell is EarthEarthSpell)
-        {
-            launchedspelltest.transform.parent = transform;
-        }
-        if (pSpell is WaterWaterSpell)
-        {
-            launchedspelltest.transform.position = this.transform.position;
-            WaterWaterSpell waterWaterSpell = launchedspelltest as WaterWaterSpell;
-            waterWaterSpell.SetPlayerCaster(this);
-        }
-        if (pSpell is FireWaterSpell)
-        {
-            launchedspelltest.transform.position = this.transform.position;
-            FireWaterSpell fireWaterSpell = launchedspelltest as FireWaterSpell;
-            fireWaterSpell.SetPlayerCaster(this);
-        }
-        if (pSpell is EarthWaterSpell)
-        {
-            EarthWaterSpell earthWaterSpell = launchedspelltest as EarthWaterSpell;
-            earthWaterSpell.transform.eulerAngles = new Vector3(0, 0, 0);
+            if (pSpell is EarthEarthSpell)
+            {
+                launchedspelltest.transform.parent = transform;
+            }
+            if (pSpell is WaterWaterSpell)
+            {
+                launchedspelltest.transform.position = this.transform.position;
+                WaterWaterSpell waterWaterSpell = launchedspelltest as WaterWaterSpell;
+                waterWaterSpell.SetPlayerCaster(this);
+            }
+            if (pSpell is FireWaterSpell)
+            {
+                launchedspelltest.transform.position = this.transform.position;
+                FireWaterSpell fireWaterSpell = launchedspelltest as FireWaterSpell;
+                fireWaterSpell.SetPlayerCaster(this);
+            }
+            if (pSpell is EarthWaterSpell)
+            {
+                EarthWaterSpell earthWaterSpell = launchedspelltest as EarthWaterSpell;
+                earthWaterSpell.transform.eulerAngles = new Vector3(0, 0, 0);
+            }
         }
     }
 

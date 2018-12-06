@@ -486,11 +486,43 @@ InputManager:
     axis: 9
     joyNum: 1
   - serializedVersion: 3
-    m_Name: LeftJoystickPress
+    m_Name: LeftJoystickPress2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick 2 button 8
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 0
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 9
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: PauseButton
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 2 button 7
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 0
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 9
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: PauseButton2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 2 button 7
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0

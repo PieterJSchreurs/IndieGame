@@ -8,9 +8,9 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
+  m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1558248338249960}
-  m_IsPrefabAsset: 1
+  m_IsPrefabParent: 1
 --- !u!1 &1558248338249960
 GameObject:
   m_ObjectHideFlags: 0
@@ -50,7 +50,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1640722912021728}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -29.032}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.18538177, y: 0.19487, z: 1}
   m_Children: []
   m_Father: {fileID: 4670575742304942}
@@ -63,7 +63,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558248338249960}
   m_LocalRotation: {x: -0.49309158, y: -0.50681424, z: 0.50681424, w: 0.49309158}
-  m_LocalPosition: {x: 5.54, y: 117.21, z: -225.83}
+  m_LocalPosition: {x: 9.792051, y: 112.69811, z: -242.5809}
   m_LocalScale: {x: 0.27048978, y: 0.62116, z: 1}
   m_Children:
   - {fileID: 4220488787748996}

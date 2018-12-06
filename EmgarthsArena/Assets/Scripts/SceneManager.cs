@@ -133,6 +133,7 @@ public class SceneManager : MonoBehaviour {
 
         currentArena.SetCameraTargets(allPlayers);
         this.gameObject.AddComponent<FMODUnity.StudioListener>();
+        SoundManager.GetInstance().InitializeSpellSounds();
         SoundManager.GetInstance().StartBackgroundMusic();
         SoundManager.GetInstance().SetBackGroundMusicIntensity(0.45f);
         SoundManager.GetInstance().PlaySound(Glob.FightSound);
