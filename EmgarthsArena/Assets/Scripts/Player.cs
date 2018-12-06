@@ -43,6 +43,7 @@ public class Player : MovingObject
     private bool _usedDoubleJump = false;
     private float _jumpTime = 0;
     private int ID;
+    public GameObject characterModel;
 
     private float steamCloudDamage = 0;
     public bool IsInSteamCloud = false; //Fix mana cost, fix pillar.
@@ -68,6 +69,14 @@ public class Player : MovingObject
         myStats.kills = 0;
         myStats.damageDealt = 0;
         myStats.damageTaken = 0;
+        if (pPlayerIndex == 0)
+        {
+            characterModel = GameObject.Find("PlayerOrangeModel");
+        }
+        if (pPlayerIndex == 1)
+        {
+            characterModel = GameObject.Find("PlayerBlueModel");
+        }
 
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
 
@@ -197,6 +206,14 @@ public class Player : MovingObject
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
                 _rb.velocity = new Vector2(-_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Mathf.Min(Mathf.Abs(_rb.velocity.x / 2) + 0.5f, 1), _rb.velocity.y);
+                if (_rb.velocity.x > 0)
+                {
+                    characterModel.transform.localEulerAngles = new Vector3(0, 90, 0);
+                }
+                if (_rb.velocity.x < 0)
+                {
+                    characterModel.transform.localEulerAngles = new Vector3(0, -90, 0);
+                }
                 //Move horizontally.
             }
             if (_myInputManager.GetAxisMoveVertical() != 0)
