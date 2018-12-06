@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class SliderScript : Selectable {
 
     public Slider MySlider;
+    public Text MyText;
 
     private string myAxis;
 
@@ -21,6 +22,7 @@ public class SliderScript : Selectable {
     void Start () {
         myAxis = EventSystem.current.GetComponent<StandaloneInputModule>().horizontalAxis;
         MySlider.value = AudioListener.volume; //TODO: Should only be for the volume slider.
+        MyText.text = Mathf.RoundToInt(MySlider.value * 100).ToString();
     }
 
     //Use this to check what Events are happening
@@ -54,6 +56,7 @@ public class SliderScript : Selectable {
                         lastScroll = Time.time;
                     }
                 }
+                MyText.text = Mathf.RoundToInt(MySlider.value * 100).ToString();
             }
             else if (scrollingContinuous || waitingForContinuous)
             {

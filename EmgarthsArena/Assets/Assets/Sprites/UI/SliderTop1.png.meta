@@ -1,9 +1,10 @@
 fileFormatVersion: 2
-guid: c3e485c471dad774eb47fafd566ef706
-timeCreated: 1544087026
+guid: 86adef05e367156408f94bc8a7d81912
+timeCreated: 1544095356
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: SliderTop1_0
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -40,7 +41,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -88,7 +89,21 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: SliderTop1_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 34
+        width: 593
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 32, y: 7, z: 15, w: 7}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 

@@ -33,7 +33,6 @@ public class EarthWaterSpell : Spell {
                 nextAction += 0.1f;
                 this.gameObject.transform.localScale += new Vector3(0, 0.1f, 0);
             }
-           
         }
     }
 
@@ -65,6 +64,9 @@ public class EarthWaterSpell : Spell {
     }
     // Update is called once per frame
     void Update () {
-        Move(true);
+        if (!_isPaused)
+        {
+            Move(true);
+        }
 	}
 }

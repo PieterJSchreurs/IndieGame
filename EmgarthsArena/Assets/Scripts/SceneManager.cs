@@ -8,7 +8,6 @@ using FMODUnity;
 public class SceneManager : MonoBehaviour {
     private static SceneManager _instance;
 
- 
     public static SceneManager GetInstance()
     {
         if (_instance == null)
@@ -34,6 +33,8 @@ public class SceneManager : MonoBehaviour {
     private int playersAlive;
     private bool initializingMatch = false;
 
+    private List<MovingObject> allMovingObjects = new List<MovingObject>();
+
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -55,6 +56,39 @@ public class SceneManager : MonoBehaviour {
         
     }
    
+    public void TogglePauseAllPlayers(bool pToggle)
+    {
+        for (int i = 0; i < allPlayers.Length; i++)
+        {
+            allPlayers[i].TogglePaused(pToggle);
+        }
+    }
+
+    public void TogglePauseGame(bool pToggle)
+    {
+        for (int i = 0; i < allMovingObjects.Count; i++)
+        {
+            allMovingObjects[i].TogglePaused(pToggle);
+        }
+    }
+
+    public void AddMovingObject(MovingObject obj)
+    {
+        if (!allMovingObjects.Contains(obj))
+        {
+            Debug.Log("ADDED an object: " + obj.name);
+            allMovingObjects.Add(obj);
+        }
+    }
+    public void RemoveMovingObject(MovingObject obj)
+    {
+        if (allMovingObjects.Contains(obj))
+        {
+            Debug.Log("Removed an object: " + obj.name);
+            allMovingObjects.Remove(obj);
+        }
+    }
+
     public void SwitchScene(int id)
     {
         SoundManager.GetInstance().StopBackGroundMusic();
@@ -123,7 +157,7 @@ public class SceneManager : MonoBehaviour {
             {
                 for (int i = 0; i < allPlayers.Length; i++)
                 {
-                    GameObject newPlayer = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
+                    GameObject newPlayer = Instantiate(Glob.GetPlayerPrefab(), currentArena.GetRespawnPoint(i), new Quaternion(0, 0, 0, 0));
                     newPlayer.name = "Player" + i;
                     allPlayers[i] = newPlayer.AddComponent<Player>().GetPlayer(i);
                     //Give the players their correct ID, and their correct InputManager.

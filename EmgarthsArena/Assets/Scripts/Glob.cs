@@ -10,7 +10,7 @@ public static class Glob
         if (playerCount == -1)
         {
             //Testing purposes adding an empty player.
-            playerCount = Input.GetJoystickNames().Length;
+            playerCount = Input.GetJoystickNames().Length+1;
         }
         return playerCount;
     }
@@ -18,7 +18,7 @@ public static class Glob
     public const float camXOffset = 0f;
     public const float camYOffset = 3.25f;
     public const float camZOffset = -15f;
-    public const float camSpeed = 0.15f;
+    public const float camSpeed = 0.25f;
     public const int maxLives = 5;
     public const int maxHealth = 100;
     public const int maxMana = 100;
@@ -254,5 +254,14 @@ public static class Glob
     public const float EarthEarthSpeed = 10f;
     public const float FireHazardSpeed = 5;
 
-   
+
+    private const int numberCount = 3;
+    public const string BaseNumberPrefab = "UI/CD";
+    public const string NumberPrefab1 = "UI/CD1";
+    public const string NumberPrefab2 = "UI/CD2";
+    public const string NumberPrefab3 = "UI/CD3";
+
+    public const string FightPrefab = "UI/CDFight";
+
+
 }

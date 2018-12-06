@@ -90,7 +90,7 @@ public class Player : MovingObject
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!_isDead)
+        if (!_isDead && !_isPaused)
         {
             Move(true);
         }
@@ -100,7 +100,7 @@ public class Player : MovingObject
 
     void Update()
     {
-        if (!_isDead)
+        if (!_isDead && !_isPaused)
         {
             Move(false);
             HandleAimPointer();
@@ -111,9 +111,9 @@ public class Player : MovingObject
     {
         if (!isFixed)
         {
-            if (Time.time > nextActionTime)
+            if (Time.time - nextActionTime >= 1)
             {
-                nextActionTime += 1;
+                nextActionTime  = Time.time;
                 if (_manaRemaining < 100)
                 {
                     _manaRemaining += Glob.ManaIncreasePerSecond;
@@ -438,6 +438,22 @@ public class Player : MovingObject
 
         yield return new WaitForSeconds(castTime);
 
+        Debug.Log(_isPaused);
+
+        if (_isPaused)
+        {
+            _manaRemaining += (int)pSpell.GetManaCost();
+            _castingParticle.Stop();
+            _castingSpell = false;
+            if (_manaRemaining > Glob.maxMana)
+            {
+                _manaRemaining = Glob.maxMana;
+            }
+            yield break;
+        }
+
+        Debug.Log("ITS STILL GOING!");
+
         if (pInput != new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && (_myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0))
         {
             pInput = new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical());
@@ -452,6 +468,7 @@ public class Player : MovingObject
             position = this.transform.position + new Vector3(Math.Sign(pInput.x) * Glob.spellOffset, 0, 0);
         }
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
+        //SceneManager.GetInstance().AddMovingObject(launchedspelltest);
         launchedspelltest.SetPlayer(this);
 
         SceneManager.GetInstance().GetCurrentArena().GlowPlayerBannerElement(ID, false, _firstElement, false);
@@ -600,6 +617,7 @@ public class Player : MovingObject
         _rb.isKinematic = _isDead;
         _coll.enabled = !_isDead;
         _myCirclePointer.gameObject.SetActive(false);
+        _myIndicator.gameObject.SetActive(!_isDead);
         if (_isDead)
         {
             _deathTime = Time.time;

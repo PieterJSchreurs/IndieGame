@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireWaterSpell : Spell
 {
     private Player playerCaster;
+    private List<Player> damagingPlayers = new List<Player>();
 
     private void InitializeSpell()
     {
@@ -38,6 +39,14 @@ public class FireWaterSpell : Spell
     public Player GetPlayerCaster()
     {
         return playerCaster;
+    }
+
+    public void AddPlayerInSteam(Player plyr)
+    {
+        if (!damagingPlayers.Contains(plyr))
+        {
+            damagingPlayers.Add(plyr);
+        }
     }
 
     protected override void HandleCollision(Collision2D collision)
@@ -77,9 +86,35 @@ public class FireWaterSpell : Spell
         }
         return manaDrain;
     }
+
+    void OnDestroy()
+    {
+        for (int i = 0; i < damagingPlayers.Count; i++)
+        {
+            damagingPlayers[i].SetSteamCloud(damage, false);
+        }
+        //ContactFilter2D contactFilter2D = new ContactFilter2D();
+        //Collider2D[] intersectingresults = new Collider2D[9];
+        //_coll.OverlapCollider(contactFilter2D, intersectingresults);
+
+        //foreach (Collider2D col in intersectingresults)
+        //{
+        //    if (col != null)
+        //    {
+        //        Debug.Log(col.name);
+        //        if (col.gameObject.GetComponent<Player>() != null)
+        //        {
+        //            col.gameObject.GetComponent<Player>().SetSteamCloud(damage, false);
+        //        }
+        //    }
+        //}
+
+        SceneManager.GetInstance().RemoveMovingObject(this);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        Destroy(this.gameObject, Glob.FireWaterAliveTime);
+        Destroy(this.gameObject, Glob.FireWaterAliveTime); //TODO: Toggle all players to be out of the steam cloud (currently continues damaging infinitely)
     }
 }
