@@ -9,7 +9,7 @@ public class FireFireSpell : Spell {
     {
         knockback = 50;
         damage = 80;
-        castTime = 1.5f;
+        castTime = 1f;
         manaDrain = 70;
         spellType = SpellDatabase.SpellType.Projectile;
         attackType = SpellDatabase.AttackType.Heavy;
