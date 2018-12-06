@@ -99,6 +99,6 @@ public class InputManager {
 
     public bool GetButtonPause()
     {
-        return Input.GetButton(inputDictionary[Glob.Keytype.PauseButton]);
+        return Input.GetButtonDown(inputDictionary[Glob.Keytype.PauseButton]);
     }
 }

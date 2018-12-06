@@ -100,6 +100,10 @@ public class Player : MovingObject
 
     void Update()
     {
+        if (_myInputManager.GetButtonPause())
+        {
+            SceneManager.GetInstance().TogglePauseGame(!_isPaused);
+        }
         if (!_isDead && !_isPaused)
         {
             Move(false);
@@ -113,7 +117,7 @@ public class Player : MovingObject
         {
             if (Time.time - nextActionTime >= 1)
             {
-                nextActionTime  = Time.time;
+                nextActionTime = Time.time;
                 if (_manaRemaining < 100)
                 {
                     _manaRemaining += Glob.ManaIncreasePerSecond;
@@ -137,7 +141,7 @@ public class Player : MovingObject
                 SceneManager.GetInstance().GetCurrentArena().GlowBackgroundPlayerBannerElement(ID, true, _secondElement, false);
                 _hasSwitchedElement = false;
             }
-            if (_myInputManager.GetButtonDownJump())
+            if (_myInputManager.GetButtonDownJump() || _myInputManager.GetButtonDownJumpAlternative())
             {
                 jump();
             }
@@ -199,7 +203,7 @@ public class Player : MovingObject
             {
                 //Move vertically. (idk when that would be, ladders or something? Just a placeholder.)
             }
-            if (_myInputManager.GetButtonJump() && _rb.velocity.y > 0)
+            if ((_myInputManager.GetButtonJump() && _rb.velocity.y > 0) || (_myInputManager.GetButtonJumpAlternative() && _rb.velocity.y > 0))
             {
                 jumpContinuous();
             }
@@ -312,7 +316,7 @@ public class Player : MovingObject
                 {
                     SoundManager.GetInstance().PlaySound(Glob.Player2JumpSound);
                 }
-                
+
                 _jumpTime = Time.time;
             }
             else if (!_usedDoubleJump)
@@ -512,12 +516,13 @@ public class Player : MovingObject
     public void PlaySpellSound(Spell pSpell)
     {
         int random = UnityEngine.Random.Range(0, Glob.randomAttackSoundChance);
-        if(random == 1)
+        if (random == 1)
         {
-            if(ID == 0)
+            if (ID == 0)
             {
                 SoundManager.GetInstance().PlaySound(Glob.Player1AttackSound);
-            } if(ID == 1)
+            }
+            if (ID == 1)
             {
                 SoundManager.GetInstance().PlaySound(Glob.Player2AttackSound);
             }
@@ -542,7 +547,7 @@ public class Player : MovingObject
         {
             RuntimeManager.PlayOneShot(Glob.WaterblastSound);
         }
-        if(pSpell is WaterEarthSpell)
+        if (pSpell is WaterEarthSpell)
         {
             RuntimeManager.PlayOneShot(Glob.SnowballCastSound);
         }

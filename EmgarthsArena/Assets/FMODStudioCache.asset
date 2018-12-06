@@ -2309,6 +2309,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2500
+--- !u!114 &114247556701396448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636797079596766745
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2910
+  Exists: 1
 --- !u!114 &114248188254293544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2748,6 +2766,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2375
+--- !u!114 &114287282390970656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636797079596637107
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20137120
+  Exists: 1
 --- !u!114 &114287936283915646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3646,6 +3683,28 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114377239555981536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Tutorialsounds
+  guid: 01fd0ef30900f644ba2f856ff2abd8e8
+  Banks:
+  - {fileID: 114287282390970656}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 141399
 --- !u!114 &114377561492670460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3778,6 +3837,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2031
+--- !u!114 &114390075468652290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636797079596637107
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20137120
+  Exists: 1
 --- !u!114 &114391446244017610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4188,6 +4266,21 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1500
+--- !u!114 &114434794636232560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114437108595459918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4210,6 +4303,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 24062
+--- !u!114 &114439589888343346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114442703522605720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5134,6 +5242,21 @@ MonoBehaviour:
   - Name: Desktop
     Value: 20132640
   Exists: 1
+--- !u!114 &114529951059821004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114530422277157450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5549,6 +5672,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1250
+--- !u!114 &114567480852314740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Tutorialsounds
+  guid: 01fd0ef30900f644ba2f856ff2abd8e8
+  Banks:
+  - {fileID: 114390075468652290}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 141399
 --- !u!114 &114567504909520136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7010,6 +7155,25 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3125
+--- !u!114 &114736607112222312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\piete\Documents\Repositories\IndieGame\EmgarthsArena\Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636797079596637107
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 20137120
+  Exists: 1
 --- !u!114 &114738436079753308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8057,6 +8221,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 500
+--- !u!114 &114856811005311206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Tutorialsounds
+  guid: 01fd0ef30900f644ba2f856ff2abd8e8
+  Banks:
+  - {fileID: 114736607112222312}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 141399
 --- !u!114 &114862183620036518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9096,6 +9282,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1672
+--- !u!114 &114960396599535344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636797079596766745
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2910
+  Exists: 1
 --- !u!114 &114960571697299532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9482,6 +9686,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2500
+--- !u!114 &114995058117292102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636797079596766745
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2910
+  Exists: 1
 --- !u!114 &114995787262093188
 MonoBehaviour:
   m_ObjectHideFlags: 0
