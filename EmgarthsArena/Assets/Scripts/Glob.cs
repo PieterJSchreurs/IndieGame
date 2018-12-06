@@ -32,9 +32,9 @@ public static class Glob
     public const float jumpTimeContinuous = 0.8f;
     public const float jumpDoubleTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
-    public const float WaterwaterAliveTime = 0.7f;
+    public const float WaterwaterAliveTime = 1;
     public const float FireWaterAliveTime = 5f;
-    public const float EarthWaterAliveTime = 5f;
+    public const float EarthWaterAliveTime = 3f;
     public const float ManaIncreasePerSecond = 6f;
     public const float MistStayingTime = 3f;
 
@@ -115,7 +115,7 @@ public static class Glob
     public const string EarthWaterPrefab = "Spells/EarthWater";
     public const string EarthEarthPrefab = "Spells/EarthEarth";
     public const int SpellCount = 9;
-    public const float maxPilarHeight = 3f;
+    public const float maxPilarHeight = 1f;
 
     public const string RockPrefab = "Spells/Rock";
     public const string FireHazardPrefab = "Spells/FireHazard";
@@ -171,6 +171,8 @@ public static class Glob
         inputControllersP1.Add(Keytype.FireButtonRight, "JoyStickRightBumper");
         inputControllersP1.Add(Keytype.SwitchButtonLeft, "JoyStickLeftTrigger");
         inputControllersP1.Add(Keytype.SwitchButtonRight, "JoyStickRightTrigger");
+        inputControllersP1.Add(Keytype.JumpButtonJoystick, "LeftJoystickPress");
+        inputControllersP1.Add(Keytype.PauseButton, "PauseButton");
 
         inputControllersP2.Add(Keytype.JumpButton, "AButton2");
         inputControllersP2.Add(Keytype.FireElementButton, "BButton2");
@@ -184,6 +186,8 @@ public static class Glob
         inputControllersP2.Add(Keytype.FireButtonRight, "JoyStickRightBumper2");
         inputControllersP2.Add(Keytype.SwitchButtonLeft, "JoyStickLeftTrigger2");
         inputControllersP2.Add(Keytype.SwitchButtonRight, "JoyStickRightTrigger2");
+        inputControllersP2.Add(Keytype.JumpButtonJoystick, "LeftJoystickPress2");
+        inputControllersP2.Add(Keytype.PauseButton, "PauseButton2");
     }
 
     //Player sounds
@@ -191,8 +195,13 @@ public static class Glob
     public const string Player2JumpSound = "event:/Player2/Jump2";
     public const string Player1HurtSound = "event:/Player1/Hurt1";
     public const string Player2HurtSound = "event:/Player2/Hurt2";
-    public const string Player1AttackSound = "event/Player1/Attack1";
-    public const string Player2AttackSound = "event/Player2/Attack2";
+    public const string Player1AttackSound = "event:/Player1/Attack1";
+    public const string Player2AttackSound = "event:/Player2/Attack2";
+    public const string Player1FallSound = "event:/Player1/Falling1";
+    public const string Player2FallSound = "event:/Player2/Falling2";
+    public const string PlayerHitSound = "event:/Playerhit/Hit";
+    public const string Player1WinSound = "event:/Player1/Celebrate1";
+    public const string Player2WinSound = "event:/Player2/Celebrate2";
 
     //Spell sounds.
     public const string AvalancheChargeSound = "event:/Spells/Avalanchecharge";
@@ -202,13 +211,27 @@ public static class Glob
     public const string FirerockImpactSound = "event:/Spells/Firerockimpact";
     public const string FirerockThrowSound = "event:/Spells/Firerockttrhow";
     public const string MeteordropSound = "event:/Spells/Meteordrop";
+    public const string MeteorExplosionSound = "event:/Spells/Meteorexplosion";
     public const string MeteorThrowSound = "event:/Spells/Meteorthrow";
     public const string SnowballCastSound = "event:/Spells/SnowballCast";
     public const string SnowballImpactSound = "event:/Spells/Snowballimpact";
     public const string SnowballRollSound = "event:/Spells/Snowballroll";
     public const string SteamcircleSound = "event:/Spells/Steamcircle";
     public const string WaterballSound = "event:/Spells/Waterball";
+    public const string WaterballHitSound = "event:/Spells/Waterballhit";
     public const string WaterblastSound = "event:/Spells/Waterblast";
+
+    public const string FightSound = "event:/Announcer/321Fight";
+    public const string FuckAroundSound = "event:/Announcer/Fuckaround";
+    public const string GameOverSound = "event:/Announcer/Gameover";
+    public const string IntroDialogueSound = "event/Introdialogue";
+    public const string WelcomeSound = "event:/Announcer/Welcome";
+    public const string YouWinSound = "event:/Announcer/Youwin";
+
+    //UI & general
+    public const string UIHoveringSound = "event:/UI/Hovering";
+    public const string UISelectingSound = "event:/UI/Selecting";
+    public const string EmptyManaSound = "event:/UI/Emptymana";
 
 
     public static Dictionary<Keytype, string> GetInputDictionary(int pPlayerNumber)
@@ -240,7 +263,9 @@ public static class Glob
         FireButtonLeft,
         FireButtonRight,
         SwitchButtonLeft,
-        SwitchButtonRight
+        SwitchButtonRight,
+        JumpButtonJoystick,
+        PauseButton
     }
 
     public const float FireFireSpeed = 150f;
@@ -253,6 +278,4 @@ public static class Glob
     public const float EarthWaterSpeed = 0f;
     public const float EarthEarthSpeed = 10f;
     public const float FireHazardSpeed = 5;
-
-   
 }

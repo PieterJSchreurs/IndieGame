@@ -131,6 +131,5 @@ public class EarthEarthSpell : Spell {
     // Update is called once per frame
     void Update () {
         Move(false);
-
     }
 }

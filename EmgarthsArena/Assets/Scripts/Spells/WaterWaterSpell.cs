@@ -21,6 +21,8 @@ public class WaterWaterSpell : Spell {
         SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
         base.Start();
         _rb.velocity = -_rb.transform.up * Glob.WaterWaterSpeed;
+        this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+        this.gameObject.transform.localPosition -= new Vector3(0, 1, 0);
         InitializeSpell();
     }
 

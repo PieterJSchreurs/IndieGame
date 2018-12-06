@@ -81,6 +81,7 @@ public class WaterEarthSpell : Spell {
         else if (collision.gameObject.tag == "Ground")
         {
             SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.2f, 0.3f);
+            SoundManager.GetInstance().PlaySound(Glob.SnowballRollSound);
         }
         //base.HandleCollision(collision);
         //Destroy the object.

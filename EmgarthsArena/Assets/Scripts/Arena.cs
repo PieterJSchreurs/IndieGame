@@ -387,6 +387,7 @@ public class Arena : MonoBehaviour {
             {
                 Player player = other.gameObject.GetComponent<Player>();
                 player.TakeDamage(Glob.maxHealth);
+              
             }
             else
             {
