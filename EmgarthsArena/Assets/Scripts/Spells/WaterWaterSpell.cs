@@ -5,7 +5,6 @@ using UnityEngine;
 public class WaterWaterSpell : Spell {
 
     private Player playerCaster;
-    private float AliveTime;
 
     private void InitializeSpell()
     {
@@ -15,13 +14,15 @@ public class WaterWaterSpell : Spell {
         manaDrain = 15;
         spellType = SpellDatabase.SpellType.Projectile;
         attackType = SpellDatabase.AttackType.Medium;
-        AliveTime = Time.time;
     }
 
     // Use this for initialization
     void Start () {
+        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
         base.Start();
         _rb.velocity = -_rb.transform.up * Glob.WaterWaterSpeed;
+        this.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+        this.gameObject.transform.localPosition -= new Vector3(0, 1, 0);
         InitializeSpell();
     }
 
@@ -77,9 +78,6 @@ public class WaterWaterSpell : Spell {
 
     // Update is called once per frame
     void Update () {
-		if(Time.time >= AliveTime + Glob.WaterwaterAliveTime)
-        {
-            Destroy(this.gameObject);
-        }
+        Destroy(this.gameObject, Glob.WaterwaterAliveTime);
 	}
 }

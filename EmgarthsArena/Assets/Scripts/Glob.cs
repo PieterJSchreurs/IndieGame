@@ -10,7 +10,7 @@ public static class Glob
         if (playerCount == -1)
         {
             //Testing purposes adding an empty player.
-            playerCount = Input.GetJoystickNames().Length;
+            playerCount = Input.GetJoystickNames().Length+1;
         }
         return playerCount;
     }
@@ -18,7 +18,7 @@ public static class Glob
     public const float camXOffset = 0f;
     public const float camYOffset = 3.25f;
     public const float camZOffset = -15f;
-    public const float camSpeed = 0.15f;
+    public const float camSpeed = 0.25f;
     public const int maxLives = 5;
     public const int maxHealth = 100;
     public const int maxMana = 100;
@@ -33,7 +33,9 @@ public static class Glob
     public const float jumpDoubleTimeContinuous = 0.8f;
     public const float spellOffset = 2f;
     public const float WaterwaterAliveTime = 0.7f;
-    public const float ManaIncreasePerSecond = 3f;
+    public const float FireWaterAliveTime = 5f;
+    public const float EarthWaterAliveTime = 5f;
+    public const float ManaIncreasePerSecond = 6f;
     public const float MistStayingTime = 3f;
 
     public static GameObject GetKnockback()
@@ -52,7 +54,18 @@ public static class Glob
         return Resources.Load<GameObject>(PlayerPrefab);
     }
     public const string PlayerBannerPrefab = "UI/PlayerBanner/CharacterBanner";
-    public const string ResolutionScreenStatsPrefab = "UI/ResolutionScreen/PlayerStats";
+
+    public const int PlayerWinLoseCount = 2;
+    public const string PlayerWinBase = "UI/ResolutionScreen/PlayerWin";
+    public const string PlayerLoseBase = "UI/ResolutionScreen/PlayerLose";
+    public const string PlayerWinPrefab1 = "UI/ResolutionScreen/PlayerWin1";
+    public const string PlayerLosePrefab1 = "UI/ResolutionScreen/PlayerLose1";
+    public const string PlayerWinPrefab2 = "UI/ResolutionScreen/PlayerWin2";
+    public const string PlayerLosePrefab2 = "UI/ResolutionScreen/PlayerLose2";
+
+    public const string PlayerWinTitleBase = "UI/ResolutionScreen/PlayerWinTitle";
+    public const string PlayerWinTitle1 = "UI/ResolutionScreen/PlayerWinTitle1";
+    public const string PlayerWinTitle2 = "UI/ResolutionScreen/PlayerWinTitle2";
 
     public const string FullLifeCrystalBase = "UI/PlayerBanner/CrystalLive";
     public const string FullLifeCrystal1 = "UI/PlayerBanner/CrystalLive1";
@@ -73,6 +86,9 @@ public static class Glob
     public const string FireElementSelectedIcon = "UI/PlayerBanner/ElementIcon/FireSymbolSelected";
     public const string WaterElementSelectedIcon = "UI/PlayerBanner/ElementIcon/WaterSymbolSelected";
     public const string EarthElementSelectedIcon = "UI/PlayerBanner/ElementIcon/EarthSymbolSelected";
+    public const string FireBackgroundGlow = "UI/PlayerBanner/SelectedGlowFire";
+    public const string WaterBackgroundGlow = "UI/PlayerBanner/SelectedGlowWater";
+    public const string EarthBackgroundGlow = "UI/PlayerBanner/SelectedGlowEarth";
 
     private const int arenaCount = 2;
     public const string BaseArenaPrefab = "Arenas/Arena";
@@ -99,6 +115,7 @@ public static class Glob
     public const string EarthWaterPrefab = "Spells/EarthWater";
     public const string EarthEarthPrefab = "Spells/EarthEarth";
     public const int SpellCount = 9;
+    public const float maxPilarHeight = 3f;
 
     public const string RockPrefab = "Spells/Rock";
     public const string FireHazardPrefab = "Spells/FireHazard";
@@ -128,6 +145,7 @@ public static class Glob
     public static Dictionary<Keytype, string> keyboardControllers = new Dictionary<Keytype, string>();
     public static Dictionary<Keytype, string> inputControllersP1 = new Dictionary<Keytype, string>();
     public static Dictionary<Keytype, string> inputControllersP2 = new Dictionary<Keytype, string>();
+    public const int randomAttackSoundChance = 10;
 
     public static void FillInputDictionary()
     {
@@ -153,6 +171,8 @@ public static class Glob
         inputControllersP1.Add(Keytype.FireButtonRight, "JoyStickRightBumper");
         inputControllersP1.Add(Keytype.SwitchButtonLeft, "JoyStickLeftTrigger");
         inputControllersP1.Add(Keytype.SwitchButtonRight, "JoyStickRightTrigger");
+        inputControllersP1.Add(Keytype.JumpButtonJoystick, "LeftJoystickPress");
+        inputControllersP1.Add(Keytype.PauseButton, "PauseButton");
 
         inputControllersP2.Add(Keytype.JumpButton, "AButton2");
         inputControllersP2.Add(Keytype.FireElementButton, "BButton2");
@@ -166,7 +186,52 @@ public static class Glob
         inputControllersP2.Add(Keytype.FireButtonRight, "JoyStickRightBumper2");
         inputControllersP2.Add(Keytype.SwitchButtonLeft, "JoyStickLeftTrigger2");
         inputControllersP2.Add(Keytype.SwitchButtonRight, "JoyStickRightTrigger2");
+        inputControllersP2.Add(Keytype.JumpButtonJoystick, "LeftJoystickPress2");
+        inputControllersP2.Add(Keytype.PauseButton, "PauseButton2");
     }
+
+    //Player sounds
+    public const string Player1JumpSound = "event:/Player1/Jump1";
+    public const string Player2JumpSound = "event:/Player2/Jump2";
+    public const string Player1HurtSound = "event:/Player1/Hurt1";
+    public const string Player2HurtSound = "event:/Player2/Hurt2";
+    public const string Player1AttackSound = "event:/Player1/Attack1";
+    public const string Player2AttackSound = "event:/Player2/Attack2";
+    public const string Player1FallSound = "event:/Player1/Falling1";
+    public const string Player2FallSound = "event:/Player2/Falling2";
+    public const string PlayerHitSound = "event:/Playerhit/Hit";
+    public const string Player1WinSound = "event:/Player1/Celebrate1";
+    public const string Player2WinSound = "event:/Player2/Celebrate2";
+
+    //Spell sounds.
+    public const string AvalancheChargeSound = "event:/Spells/Avalanchecharge";
+    public const string AvalancheHitSound = "event:/Spells/Avalanchehit";
+    public const string EarthPillarsSound = "event:/Spells/Earthpillars";
+    public const string FireBeamSound = "event:/Spells/Firebeam";
+    public const string FirerockImpactSound = "event:/Spells/Firerockimpact";
+    public const string FirerockThrowSound = "event:/Spells/Firerockttrhow";
+    public const string MeteordropSound = "event:/Spells/Meteordrop";
+    public const string MeteorExplosionSound = "event:/Spells/Meteorexplosion";
+    public const string MeteorThrowSound = "event:/Spells/Meteorthrow";
+    public const string SnowballCastSound = "event:/Spells/SnowballCast";
+    public const string SnowballImpactSound = "event:/Spells/Snowballimpact";
+    public const string SnowballRollSound = "event:/Spells/Snowballroll";
+    public const string SteamcircleSound = "event:/Spells/Steamcircle";
+    public const string WaterballSound = "event:/Spells/Waterball";
+    public const string WaterballHitSound = "event:/Spells/Waterballhit";
+    public const string WaterblastSound = "event:/Spells/Waterblast";
+
+    public const string FightSound = "event:/Announcer/321Fight";
+    public const string FuckAroundSound = "event:/Announcer/Fuckaround";
+    public const string GameOverSound = "event:/Announcer/Gameover";
+    public const string IntroDialogueSound = "event/Introdialogue";
+    public const string WelcomeSound = "event:/Announcer/Welcome";
+    public const string YouWinSound = "event:/Announcer/Youwin";
+
+    //UI & general
+    public const string UIHoveringSound = "event:/UI/Hovering";
+    public const string UISelectingSound = "event:/UI/Selecting";
+    public const string EmptyManaSound = "event:/UI/Emptymana";
 
     public static Dictionary<Keytype, string> GetInputDictionary(int pPlayerNumber)
     {
@@ -197,7 +262,9 @@ public static class Glob
         FireButtonLeft,
         FireButtonRight,
         SwitchButtonLeft,
-        SwitchButtonRight
+        SwitchButtonRight,
+        JumpButtonJoystick,
+        PauseButton
     }
 
     public const float FireFireSpeed = 150f;
@@ -207,8 +274,18 @@ public static class Glob
     public const float WaterWaterSpeed = 0f;
     public const float WaterEarthSpeed = 10f;
     public const float EarthFireSpeed = 25f;
-    public const float EarthWaterSpeed = 10f;
+    public const float EarthWaterSpeed = 0f;
     public const float EarthEarthSpeed = 10f;
-
     public const float FireHazardSpeed = 5;
+
+
+    private const int numberCount = 3;
+    public const string BaseNumberPrefab = "UI/CD";
+    public const string NumberPrefab1 = "UI/CD1";
+    public const string NumberPrefab2 = "UI/CD2";
+    public const string NumberPrefab3 = "UI/CD3";
+
+    public const string FightPrefab = "UI/CDFight";
+
+
 }

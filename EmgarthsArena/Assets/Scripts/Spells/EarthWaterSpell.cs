@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class EarthWaterSpell : Spell {
 
+    private float nextAction = 0.0f;
+
     private void InitializeSpell()
     {
-        knockback = 50;
+        knockback = 0;
         damage = 0;
-        castTime = 0.5f;
+        castTime = 0.10f;
         manaDrain = 20;
         spellType = SpellDatabase.SpellType.SolidObject;
         attackType = SpellDatabase.AttackType.Medium;
@@ -23,7 +25,15 @@ public class EarthWaterSpell : Spell {
 
     protected override void Move(bool isFixed)
     {
-
+        if(isFixed)
+        {
+            Destroy(this.gameObject, Glob.EarthWaterAliveTime);
+            if(Time.time > nextAction && this.gameObject.transform.localScale.y < Glob.maxPilarHeight)
+            {
+                nextAction += 0.1f;
+                this.gameObject.transform.localScale += new Vector3(0, 0.1f, 0);
+            }
+        }
     }
 
     protected override void HandleCollision(Collision2D collision)
@@ -54,6 +64,9 @@ public class EarthWaterSpell : Spell {
     }
     // Update is called once per frame
     void Update () {
-		
+        if (!_isPaused)
+        {
+            Move(true);
+        }
 	}
 }

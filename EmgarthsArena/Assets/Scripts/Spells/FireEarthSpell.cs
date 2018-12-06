@@ -7,7 +7,7 @@ public class FireEarthSpell : Spell
 
     private void InitializeSpell()
     {
-        knockback = 20;
+        knockback = 35;
         damage = 25;
         castTime = 0.5f;
         manaDrain = 15;
@@ -29,16 +29,20 @@ public class FireEarthSpell : Spell
 
     protected override void HandleCollision(Collision2D collision)
     {
-        base.HandleCollision(collision);
+        //base.HandleCollision(collision);
         //Handle explosion effects.
         HandleExplosion();
         //Spawn explosion thing which pushes things away.
         //Destroy the object.
+        SceneManager.GetInstance().RemoveMovingObject(this);
         Destroy(this.gameObject);
     }
 
     protected override void HandleExplosion()
     {
+        SoundManager.GetInstance().PlaySound(Glob.MeteorExplosionSound);
+        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
+
         GameObject knockBackGameObject = Glob.GetKnockback();
         knockBackGameObject = Instantiate(knockBackGameObject, this.gameObject.transform);
         knockBackGameObject.transform.localPosition = new Vector3(0, 0, 0);
@@ -55,7 +59,6 @@ public class FireEarthSpell : Spell
         int i = 0;
         foreach (Collider2D col in intersectingresults)
         {
-            
             if (col != null)
             {
                 Debug.Log(i + " " + col.gameObject.name);
@@ -65,7 +68,6 @@ public class FireEarthSpell : Spell
                     Player player = col.gameObject.GetComponent<Player>();
                     Vector2 hitAngle = new Vector2(player.transform.position.x - this.transform.position.x, player.transform.position.y - this.transform.position.y);
                     player.HandleSpellHit(this, knockback, damage, hitAngle.normalized);
-                   
                 }
             }
         }

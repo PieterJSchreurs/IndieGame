@@ -32,12 +32,14 @@ public class WaterFireSpell : Spell {
         //Handle explosion effects.
         HandleExplosion();
         //Destroy the object.
+        SceneManager.GetInstance().RemoveMovingObject(this);
         Destroy(this.gameObject);
     }
 
     protected override void HandleExplosion()
     {
-
+        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.1f, 0.25f);
+        SoundManager.GetInstance().PlaySound(Glob.WaterballHitSound);
     }
 
     public override float GetCastTime()
