@@ -3629,7 +3629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1315f3b353de5dc40a0287f620aa73c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeAfterSeconds: 10
+  FadeAfterSeconds: 20
   FadeSpeed: 1
   ShouldFadeIn: 1
   OnFaded:
