@@ -16,6 +16,10 @@ public class DestroySelfAfter : MonoBehaviour {
 	void Update () {
         if (Time.time - spawnTime >= DestroyDelay)
         {
+            if (gameObject.GetComponent<MovingObject>() != null)
+            {
+                SceneManager.GetInstance().RemoveMovingObject(gameObject.GetComponent<MovingObject>());
+            }
             Destroy(gameObject);
         }
 	}

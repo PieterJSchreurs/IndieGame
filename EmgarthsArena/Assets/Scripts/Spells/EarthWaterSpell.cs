@@ -19,7 +19,7 @@ public class EarthWaterSpell : Spell {
     // Use this for initialization
     void Start () {
         base.Start();
-        this.gameObject.transform.position += new Vector3(0, -1f, 0);
+        _rb.velocity = -_rb.transform.up * Glob.EarthWaterSpeed;
         InitializeSpell();
     }
 
@@ -28,12 +28,11 @@ public class EarthWaterSpell : Spell {
         if(isFixed)
         {
             Destroy(this.gameObject, Glob.EarthWaterAliveTime);
-            //if(Time.time > nextAction && this.gameObject.transform.localScale.y < Glob.maxPilarHeight)
-            //{
-            //    nextAction += 0.1f;
-            //    this.gameObject.transform.localScale += new Vector3(0, 0.1f, 0);
-            //}
-           
+            if(Time.time > nextAction && this.gameObject.transform.localScale.y < Glob.maxPilarHeight)
+            {
+                nextAction += 0.1f;
+                this.gameObject.transform.localScale += new Vector3(0, 0.1f, 0);
+            }
         }
     }
 
@@ -65,6 +64,9 @@ public class EarthWaterSpell : Spell {
     }
     // Update is called once per frame
     void Update () {
-        Move(true);
+        if (!_isPaused)
+        {
+            Move(true);
+        }
 	}
 }

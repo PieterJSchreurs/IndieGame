@@ -9,6 +9,10 @@ public class Arena : MonoBehaviour {
     private Camera _myCamera;
     private Collider2D _myColl;
     private Transform[] _cameraTargets;
+    private Vector3[] _targetPositions;
+
+    private Image _countdownImage;
+    private bool _didStartingCountdown = false;
 
     private bool _shouldScreenShake = false;
     private float _shakeDistance;
@@ -34,14 +38,30 @@ public class Arena : MonoBehaviour {
     void Start () {
         _myCamera = GetComponentInChildren<Camera>();
         _myColl = GetComponent<Collider2D>();
+        _countdownImage = GameObject.FindGameObjectWithTag("Countdown").GetComponent<Image>();
         if (playerBanners == null)
         {
             initializePlayerBanners();
         }
+
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            SceneManager.GetInstance().TogglePauseGame(true);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SceneManager.GetInstance().TogglePauseGame(false);
+        }
+
+        if (!_didStartingCountdown)
+        {
+            StartCoroutine(DoCountdown());
+            _didStartingCountdown = true;
+        }
         handleCamera();
         handleBoundaries();
     }
@@ -290,9 +310,11 @@ public class Arena : MonoBehaviour {
     public void SetCameraTargets(Player[] players)
     {
         _cameraTargets = new Transform[players.Length];
+        _targetPositions = new Vector3[_cameraTargets.Length];
         for (int i = 0; i < players.Length; i++)
         {
             _cameraTargets[i] = players[i].transform;
+            _targetPositions[i] = _cameraTargets[i].position;
         }
     }
 
@@ -303,6 +325,8 @@ public class Arena : MonoBehaviour {
             return;
         }
 
+
+
         float minimumX = _myColl.bounds.max.x;
         float maximumX = _myColl.bounds.min.x;
         float minimumY = _myColl.bounds.max.y;
@@ -310,38 +334,72 @@ public class Arena : MonoBehaviour {
         float largestDiff = 0;
         for (int i = 0; i < _cameraTargets.Length; i++)
         {
-            if (!_cameraTargets[i].gameObject.activeSelf || !_cameraTargets[i].GetComponent<MeshRenderer>().enabled) //TODO: Very ugly check, improve it.
+            if (!_cameraTargets[i].gameObject.activeSelf) //If the target is disabled, ignore it
             {
                 continue;
             }
-            if (_cameraTargets[i].position.x < minimumX)
+            else if (!_cameraTargets[i].GetComponent<MeshRenderer>().enabled) //If the target is invisible (isDead), slowly move his last known position to the position of the other player. (Lerps the camera once a player dies.)
             {
-                minimumX = Mathf.Max(_cameraTargets[i].position.x, _myColl.bounds.min.x);
+                float XPos2 = _myColl.bounds.max.x + ((_myColl.bounds.min.x - _myColl.bounds.max.x) / 2);
+                float YPos2 = _myColl.bounds.max.y + ((_myColl.bounds.min.y - _myColl.bounds.max.y) / 2);
+                if (i == 0)
+                {
+                    if (_cameraTargets[1].GetComponent<MeshRenderer>().enabled) { //If the other player is also dead, move to the center of the arena instead.
+                        XPos2 = _targetPositions[1].x;
+                        YPos2 = _targetPositions[1].y;
+                    }
+                }
+                else if (i == 1)
+                {
+                    if (_cameraTargets[0].GetComponent<MeshRenderer>().enabled)
+                    {
+                        XPos2 = _targetPositions[0].x;
+                        YPos2 = _targetPositions[0].y;
+                    }
+                }
+                Vector3 targetPos2 = new Vector3(XPos2, YPos2, 0);
+                Vector3 targetDiff2 = targetPos2 - _targetPositions[i];
+                _targetPositions[i] = new Vector3(_targetPositions[i].x + (targetDiff2.x * Glob.camSpeed), _targetPositions[i].y + (targetDiff2.y * Glob.camSpeed), 0);
+            }
+            else if ((_targetPositions[i] - _cameraTargets[i].position).magnitude > 0.1f) //When a target position is not equal to its target object, slowly move the targetPos back to its respective object. (Lerps the camera to the player once they respawn)
+            {
+                Vector3 targetPos2 = new Vector3(_cameraTargets[i].position.x, _cameraTargets[i].position.y, 0);
+                Vector3 targetDiff2 = targetPos2 - _targetPositions[i];
+                _targetPositions[i] = new Vector3(_targetPositions[i].x + (targetDiff2.x * Glob.camSpeed), _targetPositions[i].y + (targetDiff2.y * Glob.camSpeed), 0);
+            }
+            else //Once the targetPosition is close to its respective object, snap the targetPosition to the object position.
+            {
+                _targetPositions[i] = _cameraTargets[i].position;
+            }
+
+            if (_targetPositions[i].x < minimumX)
+            {
+                minimumX = Mathf.Max(_targetPositions[i].x, _myColl.bounds.min.x);
                 if (maximumX - minimumX > largestDiff)
                 {
                     largestDiff = maximumX - minimumX;
                 }
             }
-            if (_cameraTargets[i].position.x > maximumX)
+            if (_targetPositions[i].x > maximumX)
             {
-                maximumX = Mathf.Min(_cameraTargets[i].position.x, _myColl.bounds.max.x);
+                maximumX = Mathf.Min(_targetPositions[i].x, _myColl.bounds.max.x);
                 if (maximumX - minimumX > largestDiff)
                 {
                     largestDiff = maximumX - minimumX;
                 }
             }
 
-            if (_cameraTargets[i].position.y < minimumY)
+            if (_targetPositions[i].y < minimumY)
             {
-                minimumY = Mathf.Max(_cameraTargets[i].position.y, _myColl.bounds.min.y);
+                minimumY = Mathf.Max(_targetPositions[i].y, _myColl.bounds.min.y);
                 if (maximumY - minimumY > largestDiff)
                 {
                     largestDiff = maximumY - minimumY;
                 }
             }
-            if (_cameraTargets[i].position.y > maximumY)
+            if (_targetPositions[i].y > maximumY)
             {
-                maximumY = Mathf.Min(_cameraTargets[i].position.y, _myColl.bounds.max.y);
+                maximumY = Mathf.Min(_targetPositions[i].y, _myColl.bounds.max.y);
                 if (maximumY - minimumY > largestDiff)
                 {
                     largestDiff = maximumY - minimumY;
@@ -355,7 +413,7 @@ public class Arena : MonoBehaviour {
         Vector3 targetDiff = targetPos - _myCamera.transform.position;
         _myCamera.transform.position = new Vector3(_myCamera.transform.position.x + (targetDiff.x * Glob.camSpeed), _myCamera.transform.position.y + (targetDiff.y * Glob.camSpeed), Glob.camZOffset - (largestDiff / 2));
 
-        //SCREENSHAKE!!!!!!!!!!!!
+        //SCREENSHAKE!
         //If the screen should shake.
         if (_shouldScreenShake)
         {
@@ -391,6 +449,10 @@ public class Arena : MonoBehaviour {
             }
             else
             {
+                if (other.gameObject.GetComponent<MovingObject>() != null)
+                {
+                    SceneManager.GetInstance().RemoveMovingObject(other.gameObject.GetComponent<MovingObject>());
+                }
                 Destroy(other.gameObject);
             }
         }
@@ -403,5 +465,27 @@ public class Arena : MonoBehaviour {
         _shakeStartTime = Time.time;
 
         _shouldScreenShake = true;
+    }
+
+    public IEnumerator DoCountdown()
+    {
+        _countdownImage.gameObject.SetActive(true);
+        SceneManager.GetInstance().TogglePauseAllPlayers(true);
+        _countdownImage.sprite = Resources.Load<Sprite>(Glob.NumberPrefab3);
+
+        yield return new WaitForSeconds(1);
+        _countdownImage.sprite = Resources.Load<Sprite>(Glob.NumberPrefab2);
+
+        yield return new WaitForSeconds(1);
+        _countdownImage.sprite = Resources.Load<Sprite>(Glob.NumberPrefab1);
+
+        yield return new WaitForSeconds(1);
+        _countdownImage.sprite = Resources.Load<Sprite>(Glob.FightPrefab);
+        SceneManager.GetInstance().TogglePauseAllPlayers(false);
+
+        yield return new WaitForSeconds(1);
+        _countdownImage.gameObject.SetActive(false);
+
+        yield return null;
     }
 }

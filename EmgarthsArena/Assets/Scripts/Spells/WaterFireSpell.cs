@@ -32,6 +32,7 @@ public class WaterFireSpell : Spell {
         //Handle explosion effects.
         HandleExplosion();
         //Destroy the object.
+        SceneManager.GetInstance().RemoveMovingObject(this);
         Destroy(this.gameObject);
     }
 
