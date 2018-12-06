@@ -24,23 +24,54 @@ public class SelectionWheel : MonoBehaviour
     public Button[] wheelButtons;
     public Vector3[] buttonPositions;
 
+    public int startingRotation = 0;
+    public bool resetOnEnable = true;
+
     // Use this for initialization
     void Start()
     {
         myAxis = EventSystem.current.GetComponent<StandaloneInputModule>().horizontalAxis;
-      
-
-        //buttonPositions = new Vector3[wheelButtons.Length];
-        //for (int i = 0; i < wheelButtons.Length; i++)
-        //{
-        //    buttonPositions[i] = wheelButtons[i].transform.position;
-        //}
 
         _myImage = GetComponent<Image>();
         if (wheelImages != null)
         {
             _myImage.sprite = wheelImages[currentImage];
         }
+        selectWheelPosition(startingRotation);
+    }
+
+    void OnEnable()
+    {
+        if (_myImage == null || !resetOnEnable)
+        {
+            return;
+        }
+        selectWheelPosition(startingRotation);
+    }
+
+    private void selectWheelPosition(int pos)
+    {
+        currentImage = pos;
+        _myImage.sprite = wheelImages[currentImage];
+
+        for (int i = 0; i < wheelButtons.Length; i++)
+        {
+            wheelButtons[i].transform.position = new Vector3(0, -1000, 0);
+        }
+
+        wheelButtons[currentImage].transform.localPosition = buttonPositions[1];
+        wheelButtons[currentImage].GetComponent<Image>().enabled = true;
+        if (currentImage > 0)
+        {
+            wheelButtons[currentImage - 1].transform.localPosition = buttonPositions[0];
+            wheelButtons[currentImage - 1].GetComponent<Image>().enabled = false;
+        }
+        if (currentImage < wheelButtons.Length - 1)
+        {
+            wheelButtons[currentImage + 1].transform.localPosition = buttonPositions[2];
+            wheelButtons[currentImage + 1].GetComponent<Image>().enabled = false;
+        }
+        wheelButtons[currentImage].Select();
     }
 
     // Update is called once per frame
@@ -78,26 +109,9 @@ public class SelectionWheel : MonoBehaviour
             {
                 currentImage = 0;
             }
-            _myImage.sprite = wheelImages[currentImage];
 
-            for (int i = 0; i < wheelButtons.Length; i++)
-            {
-                wheelButtons[i].transform.position = new Vector3(0, -1000, 0);
-            }
+            selectWheelPosition(currentImage);
 
-            wheelButtons[currentImage].transform.localPosition = buttonPositions[1];
-            wheelButtons[currentImage].GetComponent<Image>().enabled = true;
-            if (currentImage > 0)
-            {
-                wheelButtons[currentImage - 1].transform.localPosition = buttonPositions[0];
-                wheelButtons[currentImage - 1].GetComponent<Image>().enabled = false;
-            }
-            if (currentImage < wheelButtons.Length - 1)
-            {
-                wheelButtons[currentImage + 1].transform.localPosition = buttonPositions[2];
-                wheelButtons[currentImage + 1].GetComponent<Image>().enabled = false;
-            }
-            wheelButtons[currentImage].Select();
             SoundManager.GetInstance().PlayUISound();
         }
         else if (scrollingContinuous || waitingForContinuous)

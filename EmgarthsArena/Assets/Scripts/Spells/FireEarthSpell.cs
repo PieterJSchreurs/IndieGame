@@ -41,7 +41,7 @@ public class FireEarthSpell : Spell
     protected override void HandleExplosion()
     {
         SoundManager.GetInstance().PlaySound(Glob.MeteorExplosionSound);
-        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.3f, 0.5f);
+        SceneManager.GetInstance().GetCurrentArena().SetScreenShake(0.5f, 0.5f);
 
         GameObject knockBackGameObject = Glob.GetKnockback();
         knockBackGameObject = Instantiate(knockBackGameObject, this.gameObject.transform);

@@ -25,6 +25,7 @@ public class SceneManager : MonoBehaviour {
 
     private GameObject backgroundUI;
     private GameObject resolutionScreen;
+    private GameObject pauseMenu;
 
     private static int currentScene;
     private static int currentArenaIndex = 1;
@@ -64,11 +65,17 @@ public class SceneManager : MonoBehaviour {
         }
     }
 
-    public void TogglePauseGame(bool pToggle)
+    public void TogglePauseGame(bool pToggle, bool isCountdown = false)
     {
-        for (int i = 0; i < allMovingObjects.Count; i++)
+        if ((!pToggle && pauseMenu.activeSelf) || pToggle || isCountdown)
         {
-            allMovingObjects[i].TogglePaused(pToggle);
+            if (!isCountdown) {
+                pauseMenu.SetActive(pToggle);
+            }
+            for (int i = 0; i < allMovingObjects.Count; i++)
+            {
+                allMovingObjects[i].TogglePaused(pToggle);
+            }
         }
     }
 
@@ -100,6 +107,7 @@ public class SceneManager : MonoBehaviour {
 
     public void StartGameOnLevel(int level)
     {
+        allMovingObjects.Clear();
         currentArenaIndex = level;
         if (currentArenaIndex == 1)
         {
@@ -115,6 +123,7 @@ public class SceneManager : MonoBehaviour {
 
     public void Rematch()
     {
+        allMovingObjects.Clear();
         SwitchScene(2);
     }
 
@@ -122,15 +131,19 @@ public class SceneManager : MonoBehaviour {
     {
         if (currentScene != 2)
         {
+            allMovingObjects.Clear();
             SwitchScene(2);
             return;
         }
         else if (backgroundUI == null)
         {
+            allMovingObjects.Clear();
             backgroundUI = GameObject.FindGameObjectWithTag("UIParent");
             resolutionScreen = backgroundUI.transform.Find("ResolutionScreen").gameObject;
+            pauseMenu = backgroundUI.transform.Find("PauseMenu").gameObject;
+            backgroundUI.transform.Find("TutorialScreen").gameObject.SetActive(false);
             //resolutionScreen = GameObject.FindGameObjectWithTag("ResolutionScreen");
-            backgroundUI.SetActive(false);
+            //backgroundUI.SetActive(false);
             //resolutionScreen.SetActive(false);
         }
         Arena newArena = Instantiate(Glob.GetArenaPrefab(currentArenaIndex), Vector3.zero, new Quaternion(0, 0, 0, 0));

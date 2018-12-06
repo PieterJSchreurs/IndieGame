@@ -28,6 +28,11 @@ public class GameMethodReferenceHolder : MonoBehaviour {
     {
         SceneManager.GetInstance().SwitchScene(1);
     }
+
+    public void TogglePause(bool pToggle)
+    {
+        SceneManager.GetInstance().TogglePauseGame(pToggle);
+    }
 	
 	// Update is called once per frame
 	void Update () {

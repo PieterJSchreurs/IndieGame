@@ -9,7 +9,7 @@ public class FireFireSpell : Spell {
     {
         knockback = 50;
         damage = 80;
-        castTime = 1;
+        castTime = 1.5f;
         manaDrain = 70;
         spellType = SpellDatabase.SpellType.Projectile;
         attackType = SpellDatabase.AttackType.Heavy;
@@ -35,7 +35,12 @@ public class FireFireSpell : Spell {
         HandleExplosion();
         //Destroy the object.
         SceneManager.GetInstance().RemoveMovingObject(this);
-        Destroy(this.gameObject);
+        _rb.velocity = Vector2.zero;
+        _rb.isKinematic = true;
+        _coll.enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
+        Destroy(this.gameObject, 2.5f);
+        //Destroy(this.gameObject);
     }
 
     protected override void HandleExplosion()

@@ -1594,6 +1594,8 @@ MonoBehaviour:
   - {x: -410, y: 58, z: 0}
   - {x: 0, y: 90, z: 0}
   - {x: 394, y: 58, z: 0}
+  startingRotation: 0
+  resetOnEnable: 1
 --- !u!114 &606838279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3237,6 +3239,8 @@ MonoBehaviour:
   - {fileID: 2081912651}
   - {fileID: 235255868}
   buttonPositions: []
+  startingRotation: 0
+  resetOnEnable: 1
 --- !u!114 &1149782756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3676,6 +3680,8 @@ MonoBehaviour:
   - {x: -410, y: -255, z: 0}
   - {x: 0, y: -225, z: 0}
   - {x: 394, y: -255, z: 0}
+  startingRotation: 0
+  resetOnEnable: 0
 --- !u!114 &1354277725
 MonoBehaviour:
   m_ObjectHideFlags: 0

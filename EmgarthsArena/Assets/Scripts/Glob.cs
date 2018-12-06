@@ -10,7 +10,7 @@ public static class Glob
         if (playerCount == -1)
         {
             //Testing purposes adding an empty player.
-            playerCount = Input.GetJoystickNames().Length+1;
+            playerCount = Input.GetJoystickNames().Length;
         }
         return playerCount;
     }
@@ -25,9 +25,9 @@ public static class Glob
     public const float respawnDelay = 3;
     public const float maxInvulnerableTime = 2;
     public const float playerSpeed = 20f;
-    public const float jumpHeight = 800f;
+    public const float jumpHeight = 1200f;
     public const float jumpHeightContinuous = 6700f;
-    public const float jumpDoubleHeight = 700f;
+    public const float jumpDoubleHeight = 1100f;
     public const float jumpDoubleHeightContinuous = 6000f;
     public const float jumpTimeContinuous = 0.8f;
     public const float jumpDoubleTimeContinuous = 0.8f;
@@ -41,6 +41,10 @@ public static class Glob
     public static GameObject GetKnockback()
     {
         return Resources.Load<GameObject>("Spells/Knockback");
+    }
+    public static GameObject GetKnockback2()
+    {
+        return Resources.Load<GameObject>("Spells/Knockback2");
     }
 
     public static GameObject GetFogPrefab()

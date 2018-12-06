@@ -19,6 +19,24 @@ public class EarthWaterSpell : Spell {
     // Use this for initialization
     void Start () {
         base.Start();
+        RaycastHit2D hitCenter = Physics2D.Raycast(transform.position, -Vector3.up, 5f, 1 << 9);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position + Vector3.right * _coll.bounds.extents.x, -Vector3.up, 5f, 1 << 9);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - Vector3.right * _coll.bounds.extents.x, -Vector3.up, 5f, 1 << 9);
+        if (hitCenter != null)
+        {
+            transform.position = new Vector3(transform.position.x, hitCenter.point.y, transform.position.z);
+        }
+        else if (hitRight != null)
+        {
+            transform.position = new Vector3(transform.position.x, hitRight.point.y, transform.position.z);
+        }
+        else if (hitLeft != null) {
+            transform.position = new Vector3(transform.position.x, hitLeft.point.y, transform.position.z);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         _rb.velocity = -_rb.transform.up * Glob.EarthWaterSpeed;
         InitializeSpell();
     }
