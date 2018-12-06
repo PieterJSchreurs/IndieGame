@@ -109,10 +109,6 @@ public class SceneManager : MonoBehaviour {
     {
         allMovingObjects.Clear();
         currentArenaIndex = level;
-        if (currentArenaIndex == 1)
-        {
-            currentArenaIndex = 0; //TODO: Remove this if statement once the actual Arena2 prefab is in the game. -------------------------------------
-        }
         SwitchScene(2);
     }
 

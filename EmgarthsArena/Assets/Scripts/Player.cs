@@ -196,7 +196,7 @@ public class Player : MovingObject
             }
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
-                _rb.velocity = new Vector2(_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Mathf.Min(Mathf.Abs(_rb.velocity.x / 2) + 0.5f, 1), _rb.velocity.y);
+                _rb.velocity = new Vector2(-_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Mathf.Min(Mathf.Abs(_rb.velocity.x / 2) + 0.5f, 1), _rb.velocity.y);
                 //Move horizontally.
             }
             if (_myInputManager.GetAxisMoveVertical() != 0)
@@ -212,7 +212,7 @@ public class Player : MovingObject
 
     private void HandleAimPointer()
     {
-        float xAxis = _myInputManager.GetAxisLookHorizontal();
+        float xAxis = -_myInputManager.GetAxisLookHorizontal();
         float yAxis = _myInputManager.GetAxisLookVertical();
 
         //If there's input
@@ -401,7 +401,7 @@ public class Player : MovingObject
                 launchedspell = SpellDatabase.GetInstance().GetSpell(secondEle, firstEle);
             }
             PlaySpellSound(launchedspell);
-            float xAxis = _myInputManager.GetAxisLookHorizontal();
+            float xAxis = -_myInputManager.GetAxisLookHorizontal();
             float yAxis = _myInputManager.GetAxisLookVertical();
 
             //If there's no input, should do forward.
@@ -458,9 +458,9 @@ public class Player : MovingObject
 
         Debug.Log("ITS STILL GOING!");
 
-        if (pInput != new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && (_myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0))
+        if (pInput != new Vector2(-_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && (_myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0))
         {
-            pInput = new Vector2(_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical());
+            pInput = new Vector2(-_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical());
             pInput.Normalize();
         }
         Debug.DrawRay(this.transform.position, new Vector3(pInput.x * 2, pInput.y * 2, 0), Color.blue, 5f);

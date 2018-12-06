@@ -11,6 +11,8 @@ public class Arena : MonoBehaviour {
     private Transform[] _cameraTargets;
     private Vector3[] _targetPositions;
 
+    private Vector3 startingPosition;
+
     private Image _countdownImage;
     private bool _didStartingCountdown = false;
 
@@ -37,6 +39,7 @@ public class Arena : MonoBehaviour {
     // Use this for initialization
     void Start () {
         _myCamera = GetComponentInChildren<Camera>();
+        startingPosition = _myCamera.transform.position;
         _myColl = GetComponent<Collider2D>();
         _countdownImage = GameObject.FindGameObjectWithTag("Countdown").GetComponent<Image>();
         if (playerBanners == null)
@@ -411,7 +414,7 @@ public class Arena : MonoBehaviour {
         float YPos = minimumY + ((maximumY - minimumY) / 2);
         Vector3 targetPos = new Vector3(XPos + Glob.camXOffset, YPos + Glob.camYOffset, 0);
         Vector3 targetDiff = targetPos - _myCamera.transform.position;
-        _myCamera.transform.position = new Vector3(_myCamera.transform.position.x + (targetDiff.x * Glob.camSpeed), _myCamera.transform.position.y + (targetDiff.y * Glob.camSpeed), Glob.camZOffset - (largestDiff / 2));
+        _myCamera.transform.position = new Vector3(_myCamera.transform.position.x + (targetDiff.x * Glob.camSpeed), _myCamera.transform.position.y + (targetDiff.y * Glob.camSpeed), startingPosition.z + (largestDiff / 2));
 
         //SCREENSHAKE!
         //If the screen should shake.
