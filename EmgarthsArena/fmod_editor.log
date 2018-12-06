@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 65536, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 49152, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 000000007B7EF148 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 00000000494F9258 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -15,604 +15,39 @@
 [LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000024F139B8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000024F139B8
 [LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
 [LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 000000007B852BE8 : node = 0000000012255880
-[LOG] SystemI::createSound                     : add node to async list : head = 000000007B4E1438.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B852BE8
+[LOG] SystemI::createSound                     : setdata soundi = 0000000024F13658 : node = 0000000049C15FD0
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049D2AA78.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000024F13658
 [LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
 [LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
 [LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
 [LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
 [LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000012255998
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000049C160E8
 [LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
 [LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
 [LOG] SystemI::createSoundInternal             :     Stream 0/1: name='MFX-human-applause-rock concert-02 (Freeze) [2018-12-04 130915]', format=2, channels=2, frequency=48000, lengthbytes=156672, lengthpcm=590310, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999900.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B852BE8
-[LOG] SoundI::getSubSound                      : sound 000000007B852BE8.  Subsound index 0 / 1
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] SoundI::release                          : Magic Fantasy Music - Royalty Free (000000007B8530F8)
-[LOG] SoundI::release                          :     Magic Fantasy Music - Royalty Free (000000007B4E1628)
-[LOG] SoundI::release                          :     Magic Fantasy Music - Royalty Free (000000007B8537B8)
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 000000007B8526D8 : node = 000000007BCA57C0
-[LOG] SystemI::createSound                     : add node to async list : head = 000000007B4E1438.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B8526D8
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BCA58D8
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 1000
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Magic Fantasy Music - Royalty Free', format=2, channels=2, frequency=48000, lengthbytes=1497248, lengthpcm=5086981, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
-[LOG] SystemI::createSoundInternal             :     Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             :     exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             :     exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             :     exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             :     exinfo->fileuserdata       = 000000004D0AFF68
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            :     register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             :     Sample 0/1: name='Freeze 8-MFX-atmos-church bells-02 [2018-12-04 130721]', format=2, channels=2, frequency=48000, lengthbytes=14464, lengthpcm=340500, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.114096.
-[LOG] SystemI::createSoundInternal             :     Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             :     exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             :     exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             :     exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             :     exinfo->fileuserdata       = 000000004D0AFF68
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            :     register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             :     Sample 0/1: name='Freeze 6-MFX-atmos-church bells-02 [2018-12-04 130721]', format=2, channels=2, frequency=48000, lengthbytes=15648, lengthpcm=340500, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.114096.
-[LOG] SystemI::createSoundInternal             :     Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             :     exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             :     exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             :     exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             :     exinfo->fileuserdata       = 000000004D0AFF68
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            :     register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             :     Sample 0/1: name='JELMER8 (Freeze) [2018-12-04 131129]', format=2, channels=2, frequency=48000, lengthbytes=41728, lengthpcm=218682, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999900.
-[LOG] SystemI::createSoundInternal             :     Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             :     exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             :     exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             :     exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             :     exinfo->fileuserdata       = 000000004D0AFF68
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            :     register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             :     Sample 0/1: name='Freeze 7-MFX-atmos-church bells-02-1 [2018-12-04 130721]', format=2, channels=2, frequency=48000, lengthbytes=14464, lengthpcm=340500, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.114096.
-[LOG] SystemI::createSoundInternal             :     Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             :     exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             :     exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             :     exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             :     exinfo->fileuserdata       = 000000004D0AFF68
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            :     register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             :     Sample 0/1: name='JELMER8 (Freeze) [2018-12-04 131117]', format=2, channels=2, frequency=48000, lengthbytes=71552, lengthpcm=314376, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999900.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B8526D8
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000004D0AFF68
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Freeze 9-MFX-atmos-church bells-02-1 [2018-12-04 130721]', format=2, channels=2, frequency=48000, lengthbytes=34368, lengthpcm=153600, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.199451.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000004D0AFF68
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Spellsexport 78-Arocks4 - Trimmed (2) - Trimmed', format=2, channels=2, frequency=48000, lengthbytes=16704, lengthpcm=60767, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000004D0AFF68
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Spellsexport 78-Arocks4 - Trimmed', format=2, channels=2, frequency=48000, lengthbytes=19232, lengthpcm=73633, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.879639.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000004D0AFF68
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Spellsexport 78-Arocks4 - Trimmed (4)', format=2, channels=2, frequency=48000, lengthbytes=20384, lengthpcm=72000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.451691.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000004D0AFF68
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Spellsexport 78-Arocks4 - Trimmed (3)', format=2, channels=2, frequency=48000, lengthbytes=18400, lengthpcm=72000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.549713.
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 000000007B852D98 : node = 000000007BA083B0
-[LOG] SystemI::createSound                     : add node to async list : head = 000000007B4E1438.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B852D98
-[LOG] SoundI::getSubSound                      : sound 000000007B8526D8.  Subsound index 0 / 1
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BA084C8
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 1750
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='ES_Night Of The Witch - Håkan Eriksson', format=2, channels=2, frequency=48000, lengthbytes=1277632, lengthpcm=4768128, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B852D98
-[LOG] SoundI::getSubSound                      : sound 000000007B852D98.  Subsound index 0 / 1
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B851B08
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B851B08
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B8530F8
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B8530F8
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000004D0AF0F8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='MARIA1 (Freeze) [2018-12-04 135500] - Trimmed', format=2, channels=2, frequency=48000, lengthbytes=15712, lengthpcm=60878, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999847.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000000A42EF5FC
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD6CC61100
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD6CC610D0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD6CC611D0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD6CC61290
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000004D0AF0F8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='MARIA1 (Freeze) [2018-12-04 135504] - Trimmed', format=2, channels=2, frequency=48000, lengthbytes=17184, lengthpcm=66676, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999847.
-[LOG] SoundI::release                          : MFX-human-applause-rock concert-02 (Freeze) [2018-12-04 130915] (000000007B852BE8)
-[LOG] SoundI::release                          :     MFX-human-applause-rock concert-02 (Freeze) [2018-12-04 130915] (000000007B9518B8)
-[LOG] SoundI::release                          :     MFX-human-applause-rock concert-02 (Freeze) [2018-12-04 130915] (000000007B852378)
-[LOG] SoundI::release                          :  (000000007B84FB78)
-[LOG] SoundI::release                          :     JELMER10 (Freeze) [2018-12-04 130823] (000000007B950D58)
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] SoundI::release                          : Magic Fantasy Music - Royalty Free (000000007B8526D8)
-[LOG] SoundI::release                          :     Magic Fantasy Music - Royalty Free (000000007B950EF8)
-[LOG] SoundI::release                          :     Magic Fantasy Music - Royalty Free (000000007B851B08)
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 000000007B8526D8 : node = 000000007BB9F4D0
-[LOG] SystemI::createSound                     : add node to async list : head = 000000007B4E1438.  list count = 0
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 000000007B852018 : node = 000000007BB9F0E0
-[LOG] SystemI::createSound                     : add node to async list : head = 000000007B4E1438.  list count = 1
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B8526D8
-[LOG] SystemI::createSound                     : setdata soundi = 000000007B8537B8 : node = 000000007BB9ECF0
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSound                     :     add node to async list : head = 000000007B4E1438.  list count = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSound                     :     filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSound                     :     setdata soundi = 000000007B852BE8 : node = 000000007BB9F230
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BB9F5E8
-[LOG] SystemI::createSound                     :     add node to async list : head = 000000007B4E1438.  list count = 2
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSound                     :     filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 1625
-[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSound                     :     setdata soundi = 000000007B851B08 : node = 000000007BB9F620
-[LOG] SystemI::createSound                     :     add node to async list : head = 000000007B4E1438.  list count = 3
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 18-steam2', format=2, channels=2, frequency=48000, lengthbytes=192288, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.004303.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B8526D8
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B852018
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BB9F1F8
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 829
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 22-steam6', format=2, channels=2, frequency=48000, lengthbytes=188256, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.060608.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B852018
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B8537B8
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BB9EE08
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 875
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 19-steam3', format=2, channels=2, frequency=48000, lengthbytes=190336, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.149414.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B8537B8
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B852BE8
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BB9F348
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 1629
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 17-steam', format=2, channels=2, frequency=48000, lengthbytes=186112, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.133759.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B852BE8
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B851B08
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BB9F738
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 875
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 20-steam4', format=2, channels=2, frequency=48000, lengthbytes=195200, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.009064.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B851B08
-[LOG] SoundI::getSubSound                      : sound 000000007B8526D8.  Subsound index 0 / 1
-[LOG] SoundI::getSubSound                      : sound 000000007B852018.  Subsound index 0 / 1
-[LOG] SoundI::getSubSound                      : sound 000000007B8537B8.  Subsound index 0 / 1
-[LOG] SoundI::getSubSound                      : sound 000000007B852BE8.  Subsound index 0 / 1
-[LOG] SoundI::getSubSound                      : sound 000000007B851B08.  Subsound index 0 / 1
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 0000000092536368 : node = 000000007BB9EBA0
-[LOG] SystemI::createSound                     : add node to async list : head = 000000007B4E1438.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000092536368
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BB9ECB8
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 1125
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 21-steam5', format=2, channels=2, frequency=48000, lengthbytes=192384, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.321014.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000092536368
-[LOG] SoundI::getSubSound                      : sound 0000000092536368.  Subsound index 0 / 1
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] SoundI::release                          : Spellsexport 22-steam6 (000000007B852018)
-[LOG] SoundI::release                          :     Spellsexport 22-steam6 (000000007B952A98)
-[LOG] SoundI::release                          :     Spellsexport 22-steam6 (000000007B852378)
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 0000000092536518 : node = 000000007BB9EE40
-[LOG] SystemI::createSound                     : add node to async list : head = 000000007B4E1438.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000092536518
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSound                     :     setdata soundi = 0000000092535438 : node = 000000007BB9EF90
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSound                     :     add node to async list : head = 000000007B4E1438.  list count = 0
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BB9EF58
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSound                     :     filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSound                     :     setdata soundi = 00000000925366C8 : node = 000000007BB9F0E0
-[LOG] SystemI::createSound                     :     add node to async list : head = 000000007B4E1438.  list count = 1
-[LOG] SystemI::createSound                     :     filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     :     setdata soundi = 0000000092534F28 : node = 000000007BB9F380
-[LOG] SystemI::createSound                     :     add node to async list : head = 000000007B4E1438.  list count = 2
-[LOG] SystemI::createSound                     :     filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     :     setdata soundi = 0000000092535948 : node = 000000007B418090
-[LOG] SystemI::createSound                     :     add node to async list : head = 000000007B4E1438.  list count = 3
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 35-waterball2', format=2, channels=2, frequency=48000, lengthbytes=189920, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.083893.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000092536518
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000092535438
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BB9F0A8
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 39-waterball6', format=2, channels=2, frequency=48000, lengthbytes=193504, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.275452.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000092535438
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000925366C8
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BB9F1F8
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 34-waterball1', format=2, channels=2, frequency=48000, lengthbytes=200640, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.079742.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000925366C8
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000092534F28
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007BB9F498
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 36-waterball3', format=2, channels=2, frequency=48000, lengthbytes=187072, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.304321.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000092534F28
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000092535948
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007B4181A8
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 37-waterball4', format=2, channels=2, frequency=48000, lengthbytes=190592, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.242371.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000092535948
-[LOG] SoundI::getSubSound                      : sound 0000000092536518.  Subsound index 0 / 1
-[LOG] SoundI::getSubSound                      : sound 0000000092535438.  Subsound index 0 / 1
-[LOG] SoundI::getSubSound                      : sound 00000000925366C8.  Subsound index 0 / 1
-[LOG] SoundI::getSubSound                      : sound 0000000092534F28.  Subsound index 0 / 1
-[LOG] SoundI::getSubSound                      : sound 0000000092535948.  Subsound index 0 / 1
-[LOG] SoundI::release                          : Spellsexport 21-steam5 (0000000092536368)
-[LOG] SoundI::release                          :     Spellsexport 21-steam5 (000000007B951D98)
-[LOG] SoundI::release                          :     Spellsexport 21-steam5 (00000000925361B8)
-[LOG] SoundI::release                          : Spellsexport 20-steam4 (000000007B851B08)
-[LOG] SoundI::release                          :     Spellsexport 20-steam4 (000000007B951A58)
-[LOG] SoundI::release                          :     Spellsexport 20-steam4 (0000000025CE9788)
-[LOG] SoundI::release                          : Spellsexport 18-steam2 (000000007B8526D8)
-[LOG] SoundI::release                          :     Spellsexport 18-steam2 (000000007B9518B8)
-[LOG] SoundI::release                          :     Spellsexport 18-steam2 (000000007B853458)
-[LOG] SoundI::release                          : Spellsexport 17-steam (000000007B852BE8)
-[LOG] SoundI::release                          :     Spellsexport 17-steam (000000007B951098)
-[LOG] SoundI::release                          :     Spellsexport 17-steam (0000000025CE9428)
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 0000000092535CA8 : node = 000000007B4181E0
-[LOG] SystemI::createSound                     : add node to async list : head = 000000007B4E1438.  list count = 0
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] SystemI::createSound                     : setdata soundi = 0000000092535E58 : node = 000000007B417CA0
-[LOG] SystemI::createSound                     : add node to async list : head = 000000007B4E1438.  list count = 1
-[LOG] SystemI::createSound                     : filename = Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000092535CA8
-[LOG] SystemI::createSound                     : setdata soundi = 0000000092536368 : node = 000000007B4185D0
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSound                     :     add node to async list : head = 000000007B4E1438.  list count = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007B4182F8
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 1750
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='436474__rabban625__ballinwater1', format=2, channels=1, frequency=48000, lengthbytes=280672, lengthpcm=1661387, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.938873.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000092535CA8
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000092535E58
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007B417DB8
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 79-avalancheex', format=2, channels=2, frequency=48000, lengthbytes=186112, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000092535E58
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000092536368
-[LOG] SystemI::createSoundInternal             :     Create name='Assets\Indiegamefmodproject5\Indiegamefmodproject5\Build\Desktop/Master Bank.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20020448
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 116672
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000007B4186E8
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Spellsexport 10-fireball7', format=2, channels=2, frequency=48000, lengthbytes=191296, lengthpcm=915819, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.330811.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000092536368
-[LOG] SoundI::getSubSound                      : sound 0000000092535CA8.  Subsound index 0 / 1
-[LOG] SoundI::getSubSound                      : sound 0000000092535E58.  Subsound index 0 / 1
-[LOG] SoundI::getSubSound                      : sound 0000000092536368.  Subsound index 0 / 1
-[LOG] SoundI::release                          : Spellsexport 19-steam3 (000000007B8537B8)
-[LOG] SoundI::release                          :     Spellsexport 19-steam3 (000000007B953AD8)
-[LOG] SoundI::release                          :     Spellsexport 19-steam3 (000000007B851CB8)
-[LOG] SoundI::release                          : Spellsexport 36-waterball3 (0000000092534F28)
-[LOG] SoundI::release                          :     Spellsexport 36-waterball3 (000000007B951BF8)
-[LOG] SoundI::release                          :     Spellsexport 36-waterball3 (0000000092535AF8)
-[LOG] SoundI::release                          : Spellsexport 79-avalancheex (0000000092535E58)
-[LOG] SoundI::release                          :     Spellsexport 79-avalancheex (000000007B950D58)
-[LOG] SoundI::release                          :     Spellsexport 79-avalancheex (0000000092536A28)
-[LOG] SoundI::release                          : Spellsexport 35-waterball2 (0000000092536518)
-[LOG] SoundI::release                          :     Spellsexport 35-waterball2 (000000007B953458)
-[LOG] SoundI::release                          :     Spellsexport 35-waterball2 (00000000925355E8)
-[LOG] SoundI::release                          : 436474__rabban625__ballinwater1 (0000000092535CA8)
-[LOG] SoundI::release                          :     436474__rabban625__ballinwater1 (000000007B953118)
-[LOG] SoundI::release                          :     436474__rabban625__ballinwater1 (00000000925361B8)
-[LOG] SoundI::release                          : Spellsexport 10-fireball7 (0000000092536368)
-[LOG] SoundI::release                          :     Spellsexport 10-fireball7 (000000007B950EF8)
-[LOG] SoundI::release                          :     Spellsexport 10-fireball7 (0000000092536BD8)
-[LOG] SoundI::release                          : Spellsexport 34-waterball1 (00000000925366C8)
-[LOG] SoundI::release                          :     Spellsexport 34-waterball1 (000000007B952F78)
-[LOG] SoundI::release                          :     Spellsexport 34-waterball1 (0000000092536878)
-[LOG] SoundI::release                          : Spellsexport 39-waterball6 (0000000092535438)
-[LOG] SoundI::release                          :     Spellsexport 39-waterball6 (000000007B952A98)
-[LOG] SoundI::release                          :     Spellsexport 39-waterball6 (0000000092536008)
-[LOG] SoundI::release                          : Spellsexport 37-waterball4 (0000000092535948)
-[LOG] SoundI::release                          :     Spellsexport 37-waterball4 (000000007B952C38)
-[LOG] SoundI::release                          :     Spellsexport 37-waterball4 (0000000092535798)
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000024F13658
+[LOG] SoundI::getSubSound                      : sound 0000000024F13658.  Subsound index 0 / 1
 [LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
 [LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] SystemI::mixerSuspend                    : Suspending output.
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] SystemI::mixerResume                     : Resuming output.
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000007B8530F8
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000007B8530F8
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
-[LOG] SoundI::release                          :  (000000007B899638)
-[LOG] SoundI::release                          :     Freeze 6-MFX-atmos-church bells-02 [2018-12-04 130721] (000000007B953798)
-[LOG] SoundI::release                          :  (000000007B8991E8)
-[LOG] SoundI::release                          :     JELMER8 (Freeze) [2018-12-04 131117] (000000007B951F38)
-[LOG] SoundI::release                          : ES_Night Of The Witch - Håkan Eriksson (000000007B852D98)
-[LOG] SoundI::release                          :     ES_Night Of The Witch - Håkan Eriksson (000000007B9532B8)
-[LOG] SoundI::release                          :     ES_Night Of The Witch - Håkan Eriksson (000000007B8530F8)
-[LOG] SoundI::release                          :  (000000007B89A1B8)
-[LOG] SoundI::release                          :     Freeze 8-MFX-atmos-church bells-02 [2018-12-04 130721] (000000007B9506D8)
-[LOG] SoundI::release                          :  (000000007B89A498)
-[LOG] SoundI::release                          :     Freeze 7-MFX-atmos-church bells-02-1 [2018-12-04 130721] (000000007B950878)
-[LOG] SoundI::release                          :  (000000007B89A328)
-[LOG] SoundI::release                          :     JELMER8 (Freeze) [2018-12-04 131129] (000000007B9513D8)
-[LOG] SoundI::release                          :  (000000007B898948)
-[LOG] SoundI::release                          :     Freeze 9-MFX-atmos-church bells-02-1 [2018-12-04 130721] (000000007B952418)
-[LOG] SoundI::release                          :  (0000000025DA12F8)
-[LOG] SoundI::release                          :     MARIA1 (Freeze) [2018-12-04 135500] - Trimmed (000000007B953938)
-[LOG] SoundI::release                          :  (0000000025DA0498)
-[LOG] SoundI::release                          :     MARIA1 (Freeze) [2018-12-04 135504] - Trimmed (000000007B952DD8)
-[LOG] SoundI::release                          :  (000000007B84FA08)
-[LOG] SoundI::release                          :     376748__zenithinfinitivestudios__fantasy-ui-button-6 (000000007B9542F8)
-[LOG] SoundI::release                          :  (000000007B84F898)
-[LOG] SoundI::release                          :     270401__littlerobotsoundfactory__menu-select-00 (000000007B950538)
-[LOG] SoundI::release                          :  (000000007B898D98)
-[LOG] SoundI::release                          :     Spellsexport 78-Arocks4 - Trimmed (000000007B9535F8)
-[LOG] SoundI::release                          :  (00000000121C4E38)
-[LOG] SoundI::release                          :     Spellsexport 78-Arocks4 - Trimmed (4) (000000007B9525B8)
-[LOG] SoundI::release                          :  (00000000121C4598)
-[LOG] SoundI::release                          :     Spellsexport 78-Arocks4 - Trimmed (3) (000000007B9528F8)
-[LOG] SoundI::release                          :  (000000007B898C28)
-[LOG] SoundI::release                          :     Spellsexport 78-Arocks4 - Trimmed (2) - Trimmed (000000007B951578)
+[LOG] SoundI::release                          : MFX-human-applause-rock concert-02 (Freeze) [2018-12-04 130915] (0000000024F13658)
+[LOG] SoundI::release                          :     MFX-human-applause-rock concert-02 (Freeze) [2018-12-04 130915] (0000000049D2AE08)
+[LOG] SoundI::release                          :     MFX-human-applause-rock concert-02 (Freeze) [2018-12-04 130915] (0000000024F132F8)
+[LOG] SoundI::release                          : Magic Fantasy Music - Royalty Free (0000000024F12C38)
+[LOG] SoundI::release                          :     Magic Fantasy Music - Royalty Free (0000000049D2A5E8)
+[LOG] SoundI::release                          :     Magic Fantasy Music - Royalty Free (0000000024F139B8)
+[LOG] SoundI::release                          :  (00000000495D9AC8)
+[LOG] SoundI::release                          :     JELMER10 (Freeze) [2018-12-04 130823] (0000000049D29DC8)
+[LOG] SoundI::release                          :  (00000000495D9DA8)
+[LOG] SoundI::release                          :     376748__zenithinfinitivestudios__fantasy-ui-button-6 (0000000049D29A88)
+[LOG] SoundI::release                          :  (00000000495DA4D8)
+[LOG] SoundI::release                          :     270401__littlerobotsoundfactory__menu-select-00 (0000000049D2AFA8)
 [LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
@@ -622,4 +57,20 @@
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] SystemI::close                           : Closed.
+[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
+[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
+[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
+[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
+[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
+[LOG] Manager::readBank                        : fileversion = 103, compatVersion = 99 (oldest = 44, newest = 103)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
+[LOG] Thread::callback                         : FMOD file thread finished.
 [LOG] SystemI::close                           : Closed.
