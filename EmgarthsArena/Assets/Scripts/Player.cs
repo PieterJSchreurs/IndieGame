@@ -207,7 +207,7 @@ public class Player : MovingObject
             _grounded = isGrounded();
             if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false)
             {
-               
+
                 _disableMovement = false;
             }
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
