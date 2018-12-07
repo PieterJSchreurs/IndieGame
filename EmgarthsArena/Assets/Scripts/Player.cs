@@ -43,7 +43,9 @@ public class Player : MovingObject
     private bool _usedDoubleJump = false;
     private float _jumpTime = 0;
     private int ID;
-    public GameObject characterModel;
+    private GameObject characterModel;
+    public Animator animator;
+    public int WalkHash;
 
     private float steamCloudDamage = 0;
     public bool IsInSteamCloud = false; //Fix mana cost, fix pillar.
@@ -78,6 +80,9 @@ public class Player : MovingObject
             characterModel = GameObject.Find("PlayerBlueModel");
         }
 
+        animator = characterModel.GetComponent<Animator>();
+        WalkHash = Animator.StringToHash("Idle");
+        animator.SetTrigger(WalkHash);
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
 
         return this;
