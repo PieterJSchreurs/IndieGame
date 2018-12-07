@@ -45,7 +45,6 @@ public class Player : MovingObject
     private int ID;
     private GameObject characterModel;
     public Animator animator;
-    public int WalkHash;
 
     private float steamCloudDamage = 0;
     public bool IsInSteamCloud = false; //Fix mana cost, fix pillar.
@@ -81,8 +80,6 @@ public class Player : MovingObject
         }
 
         animator = characterModel.GetComponent<Animator>();
-        WalkHash = Animator.StringToHash("Idle");
-        animator.SetTrigger(WalkHash);
         SceneManager.GetInstance().GetCurrentArena().UpdatePlayerBanner(ID, _firstElement, _secondElement, _healthRemaining, _manaRemaining, _livesRemaining);
 
         return this;
@@ -203,14 +200,20 @@ public class Player : MovingObject
         }
         else
         {
+            if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f)
+            {
+                animator.SetTrigger("Idle");
+            }
             _grounded = isGrounded();
             if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false)
             {
+               
                 _disableMovement = false;
             }
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
                 _rb.velocity = new Vector2(-_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Mathf.Min(Mathf.Abs(_rb.velocity.x / 2) + 0.5f, 1), _rb.velocity.y);
+                animator.SetTrigger("Walk");
                 if (_rb.velocity.x > 0)
                 {
                     characterModel.transform.localEulerAngles = new Vector3(0, 90, 0);
@@ -228,6 +231,7 @@ public class Player : MovingObject
             if ((_myInputManager.GetButtonJump() && _rb.velocity.y > 0) || (_myInputManager.GetButtonJumpAlternative() && _rb.velocity.y > 0))
             {
                 jumpContinuous();
+                animator.SetTrigger("Jump");
             }
         }
     }
