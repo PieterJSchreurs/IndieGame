@@ -24,8 +24,8 @@ public class Player : MovingObject
     private float _deathTime = 0;
     private bool _invulnerable = false;
     private float _invulnerableStartTime = 0;
-    private SpellDatabase.Element _firstElement = SpellDatabase.Element.Fire;
-    private SpellDatabase.Element _secondElement = SpellDatabase.Element.Water;
+    private SpellDatabase.Element _firstElement = SpellDatabase.Element.Earth;
+    private SpellDatabase.Element _secondElement = SpellDatabase.Element.Fire;
 
     private SpriteRenderer _myIndicator;
     private Transform _myCirclePointer;
@@ -647,10 +647,19 @@ public class Player : MovingObject
         if (_invulnerable)
         {
             _invulnerableStartTime = Time.time;
-            GetComponentInChildren<MeshRenderer>().material.color = Color.blue; //TODO: Improve invulnerability feedback.
+            SkinnedMeshRenderer[] playerComponents = GetComponentsInChildren<SkinnedMeshRenderer>();
+            for (int i = 0; i < playerComponents.Length; i++)
+            {
+                playerComponents[i].material.color = Color.red;
+            }
         }
         else
         {
+            SkinnedMeshRenderer[] playerComponents = GetComponentsInChildren<SkinnedMeshRenderer>();
+            for (int i = 0; i < playerComponents.Length; i++)
+            {
+                playerComponents[i].material.color = Color.white;
+            }
             characterModel.gameObject.SetActive(true);
         }
     }
