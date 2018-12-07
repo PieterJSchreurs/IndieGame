@@ -344,6 +344,16 @@ public class Player : MovingObject
                 _rb.AddForce(new Vector2(0, Glob.jumpDoubleHeight), ForceMode2D.Impulse);
                 _jumpTime = Time.time;
                 _usedDoubleJump = true;
+
+                if (ID == 0)
+                {
+                    //FMODUnity.RuntimeManager.PlayOneShot("event:/Backgroundsong/Backgroundtrack");
+                    SoundManager.GetInstance().PlaySound(Glob.Player1JumpSound);
+                }
+                if (ID == 1)
+                {
+                    SoundManager.GetInstance().PlaySound(Glob.Player2JumpSound);
+                }
             }
         }
     }
@@ -447,6 +457,10 @@ public class Player : MovingObject
                 }
             }
         }
+        else
+        {
+            SoundManager.GetInstance().PlaySound(Glob.EmptyManaSound);
+        }
         return launchedspell;
     }
 
@@ -488,6 +502,7 @@ public class Player : MovingObject
         {
             position = this.transform.position + new Vector3(Math.Sign(pInput.x) * Glob.spellOffset, 0, 0);
         }
+        position += new Vector3(0, 0.8f, 0);
         Spell launchedspelltest = Instantiate(pSpell, position, new Quaternion());
         //SceneManager.GetInstance().AddMovingObject(launchedspelltest);
         launchedspelltest.SetPlayer(this);
@@ -627,14 +642,14 @@ public class Player : MovingObject
         }
         else
         {
-            GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+            characterModel.gameObject.SetActive(true);
         }
     }
 
     private void setIsDead(bool toggle)
     {
         _isDead = toggle;
-        GetComponentInChildren<MeshRenderer>().enabled = !_isDead;
+        characterModel.gameObject.SetActive(!_isDead);
         _rb.velocity = Vector2.zero;
         _rb.isKinematic = _isDead;
         _coll.enabled = !_isDead;
@@ -645,6 +660,16 @@ public class Player : MovingObject
             _deathTime = Time.time;
             GameObject deathParticle = Instantiate(Resources.Load<GameObject>(Glob.DeathParticle), transform.position, new Quaternion()); //TODO: Improve reuse, instead of instantiating
         }
+    }
+
+    public GameObject GetPlayerModel()
+    {
+        return characterModel;
+    }
+
+    public int GetPlayerID()
+    {
+        return ID;
     }
 
     private void respawn()
@@ -685,10 +710,18 @@ public class Player : MovingObject
             if (ID == 0)
             {
                 SoundManager.GetInstance().PlaySound(Glob.Player1HurtSound);
+                if (dmg == Glob.maxHealth)
+                {
+                    SoundManager.GetInstance().PlaySound(Glob.Player1FallSound);
+                }
             }
             if (ID == 1)
             {
                 SoundManager.GetInstance().PlaySound(Glob.Player2HurtSound);
+                if (dmg == Glob.maxHealth)
+                {
+                    SoundManager.GetInstance().PlaySound(Glob.Player2FallSound);
+                }
             }
             Debug.Log("Taking damage " + dmg);
             myStats.damageTaken += Mathf.Min(_healthRemaining, dmg);

@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D))]
-public class Arena : MonoBehaviour {
+public class Arena : MonoBehaviour
+{
 
     private Camera _myCamera;
     private Collider2D _myColl;
@@ -37,7 +38,8 @@ public class Arena : MonoBehaviour {
     //Do we need variables to hold the boundaries?
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         _myCamera = GetComponentInChildren<Camera>();
         startingPosition = _myCamera.transform.position;
         _myColl = GetComponent<Collider2D>();
@@ -48,9 +50,10 @@ public class Arena : MonoBehaviour {
         }
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (Input.GetKeyDown(KeyCode.K))
         {
             SceneManager.GetInstance().TogglePauseGame(true);
@@ -121,7 +124,8 @@ public class Arena : MonoBehaviour {
             if (playerBanners[id].lifeCrystals.Length - i <= lives)
             {
                 playerBanners[id].lifeCrystals[i].sprite = Resources.Load<Sprite>(Glob.FullLifeCrystalBase + (id + 1).ToString());
-            } else
+            }
+            else
             {
                 playerBanners[id].lifeCrystals[i].sprite = Resources.Load<Sprite>(Glob.EmptyLifeCrystal);
             }
@@ -303,7 +307,8 @@ public class Arena : MonoBehaviour {
             if (!firstOrSecondElement)
             {
                 playerBanners[id].firstElementIcon.transform.parent.GetComponent<Image>().enabled = false;
-            } else
+            }
+            else
             {
                 playerBanners[id].secondElementIcon.transform.parent.GetComponent<Image>().enabled = false;
             }
@@ -316,7 +321,7 @@ public class Arena : MonoBehaviour {
         _targetPositions = new Vector3[_cameraTargets.Length];
         for (int i = 0; i < players.Length; i++)
         {
-            _cameraTargets[i] = players[i].transform;
+            _cameraTargets[i] = players[i].GetPlayerModel().transform;
             _targetPositions[i] = _cameraTargets[i].position;
         }
     }
@@ -341,20 +346,21 @@ public class Arena : MonoBehaviour {
             {
                 continue;
             }
-            else if (!_cameraTargets[i].GetComponentInChildren<MeshRenderer>().enabled) //If the target is invisible (isDead), slowly move his last known position to the position of the other player. (Lerps the camera once a player dies.)
+            else if (!_cameraTargets[i].gameObject.activeSelf) //If the target is invisible (isDead), slowly move his last known position to the position of the other player. (Lerps the camera once a player dies.)
             {
                 float XPos2 = _myColl.bounds.max.x + ((_myColl.bounds.min.x - _myColl.bounds.max.x) / 2);
                 float YPos2 = _myColl.bounds.max.y + ((_myColl.bounds.min.y - _myColl.bounds.max.y) / 2);
                 if (i == 0)
                 {
-                    if (_cameraTargets[1].GetComponentInChildren<MeshRenderer>().enabled) { //If the other player is also dead, move to the center of the arena instead.
+                    if (_cameraTargets[1].gameObject.activeSelf)
+                    { //If the other player is also dead, move to the center of the arena instead.
                         XPos2 = _targetPositions[1].x;
                         YPos2 = _targetPositions[1].y;
                     }
                 }
                 else if (i == 1)
                 {
-                    if (_cameraTargets[0].GetComponentInChildren<MeshRenderer>().enabled)
+                    if (_cameraTargets[0].gameObject.activeSelf)
                     {
                         XPos2 = _targetPositions[0].x;
                         YPos2 = _targetPositions[0].y;
@@ -448,7 +454,7 @@ public class Arena : MonoBehaviour {
             {
                 Player player = other.gameObject.GetComponent<Player>();
                 player.TakeDamage(Glob.maxHealth);
-              
+
             }
             else
             {
