@@ -12012,11 +12012,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnPoints:
-  - {x: 14, y: 25, z: 0}
-  - {x: -15, y: 25, z: 0}
-  - {x: -7.5, y: 14, z: 0}
-  - {x: 14, y: 16, z: 0}
-  - {x: 1, y: 13, z: 0}
+  - {x: 15, y: 23.5, z: 0}
+  - {x: -15, y: 23.5, z: 0}
+  - {x: -7.5, y: 12, z: 0}
+  - {x: 16, y: 14, z: 0}
+  - {x: 1, y: 10.5, z: 0}
 --- !u!124 &124485827972767998
 Behaviour:
   m_ObjectHideFlags: 1

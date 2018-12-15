@@ -11,6 +11,10 @@ public static class Glob
         {
             //Testing purposes adding an empty player.
             playerCount = Input.GetJoystickNames().Length;
+            if (playerCount <= 0)
+            {
+                //Debug.Log("No controllers connected! Enabling singleplayer keyboard mode.");
+            }
         }
         return playerCount;
     }
@@ -160,6 +164,9 @@ public static class Glob
     public static void FillInputDictionary()
     {
         keyboardControllers.Add(Keytype.JumpButton, "AButton");
+        keyboardControllers.Add(Keytype.FireElementButton, "BButton");
+        keyboardControllers.Add(Keytype.WaterElementButton, "XButton");
+        keyboardControllers.Add(Keytype.EarthElementButton, "YButton");
         keyboardControllers.Add(Keytype.LeftJoystickHorizontal, "KeyboardMoveHorizontal");
         keyboardControllers.Add(Keytype.LeftJoystickVertical, "KeyboardMoveVertical");
         keyboardControllers.Add(Keytype.RightJoystickHorizontal, "MouseX");
@@ -168,6 +175,8 @@ public static class Glob
         keyboardControllers.Add(Keytype.FireButtonRight, "JoyStickRightBumper");
         keyboardControllers.Add(Keytype.SwitchButtonLeft, "JoyStickLeftTrigger");
         keyboardControllers.Add(Keytype.SwitchButtonRight, "JoyStickRightTrigger");
+        keyboardControllers.Add(Keytype.JumpButtonJoystick, "LeftJoystickPress");
+        keyboardControllers.Add(Keytype.PauseButton, "PauseButton");
 
         inputControllersP1.Add(Keytype.JumpButton, "AButton");
         inputControllersP1.Add(Keytype.FireElementButton, "BButton");

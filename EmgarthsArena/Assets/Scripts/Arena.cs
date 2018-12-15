@@ -93,6 +93,11 @@ public class Arena : MonoBehaviour
     {
         characterInfoParent = GameObject.FindGameObjectWithTag("CharacterInfo");
         playerBanners = new playerInfoBanner[Glob.GetPlayerCount()];
+        if (playerBanners.Length == 0)
+        {
+            //No controllers, only keyboard.
+            playerBanners = new playerInfoBanner[1];
+        }
         for (int i = 0; i < playerBanners.Length; i++)
         {
             playerBanners[i] = new playerInfoBanner();
@@ -115,6 +120,10 @@ public class Arena : MonoBehaviour
         if (playerBanners == null)
         {
             initializePlayerBanners();
+        }
+        if (id < 0)
+        {
+            id = 0;
         }
 
         playerBanners[id].healthBar.fillAmount = (float)health / Glob.maxHealth;
@@ -167,6 +176,10 @@ public class Arena : MonoBehaviour
 
     public void GlowPlayerBannerElement(int id, bool firstOrSecondElement, SpellDatabase.Element element, bool toggle)
     {
+        if (id < 0)
+        {
+            id = 0;
+        }
         if (toggle)
         {
             if (!firstOrSecondElement)
@@ -253,6 +266,10 @@ public class Arena : MonoBehaviour
 
     public void GlowBackgroundPlayerBannerElement(int id, bool firstOrSecondElement, SpellDatabase.Element element, bool toggle)
     {
+        if (id < 0)
+        {
+            id = 0;
+        }
         if (toggle)
         {
             if (!firstOrSecondElement)

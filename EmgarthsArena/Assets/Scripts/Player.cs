@@ -70,7 +70,7 @@ public class Player : MovingObject
         myStats.kills = 0;
         myStats.damageDealt = 0;
         myStats.damageTaken = 0;
-        if (pPlayerIndex == 0)
+        if (pPlayerIndex <= 0)
         {
             characterModel = GameObject.Find("PlayerOrangeModel");
         }
@@ -90,7 +90,14 @@ public class Player : MovingObject
         base.Start();
         _myInputManager = new InputManager(ID);
         _myIndicator = transform.Find("UI Elements").Find("Indicator").GetComponent<SpriteRenderer>();
-        _myIndicator.sprite = Resources.Load<Sprite>(Glob.PlayerIndicatorBase + (ID + 1).ToString());
+        if (ID > 0)
+        {
+            _myIndicator.sprite = Resources.Load<Sprite>(Glob.PlayerIndicatorBase + (ID + 1).ToString());
+        } else
+        {
+            _myIndicator.sprite = Resources.Load<Sprite>(Glob.PlayerIndicatorBase + (1).ToString());
+        }
+
 
         _myCirclePointer = transform.Find("UI Elements").Find("PointerPivot");
         _myCirclePointer.gameObject.SetActive(false);
@@ -207,12 +214,18 @@ public class Player : MovingObject
             _grounded = isGrounded();
             if (_rb.velocity.x < 0.1f && _rb.velocity.x > -0.1f && _castingSpell == false)
             {
-
                 _disableMovement = false;
             }
             if (_myInputManager.GetAxisMoveHorizontal() != 0 && _disableMovement == false)
             {
-                _rb.velocity = new Vector2(-_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Mathf.Min(Mathf.Abs(_rb.velocity.x / 2) + 0.5f, 1), _rb.velocity.y);
+                if (ID < 0)
+                {
+                    _rb.velocity = new Vector2(-(_myInputManager.GetAxisMoveHorizontal() * 0.75f) * Glob.playerSpeed * Mathf.Min(Mathf.Abs(_rb.velocity.x / 2) + 0.5f, 1), _rb.velocity.y);
+                }
+                else
+                {
+                    _rb.velocity = new Vector2(-_myInputManager.GetAxisMoveHorizontal() * Glob.playerSpeed * Mathf.Min(Mathf.Abs(_rb.velocity.x / 2) + 0.5f, 1), _rb.velocity.y);
+                }
                 animator.SetTrigger("Walk");
                 if (_rb.velocity.x > 0)
                 {
@@ -333,7 +346,7 @@ public class Player : MovingObject
                 _jumpParticle.Play();
                 _castingParticle.Stop();
                 _rb.AddForce(new Vector2(0, Glob.jumpHeight), ForceMode2D.Impulse);
-                if (ID == 0)
+                if (ID <= 0)
                 {
                     //FMODUnity.RuntimeManager.PlayOneShot("event:/Backgroundsong/Backgroundtrack");
                     SoundManager.GetInstance().PlaySound(Glob.Player1JumpSound);
@@ -354,7 +367,7 @@ public class Player : MovingObject
                 _jumpTime = Time.time;
                 _usedDoubleJump = true;
 
-                if (ID == 0)
+                if (ID <= 0)
                 {
                     //FMODUnity.RuntimeManager.PlayOneShot("event:/Backgroundsong/Backgroundtrack");
                     SoundManager.GetInstance().PlaySound(Glob.Player1JumpSound);
@@ -496,9 +509,7 @@ public class Player : MovingObject
             yield break;
         }
 
-        Debug.Log("ITS STILL GOING!");
-
-        if (pInput != new Vector2(-_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && (_myInputManager.GetAxisLookHorizontal() != 0 && _myInputManager.GetAxisLookVertical() != 0))
+        if (pInput != new Vector2(-_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical()) && !(_myInputManager.GetAxisLookHorizontal() == 0 && _myInputManager.GetAxisLookVertical() == 0))
         {
             pInput = new Vector2(-_myInputManager.GetAxisLookHorizontal(), _myInputManager.GetAxisLookVertical());
             pInput.Normalize();
@@ -559,7 +570,7 @@ public class Player : MovingObject
         int random = UnityEngine.Random.Range(0, Glob.randomAttackSoundChance);
         if (random == 1)
         {
-            if (ID == 0)
+            if (ID <= 0)
             {
                 SoundManager.GetInstance().PlaySound(Glob.Player1AttackSound);
             }
@@ -725,7 +736,7 @@ public class Player : MovingObject
     {
         if (!_isDead)
         {
-            if (ID == 0)
+            if (ID <= 0)
             {
                 SoundManager.GetInstance().PlaySound(Glob.Player1HurtSound);
                 if (dmg == Glob.maxHealth)

@@ -148,7 +148,7 @@ public class SceneManager : MonoBehaviour {
         playersAlive = allPlayers.Length;
         if (allPlayers.Length == 0)
         {
-            Debug.Log("no players");
+            Debug.Log("No controllers connected! Enabling singleplayer keyboard mode.");
             allPlayers = new Player[1];
             GameObject newPlayer = Instantiate(Glob.GetPlayerPrefabs()[0], currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
             allPlayers[0] = newPlayer.AddComponent<Player>().GetPlayer(-1);
@@ -210,6 +210,11 @@ public class SceneManager : MonoBehaviour {
 
         GameObject playerStatsHolder = GameObject.FindGameObjectWithTag("ResolutionScreen");
         GameObject[] playerStats = new GameObject[Glob.GetPlayerCount()];
+        if (playerStats.Length == 0)
+        {
+            //No controllers, only keyboard.
+            playerStats = new GameObject[1];
+        }
         for (int i = 0; i < playerStats.Length; i++)
         {
             if (allPlayers[i].GetStats().lives > 0)
