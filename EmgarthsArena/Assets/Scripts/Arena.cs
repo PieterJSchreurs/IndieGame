@@ -93,10 +93,10 @@ public class Arena : MonoBehaviour
     {
         characterInfoParent = GameObject.FindGameObjectWithTag("CharacterInfo");
         playerBanners = new playerInfoBanner[Glob.GetPlayerCount()];
-        if (playerBanners.Length == 0)
+        if (playerBanners.Length <= 1 || playerBanners.Length == 1 && Input.GetJoystickNames()[0] == "")
         {
             //No controllers, only keyboard.
-            playerBanners = new playerInfoBanner[1];
+            playerBanners = new playerInfoBanner[2];
         }
         for (int i = 0; i < playerBanners.Length; i++)
         {

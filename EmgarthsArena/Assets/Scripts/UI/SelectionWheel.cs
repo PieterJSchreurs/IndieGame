@@ -77,7 +77,7 @@ public class SelectionWheel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mathf.Abs(Input.GetAxis(myAxis)) > 0.5f)
+        if (Mathf.Abs(Input.GetAxis(myAxis)) > 0.5f || Input.GetButton(myAxis))
         {
             int dir = Mathf.RoundToInt(Mathf.Sign(Input.GetAxis(myAxis)));
             if (!waitingForContinuous)

@@ -3804,7 +3804,7 @@ MonoBehaviour:
   - {x: 0, y: -225, z: 0}
   - {x: 394, y: -255, z: 0}
   startingRotation: 0
-  resetOnEnable: 0
+  resetOnEnable: 1
 --- !u!114 &1354277725
 MonoBehaviour:
   m_ObjectHideFlags: 0

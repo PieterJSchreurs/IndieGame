@@ -149,18 +149,22 @@ public class SceneManager : MonoBehaviour {
         if (allPlayers.Length == 0)
         {
             Debug.Log("No controllers connected! Enabling singleplayer keyboard mode.");
-            allPlayers = new Player[1];
-            GameObject newPlayer = Instantiate(Glob.GetPlayerPrefabs()[0], currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
-            allPlayers[0] = newPlayer.AddComponent<Player>().GetPlayer(-1);
+            allPlayers = new Player[2];
+            GameObject newPlayer = Instantiate(Glob.GetPlayerPrefabs()[0], currentArena.GetRespawnPoint(0), new Quaternion(0, 0, 0, 0));
+            GameObject newPlayer2 = Instantiate(Glob.GetPlayerPrefabs()[1], currentArena.GetRespawnPoint(1), new Quaternion(0, 0, 0, 0));
+            allPlayers[0] = newPlayer.AddComponent<Player>().GetPlayer(-1); //Add a player using keyboard controls.
+            allPlayers[1] = newPlayer2.AddComponent<Player>().GetPlayer(1); //Add a fake player 2.
         }
         else
         {
-            if (allPlayers.Length == 1 && Input.GetJoystickNames()[0] == "") //TODO: Throws an error if no controllers connected.
+            if (allPlayers.Length == 1 && Input.GetJoystickNames()[0] == "")
             {
-                Debug.Log("no players2");
-                allPlayers = new Player[1];
-                GameObject newPlayer = Instantiate(Glob.GetPlayerPrefabs()[0], currentArena.GetRandomRespawnPoint(), new Quaternion(0, 0, 0, 0));
-                allPlayers[0] = newPlayer.AddComponent<Player>().GetPlayer(-1);
+                Debug.Log("No controllers connected! Enabling singleplayer keyboard mode.");
+                allPlayers = new Player[2];
+                GameObject newPlayer = Instantiate(Glob.GetPlayerPrefabs()[0], currentArena.GetRespawnPoint(0), new Quaternion(0, 0, 0, 0));
+                GameObject newPlayer2 = Instantiate(Glob.GetPlayerPrefabs()[1], currentArena.GetRespawnPoint(1), new Quaternion(0, 0, 0, 0));
+                allPlayers[0] = newPlayer.AddComponent<Player>().GetPlayer(-1); //Add a player using keyboard controls.
+                allPlayers[1] = newPlayer2.AddComponent<Player>().GetPlayer(1); //Add a fake player 2.
             }
             else
             {
@@ -170,6 +174,14 @@ public class SceneManager : MonoBehaviour {
                     newPlayer.name = "Player" + i;
                     allPlayers[i] = newPlayer.AddComponent<Player>().GetPlayer(i);
                     //Give the players their correct ID, and their correct InputManager.
+                }
+                if (allPlayers.Length == 1) //If there is only one controller connected, add a dummy player as a punching bag.
+                {
+                    Player playerOne = allPlayers[0];
+                    allPlayers = new Player[2];
+                    allPlayers[0] = playerOne;
+                    GameObject playerTwo = Instantiate(Glob.GetPlayerPrefabs()[1], currentArena.GetRespawnPoint(1), new Quaternion(0, 0, 0, 0));
+                    allPlayers[1] = playerTwo.AddComponent<Player>().GetPlayer(1); //Add a fake player 2.
                 }
             }
         }
@@ -210,10 +222,10 @@ public class SceneManager : MonoBehaviour {
 
         GameObject playerStatsHolder = GameObject.FindGameObjectWithTag("ResolutionScreen");
         GameObject[] playerStats = new GameObject[Glob.GetPlayerCount()];
-        if (playerStats.Length == 0)
+        if (playerStats.Length <= 1 || playerStats.Length == 1 && Input.GetJoystickNames()[0] == "")
         {
             //No controllers, only keyboard.
-            playerStats = new GameObject[1];
+            playerStats = new GameObject[2];
         }
         for (int i = 0; i < playerStats.Length; i++)
         {
